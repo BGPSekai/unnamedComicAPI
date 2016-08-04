@@ -17,5 +17,5 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'service'], function()
 {
-	Route::post('/', 'ServiceController@register');
+	Route::post('register', 'ServiceController@register');
 });
