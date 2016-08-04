@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'service'], function()
+{
+	Route::post('/', 'ServiceController@register');
+});
