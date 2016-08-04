@@ -3,16 +3,25 @@
 
 ## 首頁
 
-URL | 頁面 | 其他 
+URL | 頁面 | 其他
 --- | --- | --- |
-/ | 首頁 | 
+/ | 首頁 |
 [auth](#Auth) | JWT 認證 |
 [service](#Service) | 服務 |
 
 ### <a name="Auth"></a> JWT 認證
-URL | 頁面 | 其他 
+URL | 頁面 | 其他
 --- | --- | --- |
-/auth | JWT |
+/auth | JWT | POST
+
+>`/auth`
+
+類型 | 參數名稱 | 必須
+--- | --- | --- |
+String | email | ✔
+String | password | ✔
+
+>success
 
 ```
 {
@@ -20,19 +29,35 @@ URL | 頁面 | 其他
 }
 ```
 
+>error
+
+```
+{
+    "error": "invalid_credentials"
+}
+```
+
+-----or-----
+
+```
+{
+    "error": "could_not_create_token"
+}
+```
+
 ### <a name="Service"></a>Service 服務
-URL | 頁面 | 其他 
+URL | 頁面 | 其他
 --- | --- | --- |
 /service/register | 註冊帳號 | POST
 
 >`/service/register`
 
-類型 | 參數名稱 | 必須 
+類型 | 參數名稱 | 必須
 --- | --- | --- |
-String | email | ✔ 
+String | email | ✔
 String | password | ✔
 String | password_confirmation | ✔
-String | name | ✔ 
+String | name | ✔
 
 >success
 
