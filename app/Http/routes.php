@@ -27,4 +27,12 @@ Route::group(['middleware' => 'cors'], function()
 	{
 		Route::post('/', 'AuthController@auth');
 	});
+
+	Route::group(['middleware' => 'jwt.auth'], function()
+	{
+		Route::group(['prefix' => 'publish'], function()
+		{
+			
+		});	
+	});
 });
