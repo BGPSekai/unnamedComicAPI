@@ -30,6 +30,6 @@ class ServiceController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        return response()->json(['status' => 'success', 'token' => '老子懶 晚點']);
+        return response()->json(['status' => 'success', 'msg' => 'Register successful.']);
     }
 }
