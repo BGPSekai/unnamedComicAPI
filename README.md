@@ -23,7 +23,7 @@ URL | 頁面 | 其他
 ### <a name="Service"></a>Service 服務
 URL | 頁面 | 其他 
 --- | --- | --- |
-/service/register | 添加帳號 | POST
+/service/register | 註冊帳號 | POST
 
 >`/service/register`
 
