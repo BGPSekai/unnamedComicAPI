@@ -64,7 +64,7 @@ String | name | ✔
 ```
 {
     "status": "success",
-    "msg": "Register successful"
+    "msg": "Register successful."
 }
 ```
 
