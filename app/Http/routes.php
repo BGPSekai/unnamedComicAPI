@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'auth'], function()
+{
+	Route::post('/', 'AuthController@auth');
+});
