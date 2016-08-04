@@ -19,3 +19,8 @@ Route::group(['prefix' => 'service'], function()
 {
 	Route::post('register', 'ServiceController@register');
 });
+
+Route::group(['prefix' => 'auth'], function()
+{
+	Route::post('/', 'AuthController@auth');
+});
