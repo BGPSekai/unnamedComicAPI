@@ -15,12 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'service'], function()
-{
-	Route::post('register', 'ServiceController@register');
-});
 
-Route::group(['prefix' => 'auth'], function()
+Route::group(['middleware' => 'cors'], function()
 {
-	Route::post('/', 'AuthController@auth');
+	Route::group(['prefix' => 'service'], function()
+	{
+		Route::post('register', 'ServiceController@register');
+	});
+
+	Route::group(['prefix' => 'auth'], function()
+	{
+		Route::post('/', 'AuthController@auth');
+	});
 });
