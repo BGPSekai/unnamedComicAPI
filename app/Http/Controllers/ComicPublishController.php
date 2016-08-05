@@ -37,7 +37,7 @@ class ComicPublishController extends Controller
             file_get_contents($request->file('cover')->getRealPath())
         );
 
-        return response()->json(['info' => $comic]);
+        return response()->json(['status' => 'success','info' => $comic]);
     }
 
     private function validator(array $data)

@@ -1,12 +1,18 @@
 # unnamedComicAPI
 暫未命名的漫畫API
 
+## Prefix
+
+>`api/`
+
 ## 首頁
 
 URL | 頁面 | 其他
 --- | --- | --- |
 / | 首頁 |
 [auth](#Auth) | JWT 認證 |
+[*](#JWTError) | JWT 認證錯誤 |
+[publish](#Publish) | 發布 |
 [service](#Service) | 服務 |
 
 ### <a name="Auth"></a> JWT 認證
@@ -42,6 +48,65 @@ String | password | ✔
 ```
 {
     "error": "could_not_create_token"
+}
+```
+
+## <a name="JWTError"></a>Publish JWT 認證錯誤
+
+URL | 頁面 | 其他
+--- | --- | --- |
+/* | * | *
+
+>`/*?token={token}`
+
+```
+{
+    "error": "token_invalid"
+}
+```
+
+-----or-----
+
+```
+{
+    "error": "token_expired"
+}
+```
+
+### <a name="Publish"></a>Publish 發布
+URL | 頁面 | 其他
+--- | --- | --- |
+/publish | 發布 | POST
+
+>`/publish?token={token}`
+
+類型 | 參數名稱 | 必須
+--- | --- | --- |
+String | name | ✔
+String | summary | ✔
+File | cover | ✔
+
+>success
+
+```
+{
+    "status": "success",
+    "info": {
+        "name": *name*,
+        "summary": *summary*,
+        "updated_at": "updated_at",
+        "created_at":"created_at",
+        "id": *id*
+    }
+}
+```
+
+>error
+
+```
+{
+    "status": "error",
+    "msg": *msg[Array]*
 }
 ```
 
