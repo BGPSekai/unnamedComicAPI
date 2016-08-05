@@ -22,7 +22,7 @@ class ServiceController extends Controller
     {
 		$data = $request->only('name', 'email', 'password', 'password_confirmation');
 
-        $validator = validator($data);
+        $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'msg' => $validator->errors()->all()]);
