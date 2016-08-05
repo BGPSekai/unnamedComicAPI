@@ -11,7 +11,7 @@ URL | 頁面 | 其他
 --- | --- | --- |
 / | 首頁 |
 [auth](#Auth) | JWT 認證 |
-[*](#JWTError) | JWT 認證錯誤 |
+[*](#JWTError) | JWT 認證錯誤 | token無效或過期
 [publish](#Publish) | 發布 |
 [service](#Service) | 服務 |
 
