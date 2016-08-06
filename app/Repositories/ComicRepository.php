@@ -14,4 +14,10 @@ class ComicRepository
 	            'summary' => $data['summary'],
 	        ]);;
 	}
+
+	public function show($id)
+	{
+		return
+			Comic::get()->find($id);
+	}
 }
