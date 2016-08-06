@@ -19,24 +19,20 @@ class ComicController extends Controller
         $this->repo = $repo;
     }
 
-	public function show($id)
+    public function show($id)
     {
-    	$comic = $this->findComic($id);
-    	return response()->json(['status' => 'success', 'comic' => $comic]);
+        $comic = $this->repo->show($id);
+        if (!isset($comic))
+            return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
+        return response()->json(['status' => 'success', 'comic' => $comic]);
     }
 
     public function showCover($id)
     {
-    	$comic = $this->findComic($id);
-    	$cover_path = Storage::files('comics/'.$comic->id);
-    	return Response::download(storage_path().'/app/'.$cover_path[0]);
-    }
-
-    private function findComic($id)
-    {
-    	$comic = $this->repo->show($id);
-    	if (!isset($comic))
-    		return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
-    	return $comic;
+        $comic = $this->repo->show($id);
+        if (!isset($comic))
+            return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
+        $cover_path = Storage::files('comics/'.$comic->id);
+        return Response::download(storage_path().'/app/'.$cover_path[0]);
     }
 }
