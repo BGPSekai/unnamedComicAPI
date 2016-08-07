@@ -73,6 +73,7 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'image.*' => 'image',
         ]);
     }
 
