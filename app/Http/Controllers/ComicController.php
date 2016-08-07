@@ -7,24 +7,29 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
+use App\Repositories\ChapterRepository;
 use Storage;
 use Response;
 
 class ComicController extends Controller
 {
-    private $repo;
+    private $comicRepo;
+    private $chapterRepo;
 
-    public function __construct(ComicRepository $repo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo)
     {
-        $this->repo = $repo;
+        $this->comicRepo = $comicRepo;
+        $this->chapterRepo = $chapterRepo;
     }
 
     public function show($id)
     {
-        $comic = $this->repo->show($id);
+        $comic = $this->comicRepo->show($id);
         if (!isset($comic))
             return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
-        return response()->json(['status' => 'success', 'comic' => $comic]);
+
+        $chapters = $this->chapterRepo->showAll($id);
+        return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
     }
 
     public function showCover($id)

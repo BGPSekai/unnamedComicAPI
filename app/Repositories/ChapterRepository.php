@@ -14,4 +14,10 @@ class ChapterRepository
 	            'name' => $data['name'],
 	        ]);;
 	}
+
+	public function showAll($id)
+	{
+		return
+			Chapter::where('comic_id', $id)->get()->all();
+	}
 }

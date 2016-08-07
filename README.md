@@ -92,7 +92,17 @@ URL | 頁面 | 其他
     "summary": *summary*,
     "created_at": *create_at*,
     "updated_at": *updated_at*
-  }
+  },
+  "chapters": [
+    {
+      "id": *id*,
+      "comic_id": *comic_id*,
+      "name": *name*,
+      "created_at": *created_at*,
+      "updated_at": *updated_at*
+    },
+    ...
+  ]
 }
 ```
 
