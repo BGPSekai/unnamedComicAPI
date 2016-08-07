@@ -33,7 +33,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	{
 		Route::group(['prefix' => 'publish'], function()
 		{
-			Route::post('/', 'ComicPublishController@index');
+			Route::post('/', 'PublishController@index');
+			Route::post('/{id}', 'PublishController@chapter');
 		});
 	});
 
