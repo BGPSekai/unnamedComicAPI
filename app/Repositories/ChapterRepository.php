@@ -18,6 +18,6 @@ class ChapterRepository
 	public function showAll($id)
 	{
 		return
-			Chapter::where('comic_id', $id)->get()->all();
+			Chapter::where('comic_id', $id)->get();
 	}
 }
