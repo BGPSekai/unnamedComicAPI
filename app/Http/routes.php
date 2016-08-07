@@ -34,14 +34,15 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::group(['prefix' => 'publish'], function()
 		{
 			Route::post('/', 'PublishController@index');
-			Route::post('/{id}', 'PublishController@chapter');
+			Route::post('{id}', 'PublishController@chapter');
 		});
 	});
 
 	Route::group(['prefix' => 'comic'], function()
 	{
 		Route::get('{id}', 'ComicController@show');
+		Route::get('page/{page}', 'ComicController@showAll');
 	});
 });
 
-Route::get('/api/comic/{id}/cover', 'ComicController@showCover');
+Route::get('api/comic/{id}/cover', 'ComicController@showCover');

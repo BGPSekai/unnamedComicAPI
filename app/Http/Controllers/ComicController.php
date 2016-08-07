@@ -40,4 +40,10 @@ class ComicController extends Controller
         $cover_path = Storage::files('comics/'.$comic->id);
         return Response::download(storage_path().'/app/'.$cover_path[0]);
     }
+
+    public function showAll($page)
+    {
+        $comics = $this->comicRepo->showAll($page);
+        return response()->json(['status' => 'success', 'comics' => $comics]);
+    }
 }

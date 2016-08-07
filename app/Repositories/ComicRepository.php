@@ -20,4 +20,10 @@ class ComicRepository
 		return
 			Comic::get()->find($id);
 	}
+
+	public function showAll($page)
+	{
+		return
+			Comic::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+	}
 }

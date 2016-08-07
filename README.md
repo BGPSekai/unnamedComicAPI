@@ -79,6 +79,7 @@ URL | 頁面 | 其他
 --- | --- | --- |
 /comic/{id} | 單一漫畫資訊 | GET
 /comic/{id}/cover | 單一漫畫封面 | GET
+/comid/page/{page} | 所有漫畫列表 | GET, 依updated_at降冪排列, 10筆
 
 >`/comic/{id}`
 #### JSON Response
@@ -143,6 +144,25 @@ File | cover | ✔
 {
     "status": "error",
     "msg": *msg[Array]*
+}
+```
+
+>`/comic/page/{page}`
+#### JSON Response
+
+```
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "created_at": *create_at*,
+      "updated_at": *updated_at*
+    },
+    ...
+  ]
 }
 ```
 
