@@ -84,3 +84,4 @@ class PublishController extends Controller
         );
     }
 }
+// 已知BUG: 中文檔名、驗證image、檔案過多崩潰
