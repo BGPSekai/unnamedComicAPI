@@ -104,6 +104,7 @@ URL | 頁面 | 其他
     "id": *id*,
     "name": *name*,
     "summary": *summary*,
+    "chapters": *chapters*,
     "created_at": *create_at*,
     "updated_at": *updated_at*
   },
