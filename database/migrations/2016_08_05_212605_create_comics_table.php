@@ -16,6 +16,7 @@ class CreateComicsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('summary');
+            $table->integer('chapters');
             $table->timestamps();
         });
     }

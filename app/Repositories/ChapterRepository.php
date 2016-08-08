@@ -20,4 +20,9 @@ class ChapterRepository
 		return
 			Chapter::where('comic_id', $id)->get();
 	}
+
+	public function count($id)
+	{
+		return Chapter::find($id)->count();
+	}
 }

@@ -26,4 +26,9 @@ class ComicRepository
 		return
 			Comic::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 	}
+
+	public function updateChapters($id, $chapters)
+	{
+		return Comic::find($id)->update(['chapters' => $chapters]);
+	}
 }

@@ -54,8 +54,11 @@ class PublishController extends Controller
 
         foreach ($request->image as $key => $img) {
             $extension = $img->getClientOriginalExtension();
-            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.$key.'.'.$extension, $img);
+            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $img);
         }
+
+        $count = $this->chapterRepo->count($id);
+        $this->comicRepo->updateChapters($id, $count);
 
         return response()->json(['status' => 'success', 'msg' => 'Upload successful.']);
     }
