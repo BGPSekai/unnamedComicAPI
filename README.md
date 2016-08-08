@@ -81,7 +81,6 @@ URL | 頁面 | 其他
 /comic/{id}/cover | 單一漫畫封面 | GET
 
 >`/comic/{id}`
-#### JSON Response
 
 ```
 {
@@ -102,7 +101,8 @@ URL | 頁面 | 其他
 ### <a name="Publish"></a>Publish 發布
 URL | 頁面 | 其他
 --- | --- | --- |
-/publish | 發布 | POST
+/publish | 發布新漫畫 | POST
+/publish/{id} | 發布新章節 | POST
 
 >`/publish?token={token}`
 
@@ -124,6 +124,40 @@ File | cover | ✔
         "created_at":"created_at",
         "id": *id*
     }
+}
+```
+
+>error
+
+```
+{
+    "status": "error",
+    "msg": *msg[Array]*
+}
+```
+
+-----or-----
+
+```
+{
+    "status": "error",
+    "msg": "Comic does not exist."
+}
+```
+
+>`/publish/{id}?token={token}`
+
+類型 | 參數名稱 | 必須
+--- | --- | --- |
+String | name | ✔
+File | image[] | ✔
+
+>success
+
+```
+{
+    "status": "success",
+    "msg": "Upload successful."
 }
 ```
 

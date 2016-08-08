@@ -52,9 +52,9 @@ class PublishController extends Controller
 
         $chapter = $this->chapterRepo->create($data);
 
-        foreach ($request->image as $img) {
-            $fileName = $img->getClientOriginalName();
-            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.$fileName, $img);
+        foreach ($request->image as $key => $img) {
+            $extension = $img->getClientOriginalExtension();
+            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.$key.'.'.$extension, $img);
         }
 
         return response()->json(['status' => 'success', 'msg' => 'Upload successful.']);
@@ -86,4 +86,3 @@ class PublishController extends Controller
         );
     }
 }
-// 已知BUG: 中文檔名、驗證image、檔案過多崩潰
