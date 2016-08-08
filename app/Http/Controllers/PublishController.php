@@ -41,6 +41,8 @@ class PublishController extends Controller
 
     public function chapter(Request $request, $id)
     {
+        if ($this->comicRepo->show($id) == null)
+            return response()->json(['status' => 'error', 'msg' => 'Comic does not exist.'], 404);
         $data = $request->only('name', 'image');
         $data['comic_id'] = $id;
         $validator = $this->chapterValidator($data);
