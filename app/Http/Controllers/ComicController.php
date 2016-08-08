@@ -34,7 +34,7 @@ class ComicController extends Controller
 
     public function showCover($id)
     {
-        $comic = $this->repo->show($id);
+        $comic = $this->comicRepo->show($id);
         if (!isset($comic))
             return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
         $cover_path = Storage::files('comics/'.$comic->id);
