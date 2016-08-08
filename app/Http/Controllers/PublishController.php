@@ -41,20 +41,20 @@ class PublishController extends Controller
 
     public function chapter(Request $request, $id)
     {
+        if ($this->comicRepo->show($id) == null)
+            return response()->json(['status' => 'error', 'msg' => 'Comic does not exist.'], 404);
         $data = $request->only('name', 'image');
         $data['comic_id'] = $id;
         $validator = $this->chapterValidator($data);
         
         if ($validator->fails())
             return response()->json(['status' => 'error', 'msg' => $validator->errors()->all()]);
-        else if (!$request->hasFile('image'))
-            return response()->json(['status' => 'error', 'msg' => 'The image[] field is required.']);
 
         $chapter = $this->chapterRepo->create($data);
 
-        foreach ($request->image as $img) {
-            $fileName = $img->getClientOriginalName();
-            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.$fileName, $img);
+        foreach ($request->image as $key => $img) {
+            $extension = $img->getClientOriginalExtension();
+            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.$key.'.'.$extension, $img);
         }
 
         return response()->json(['status' => 'success', 'msg' => 'Upload successful.']);
@@ -73,7 +73,8 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'person.*.image' => 'image'
+            'image' => 'required|Array',
+            'image.*' => 'image',
         ]);
     }
 
