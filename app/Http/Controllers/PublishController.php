@@ -49,8 +49,6 @@ class PublishController extends Controller
         
         if ($validator->fails())
             return response()->json(['status' => 'error', 'msg' => $validator->errors()->all()]);
-        else if (!$request->hasFile('image'))
-            return response()->json(['status' => 'error', 'msg' => 'The image[] field is required.']);
 
         $chapter = $this->chapterRepo->create($data);
 
@@ -75,6 +73,7 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'image' => 'required|Array',
             'image.*' => 'image',
         ]);
     }
