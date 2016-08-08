@@ -110,6 +110,25 @@ URL | 頁面 | 其他
 >`/comic/{id}/cover`
 ####漫畫封面 (Image)
 
+>`/comic/page/{page}`
+#### JSON Response
+
+```
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "created_at": *create_at*,
+      "updated_at": *updated_at*
+    },
+    ...
+  ]
+}
+```
+
 ### <a name="Publish"></a>Publish 發布
 URL | 頁面 | 其他
 --- | --- | --- |
@@ -144,25 +163,6 @@ File | cover | ✔
 {
     "status": "error",
     "msg": *msg[Array]*
-}
-```
-
->`/comic/page/{page}`
-#### JSON Response
-
-```
-{
-  "status": "success",
-  "comics": [
-    {
-      "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "created_at": *create_at*,
-      "updated_at": *updated_at*
-    },
-    ...
-  ]
 }
 ```
 
