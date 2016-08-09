@@ -16,7 +16,7 @@ class ChapterController extends Controller
     {
         try {
             if (!JWTAuth::getToken())
-                return response()->json(['msg' => 'error', 'msg' => 'A token is required.'], 400);
+                return response()->json(['status' => 'error', 'msg' => 'A token is required.'], 400);
 
 	    	$info = JWTAuth::decode(JWTAuth::getToken())->toArray();
         } catch (\Exception $e) {
