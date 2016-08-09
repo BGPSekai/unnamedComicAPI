@@ -46,4 +46,4 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 });
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
-Route::get('api/chapter/{img}', 'ChapterController@show');
+Route::get('api/chapter/{page}', 'ChapterController@show');
