@@ -12,7 +12,7 @@ use Response;
 
 class ChapterController extends Controller
 {
-    public function show()
+    public function show($page)
     {
         try {
             if (!JWTAuth::getToken())
