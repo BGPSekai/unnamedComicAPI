@@ -45,6 +45,7 @@ class PublishController extends Controller
             return response()->json(['status' => 'error', 'msg' => 'Comic does not exist.'], 404);
         $data = $request->only('name', 'image');
         $data['comic_id'] = $id;
+        $data['imgs'] = count($request->image);
         $validator = $this->chapterValidator($data);
         
         if ($validator->fails())

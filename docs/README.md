@@ -113,8 +113,10 @@ URL | 頁面 | 其他
       "id": *id*,
       "comic_id": *comic_id*,
       "name": *name*,
+      "imgs": *imgs*,
       "created_at": *created_at*,
-      "updated_at": *updated_at*
+      "updated_at": *updated_at*,
+      "token": *token*,
     },
     ...
   ]

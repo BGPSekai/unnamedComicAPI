@@ -10,6 +10,8 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Storage;
 use Response;
+use JWTAuth;
+use JWTFactory;
 
 class ComicController extends Controller
 {
@@ -29,6 +31,15 @@ class ComicController extends Controller
             return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
 
         $chapters = $this->chapterRepo->showAll($id);
+        foreach ($chapters as $key => $chapter) {
+            $chapters[$key]['token'] = (string) JWTAuth::encode(
+                JWTFactory::make([
+                    'comic_id' => $id,
+                    'chapter_id' => $chapter->id,
+                    'imgs' => $chapter->imgs
+                ]));
+        }
+
         return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
     }
 
