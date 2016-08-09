@@ -36,7 +36,7 @@ class ComicController extends Controller
                 JWTFactory::make([
                     'comic_id' => $id,
                     'chapter_id' => $chapter->id,
-                    'imgs' => $comic->imgs
+                    'imgs' => $chapter->imgs
                 ]));
         }
 
