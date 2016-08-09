@@ -20,7 +20,7 @@ class ChapterController extends Controller
 
 	    	$info = JWTAuth::decode(JWTAuth::getToken())->toArray();
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'msg' => 'Invalid token.'], 500);
+            return response()->json(['status' => 'error', 'msg' => $e->getMessage()], 500);
         }
 
     	$comic_id = $info['comic_id'];
