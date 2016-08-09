@@ -29,7 +29,7 @@ class ServiceController extends Controller
 
         $this->repo->create($data);
 
-        return response()->json(['status' => 'success', 'msg' => 'Register successful.']);
+        return response()->json(['status' => 'success', 'msg' => 'Register successful']);
     }
 
     private function validator(array $data)

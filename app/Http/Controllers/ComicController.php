@@ -28,7 +28,7 @@ class ComicController extends Controller
     {
         $comic = $this->comicRepo->show($id);
         if (!isset($comic))
-            return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
+            return response()->json(['status' => 'error', 'msg' => 'Comic not found']);
 
         $chapters = $this->chapterRepo->showAll($id);
         foreach ($chapters as $key => $chapter) {
@@ -47,7 +47,7 @@ class ComicController extends Controller
     {
         $comic = $this->comicRepo->show($id);
         if (!isset($comic))
-            return response()->json(['status' => 'error', 'msg' => 'Comic not found.']);
+            return response()->json(['status' => 'error', 'msg' => 'Comic not found']);
         $cover_path = Storage::files('comics/'.$comic->id);
         return Response::download(storage_path().'/app/'.$cover_path[0]);
     }

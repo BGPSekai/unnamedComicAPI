@@ -42,7 +42,7 @@ class PublishController extends Controller
     public function chapter(Request $request, $id)
     {
         if ($this->comicRepo->show($id) == null)
-            return response()->json(['status' => 'error', 'msg' => 'Comic does not exist.'], 404);
+            return response()->json(['status' => 'error', 'msg' => 'Comic does not exist'], 404);
         $data = $request->only('name', 'image');
         $data['comic_id'] = $id;
         $data['imgs'] = count($request->image);
@@ -61,7 +61,7 @@ class PublishController extends Controller
         $count = $this->chapterRepo->count($id);
         $this->comicRepo->updateChapters($id, $count);
 
-        return response()->json(['status' => 'success', 'msg' => 'Upload successful.']);
+        return response()->json(['status' => 'success', 'msg' => 'Upload successful']);
     }
 
     private function validator(array $data)
