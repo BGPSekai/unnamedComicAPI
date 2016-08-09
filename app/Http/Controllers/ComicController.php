@@ -32,7 +32,12 @@ class ComicController extends Controller
 
         $chapters = $this->chapterRepo->showAll($id);
         foreach ($chapters as $key => $chapter) {
-            $chapters[$key]['token'] = (string) JWTAuth::encode(JWTFactory::make(['comic_id' => $id, 'chapter_id' => $chapter->id]));
+            $chapters[$key]['token'] = (string) JWTAuth::encode(
+                JWTFactory::make([
+                    'comic_id' => $id,
+                    'chapter_id' => $chapter->id,
+                    'imgs' => $comic->imgs
+                ]));
         }
 
         return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
