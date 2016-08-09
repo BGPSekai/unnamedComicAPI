@@ -12,6 +12,7 @@ class ChapterRepository
 	        Chapter::create([
 	        	'comic_id' => $data['comic_id'],
 	            'name' => $data['name'],
+	            'imgs' => $data['imgs'],
 	        ]);;
 	}
 
@@ -23,6 +24,6 @@ class ChapterRepository
 
 	public function count($id)
 	{
-		return Chapter::find($id)->count();
+		return Chapter::where('comic_id', $id)->count();
 	}
 }
