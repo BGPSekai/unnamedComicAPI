@@ -13,6 +13,7 @@ URL | 頁面 | 其他
 [auth](#Auth) | JWT 認證 |
 [*](#JWTError) | JWT 認證錯誤 | token無效或過期
 [comic](#Comic) | 漫畫列表 |
+[chapter](#Chapter) | 章節 |
 [publish](#Publish) | 發布 |
 [service](#Service) | 服務 |
 
@@ -145,6 +146,55 @@ URL | 頁面 | 其他
 }
 ```
 
+### <a name="Chapter"></a> 章節
+URL | 頁面 | 其他
+--- | --- | --- |
+/chapter/{page} | 指定章節單一圖片 | GET, JWT
+
+>`/chapter/{page}`
+
+>success
+
+####漫畫封面 (Image)
+
+>error
+
+#### JSON Response
+
+```
+{
+  "status": "error",
+  "msg" : "A token is required"
+}
+```
+
+-----or-----
+
+```
+{
+  "status": "error",
+  "msg": "Token has expired"
+}
+```
+
+-----or-----
+
+```
+{
+  "status": "error",
+  "msg": "Could not decode token: The token \"*token*\" is an invalid JWS"
+}
+```
+
+-----or-----
+
+```
+{
+  "status": "error",
+  "msg": "Page does not exist"
+}
+```
+
 ### <a name="Publish"></a>Publish 發布
 URL | 頁面 | 其他
 --- | --- | --- |
@@ -188,7 +238,7 @@ File | cover | ✔
 ```
 {
     "status": "error",
-    "msg": "Comic does not exist."
+    "msg": "Comic does not exist"
 }
 ```
 
@@ -204,7 +254,7 @@ File | image[] | ✔
 ```
 {
     "status": "success",
-    "msg": "Upload successful."
+    "msg": "Upload successful"
 }
 ```
 
@@ -236,7 +286,7 @@ String | name | ✔
 ```
 {
     "status": "success",
-    "msg": "Register successful."
+    "msg": "Register successful"
 }
 ```
 
