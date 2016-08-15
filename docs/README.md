@@ -266,7 +266,7 @@ GET | /api/comic/chapter/{page}
 
 Type | Name | Required | Remark
 --- | --- | --- | ---
-String | token | ✔ | JWT token from <a name="ViewComicInfo">View Comic Info</a>
+String | token | ✔ | JWT token from View Comic Info
 
 ### Response
 #### Success
