@@ -28,7 +28,7 @@ class PublishController extends Controller
         $validator = $this->validator($data);
 
         if ($validator->fails())
-            return response()->json(['status' => 'error', 'msg' => $validator->errors()->all()]);
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
         $comic = $this->comicRepo->create($data);
 
@@ -36,39 +36,39 @@ class PublishController extends Controller
         $extension = $cover->getClientOriginalExtension();
         $this->storeFile('comics/'.$comic->id.'/cover.'.$extension, $cover);
 
-        return response()->json(['status' => 'success','info' => $comic]);
+        return response()->json(['status' => 'success','comic' => $comic]);
     }
 
     public function chapter(Request $request, $id)
     {
         if ($this->comicRepo->show($id) == null)
-            return response()->json(['status' => 'error', 'msg' => 'Comic does not exist'], 404);
-        $data = $request->only('name', 'image');
+            return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
+        $data = $request->only('name', 'images');
         $data['comic_id'] = $id;
-        $data['imgs'] = count($request->image);
+        $data['pages'] = count($request->images);
         $validator = $this->chapterValidator($data);
         
         if ($validator->fails())
-            return response()->json(['status' => 'error', 'msg' => $validator->errors()->all()]);
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
         $chapter = $this->chapterRepo->create($data);
 
-        foreach ($request->image as $key => $img) {
-            $extension = $img->getClientOriginalExtension();
-            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $img);
+        foreach ($request->images as $key => $image) {
+            $extension = $image->getClientOriginalExtension();
+            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $image);
         }
 
-        $count = $this->chapterRepo->count($id);
-        $this->comicRepo->updateChapters($id, $count);
+        $chapters = $this->chapterRepo->count($id);
+        $this->comicRepo->updateChapters($id, $chapters);
 
-        return response()->json(['status' => 'success', 'msg' => 'Upload successful']);
+        return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 
     private function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'summary' => 'required|min:30',
+            'summary' => 'required|max:255',
             'cover' => 'required|image',
         ]);
     }
@@ -77,8 +77,8 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'image' => 'required|Array',
-            'image.*' => 'image',
+            'images' => 'required|Array',
+            'images.*' => 'image',
         ]);
     }
 

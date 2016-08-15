@@ -12,11 +12,11 @@ class ChapterRepository
 	        Chapter::create([
 	        	'comic_id' => $data['comic_id'],
 	            'name' => $data['name'],
-	            'imgs' => $data['imgs'],
+	            'pages' => $data['pages'],
 	        ]);;
 	}
 
-	public function showAll($id)
+	public function show($id)
 	{
 		return
 			Chapter::where('comic_id', $id)->get();

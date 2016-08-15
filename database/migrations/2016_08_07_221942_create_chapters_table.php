@@ -16,7 +16,7 @@ class CreateChaptersTable extends Migration
             $table->increments('id');
             $table->integer('comic_id');
             $table->string('name');
-            $table->integer('imgs');
+            $table->integer('pages');
             $table->timestamps();
         });
     }
