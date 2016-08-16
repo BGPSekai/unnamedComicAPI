@@ -1,24 +1,31 @@
-# unnamedComicAPI
-暫未命名的漫畫API
-
-基於Larvel 5.2
-
-# 如何建置
+# Installation
 
 ```
 composer install
-建立你的資料庫
-copy .env.example .env
-修改.env, 在DB_DATABASE、DB_USERNAME...等
-php artisan migrate 資料庫遷移
-php artisan key:generate 產生Laravel金鑰
-php artisan jwt:generate 產生JWT金鑰 (非必要)
 ```
 
-# 修改php.ini (如果有必要)
+Build your database
 
 ```
-post_max_size = 總檔容量上限
-upload_max_filesize = 單檔容量上限
-max_file_uploads = 上傳數量上限
+cp .env.example .env
+vi .env
 ```
+
+Edit DB_DATABASE, DB_USERNAME, and DB_PASSWORD.
+
+```
+php artisan migrate
+php artisan key:generate
+php artisan jwt:generate
+```
+
+Edit php.ini if you need.
+
+```
+post_max_size = 0
+upload_max_filesize = 0
+max_file_uploads = 0
+```
+
+#### If you cannot store any file, remember to chmod.
+#### You can also edit .htaccess to do what you want.
