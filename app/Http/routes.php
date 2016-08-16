@@ -29,6 +29,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	{
 		Route::group(['prefix' => 'user'], function()
 		{
+			Route::get('/', 'UserController@index');
 			Route::get('{id}', 'UserController@show');
 		});
 

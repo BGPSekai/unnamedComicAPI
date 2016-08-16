@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Repositories\UserRepository;
+use Auth;
 
 class UserController extends Controller
 {
@@ -15,6 +16,11 @@ class UserController extends Controller
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
+    }
+
+    public function index()
+    {
+        return response()->json(['status' => 'success', 'user' => Auth::user()]);
     }
 
     public function show($id)

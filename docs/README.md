@@ -198,6 +198,7 @@ Status Code: 200
 
 Method | URI
 --- | ---
+GET | /api/user
 GET | /api/user/{id}
 
 ### JSON Response
