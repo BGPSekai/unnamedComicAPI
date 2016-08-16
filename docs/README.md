@@ -1,136 +1,183 @@
-# unnamedComicAPI
-暫未命名的漫畫API
+# Comic API Reference Guide
 
-## Prefix
+1. [Register](#Register)
+2. [Auth Login](#AuthLogin)
+3. [Publish Comic](#PublishComic)
+4. [Publish Chapter](#PublishChapter)
+5. [List Comics](#ListComics)
+6. [View User Info](#ViewUserInfo)
+7. [View Comic Info](#ViewComicInfo)
+8. [View Comic Cover](#ViewComicCover)
+9. [View Chapter](#ViewChapter)
 
->`api/`
+## 1. <a name="Register">Register</a>
 
-## 首頁
+Method | URI
+--- | ---
+POST | /api/auth/register
 
-URL | 頁面 | 其他
---- | --- | --- |
-/ | 首頁 |
-[auth](#Auth) | JWT 認證 |
-[*](#JWTError) | JWT 認證錯誤 | token無效或過期
-[comic](#Comic) | 漫畫列表 |
-[chapter](#Chapter) | 章節 |
-[publish](#Publish) | 發布 |
-[service](#Service) | 服務 |
+### Input Parameter
 
-### <a name="Auth"></a> JWT 認證
-URL | 頁面 | 其他
---- | --- | --- |
-/auth | JWT | POST
+Type | Name | Required | Remark
+--- | --- | --- | ---
+String | name | ✔ | 
+Email | email | ✔ | 
+String | password | ✔ | 
+String | password_confirmation | ✔ | 
 
->`/auth`
-
-類型 | 參數名稱 | 必須
---- | --- | --- |
-String | email | ✔
-String | password | ✔
-
->success
-
+### JSON Response
+#### Success
 ```
+Status Code: 200
 {
-    "token": *token*
+  "status": "success",
+  "user": {
+    "name": *name*,
+    "email": *email*,
+    "updated_at": *updateTime*,
+    "created_at": *createTime*,
+    "id": *id*
+  }
 }
 ```
 
->error
-
+#### Error
 ```
+Status Code: 400
 {
-    "error": "invalid_credentials"
+  "status": "error",
+  "message": *message[Array]*
 }
 ```
 
------or-----
+## 2. <a name="AuthLogin">Auth Login</a>
 
+Method | URI
+--- | ---
+POST | /api/auth
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+Email | email | ✔ | 
+String | password | ✔ | 
+
+### JSON Response
+#### Success
 ```
+Status Code: 200
 {
-    "error": "could_not_create_token"
+  "status": "success",
+  "token": *token*
 }
 ```
 
->使用GET方法
-
+#### Error
 ```
-/url?token={token}
-```
-
------or-----
-
->使用Headers方式
-
-```
-Authorization: Bearer <token>
-```
-
-## <a name="JWTError"></a>Publish JWT 認證錯誤
-
-URL | 頁面 | 其他
---- | --- | --- |
-/* | * | *
-
->`/*?token={token}`
-
-```
+Status Code: 401
 {
-    "error": "token_invalid"
+  "status": "error",
+  "message": "Invalid Credentials"
 }
 ```
 
------or-----
+## 3. <a name="PublishComic">Publish Comic</a>
 
+Method | URI
+--- | ---
+POST | /api/publish
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+String | name | ✔ | 
+String | summary | ✔ | 
+Image | cover | ✔ | 
+
+### JSON Response
+#### Success
 ```
-{
-    "error": "token_expired"
-}
-```
-
-### <a name="Comic"></a> 漫畫列表
-URL | 頁面 | 其他
---- | --- | --- |
-/comic/{id} | 單一漫畫資訊 | GET
-/comic/{id}/cover | 單一漫畫封面 | GET
-/comid/page/{page} | 所有漫畫列表 | GET, 依updated_at降冪排列, 10筆
-
->`/comic/{id}`
-
-```
+Status Code : 200
 {
   "status": "success",
   "comic": {
-    "id": *id*,
-    "name": *name*,
-    "summary": *summary*,
-    "chapters": *chapters*,
-    "created_at": *create_at*,
-    "updated_at": *updated_at*
-  },
-  "chapters": [
-    {
-      "id": *id*,
-      "comic_id": *comic_id*,
-      "name": *name*,
-      "imgs": *imgs*,
-      "created_at": *created_at*,
-      "updated_at": *updated_at*,
-      "token": *token*,
-    },
-    ...
-  ]
+  "name": *name*,
+  "summary": *summary*,
+  "publish_by": *publish_by*,
+  "updated_at": *updateTime*,
+  "created_at": *createTime*,
+  "id": *id*
+  }
 }
 ```
 
->`/comic/{id}/cover`
-####漫畫封面 (Image)
-
->`/comic/page/{page}`
-#### JSON Response
-
+#### Error
 ```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+```
+
+## 4. <a name="Publish Chapter">Publish Chapter</a>
+
+Method | URI
+--- | ---
+POST | /api/publish/{id}
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+String | name | ✔ | 
+Image | image[] | ✔ | 
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "chapter": {
+    "comic_id": *comic_id*,
+    "name": *name*,
+    "pages": *pages*,
+    "publish_by": *publish_by*,
+    "updated_at": *updateTime*,
+    "created_at": *createTime*,
+    "id": *id*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
+Status Code: 404
+{
+  "status": "error",
+  "message": "Comic Not Found"
+}
+```
+
+## 5. <a name="ListComics">List Comics</a>
+
+Method | URI
+--- | ---
+GET | /api/comic/page/{page}
+
+### JSON Response
+#### Success
+```
+Status Code: 200
 {
   "status": "success",
   "comics": [
@@ -138,163 +185,149 @@ URL | 頁面 | 其他
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
-      "created_at": *create_at*,
-      "updated_at": *updated_at*
+      "chapters": *chaoters*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
     },
     ...
   ]
 }
 ```
 
-### <a name="Chapter"></a> 章節
-URL | 頁面 | 其他
---- | --- | --- |
-/chapter/{page} | 指定章節單一圖片 | GET, JWT
+## 6. <a name="ViewUserInfo">View User Info</a>
 
->`/chapter/{page}`
+Method | URI
+--- | ---
+GET | /api/user
+GET | /api/user/{id}
 
->success
-
-####漫畫封面 (Image)
-
->error
-
-#### JSON Response
-
+### JSON Response
+#### Success
 ```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 404
 {
   "status": "error",
-  "msg" : "A token is required"
+  "message": "User Not Found"
 }
 ```
 
------or-----
+## 7. <a name="ViewComicInfo">View Comic Info</a>
 
+Method | URI
+--- | ---
+GET | /api/comic/{id}
+
+### JSON Response
+#### Success
 ```
+{
+  "status": "success",
+  "comic": {
+    "id": *id*,
+    "name": *name*,
+    "summary": *summary*,
+    "publish_by": *publish_by*,
+    "chapters": *chapters*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*"
+  },
+  "chapters": [
+    {
+      "id": *id*,
+      "comic_id": *comicId*,
+      "name": *name*,
+      "pages": *pages*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*,
+      "token": *token*
+    },
+    ...
+  ]
+}
+```
+
+#### Error
+```
+Status Code: 404
 {
   "status": "error",
-  "msg": "Token has expired"
+  "message": "Comic Not Found"
 }
 ```
 
------or-----
+## 9. <a name="ViewComicCover">View Comic Cover</a>
 
+Method | URI
+--- | ---
+GET | /api/comic/{id}/cover
+
+### Response
+#### Success
 ```
+Status Code: 200
+*Comic Cover Image*
+```
+
+#### Error
+```
+Status Code: 404
 {
   "status": "error",
-  "msg": "Could not decode token: The token \"*token*\" is an invalid JWS"
+  "message": "Comic Not Found"
 }
 ```
 
------or-----
+## 8. <a name="ViewComicChapter">View Comic Chapter</a>
 
+Method | URI
+--- | ---
+GET | /api/comic/chapter/{page}
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+String | token | ✔ | JWT token from View Comic Info
+
+### Response
+#### Success
 ```
+Status Code: 200
+*Comic Cover Image*
+```
+
+#### Error
+```
+Status Code: 400
 {
   "status": "error",
-  "msg": "Page does not exist"
+  "message": "A Token Is Required"
 }
-```
-
-### <a name="Publish"></a>Publish 發布
-URL | 頁面 | 其他
---- | --- | --- |
-/publish | 發布新漫畫 | POST, JWT
-/publish/{id} | 發布新章節 | POST, JWT
-
->`/publish`
-
-類型 | 參數名稱 | 必須
---- | --- | --- |
-String | name | ✔
-String | summary | ✔
-File | cover | ✔
-
->success
-
-```
+- or -
+Status Code: 401
 {
-    "status": "success",
-    "info": {
-        "name": *name*,
-        "summary": *summary*,
-        "updated_at": "updated_at",
-        "created_at":"created_at",
-        "id": *id*
-    }
+  "status": "error",
+  "message": *message[Array]*
 }
-```
-
->error
-
-```
+- or -
+Status Code: 404
 {
-    "status": "error",
-    "msg": *msg[Array]*
-}
-```
-
------or-----
-
-```
-{
-    "status": "error",
-    "msg": "Comic does not exist"
-}
-```
-
->`/publish/{id}`
-
-類型 | 參數名稱 | 必須
---- | --- | --- |
-String | name | ✔
-File | image[] | ✔
-
->success
-
-```
-{
-    "status": "success",
-    "msg": "Upload successful"
-}
-```
-
->error
-
-```
-{
-    "status": "error",
-    "msg": *msg[Array]*
-}
-```
-
-### <a name="Service"></a>Service 服務
-URL | 頁面 | 其他
---- | --- | --- |
-/service/register | 註冊帳號 | POST
-
->`/service/register`
-
-類型 | 參數名稱 | 必須
---- | --- | --- |
-String | email | ✔
-String | password | ✔
-String | password_confirmation | ✔
-String | name | ✔
-
->success
-
-```
-{
-    "status": "success",
-    "msg": "Register successful"
-}
-```
-
->error
-
-```
-{
-    "status": "error",
-    "msg": *msg[Array]*
+  "status": "error",
+  "message": "Page Not Found"
 }
 ```

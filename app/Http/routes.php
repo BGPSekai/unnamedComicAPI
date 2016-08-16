@@ -13,24 +13,26 @@
 
 
 
+Route::get('/', function () {
+	return view('welcome');
+});
+	
 Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 {
-	Route::get('/', function () {
-	    return view('welcome');
-	});
-	
-	Route::group(['prefix' => 'service'], function()
-	{
-		Route::post('register', 'ServiceController@register');
-	});
-
 	Route::group(['prefix' => 'auth'], function()
 	{
 		Route::post('/', 'AuthController@auth');
+		Route::post('register', 'AuthController@register');
 	});
 
 	Route::group(['middleware' => 'jwt.auth'], function()
 	{
+		Route::group(['prefix' => 'user'], function()
+		{
+			Route::get('/', 'UserController@index');
+			Route::get('{id}', 'UserController@show');
+		});
+
 		Route::group(['prefix' => 'publish'], function()
 		{
 			Route::post('/', 'PublishController@index');
@@ -41,9 +43,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	Route::group(['prefix' => 'comic'], function()
 	{
 		Route::get('{id}', 'ComicController@show');
-		Route::get('page/{page}', 'ComicController@showAll');
+		Route::get('page/{page}', 'ComicController@index');
 	});
 });
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
-Route::get('api/chapter/{page}', 'ChapterController@show');
+Route::get('api/comic/chapter/{page}', 'ComicController@showPage');

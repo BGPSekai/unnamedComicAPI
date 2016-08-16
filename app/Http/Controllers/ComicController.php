@@ -24,20 +24,27 @@ class ComicController extends Controller
         $this->chapterRepo = $chapterRepo;
     }
 
+    public function index($page)
+    {
+        $comics = $this->comicRepo->index($page);
+        return response()->json(['status' => 'success', 'comics' => $comics]);
+    }
+
     public function show($id)
     {
         $comic = $this->comicRepo->show($id);
         if (!isset($comic))
-            return response()->json(['status' => 'error', 'msg' => 'Comic not found']);
+            return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
-        $chapters = $this->chapterRepo->showAll($id);
+        $chapters = $this->chapterRepo->show($id);
         foreach ($chapters as $key => $chapter) {
             $chapters[$key]['token'] = (string) JWTAuth::encode(
                 JWTFactory::make([
                     'comic_id' => $id,
                     'chapter_id' => $chapter->id,
-                    'imgs' => $chapter->imgs
-                ]));
+                    'pages' => $chapter->pages
+                ])
+            );
         }
 
         return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
@@ -47,14 +54,30 @@ class ComicController extends Controller
     {
         $comic = $this->comicRepo->show($id);
         if (!isset($comic))
-            return response()->json(['status' => 'error', 'msg' => 'Comic not found']);
-        $cover_path = Storage::files('comics/'.$comic->id);
-        return Response::download(storage_path().'/app/'.$cover_path[0]);
+            return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
+        $file_path = Storage::files('comics/'.$comic->id);
+        return Response::download(storage_path().'/app/'.$file_path[0]);
     }
 
-    public function showAll($page)
+    public function showPage($page)
     {
-        $comics = $this->comicRepo->showAll($page);
-        return response()->json(['status' => 'success', 'comics' => $comics]);
+        try {
+            if (!JWTAuth::getToken())
+                return response()->json(['status' => 'error', 'message' => 'A Token Is Required'], 400);
+
+            $info = JWTAuth::decode(JWTAuth::getToken())->toArray();
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 401);
+        }
+
+        $comic_id = $info['comic_id'];
+        $chapter_id = $info['chapter_id'];
+        $pages = $info['pages'];
+
+        if ($page < 1 || $page > $pages)
+            return response()->json(['status' => 'error', 'message' => 'Page Not Found'], 404);
+
+        $file_path = storage::files('comics/'.$comic_id.'/'.$chapter_id);
+        return Response::download(storage_path().'/app/'.$file_path[$page-1]);
     }
 }
