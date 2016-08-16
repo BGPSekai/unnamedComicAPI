@@ -17,14 +17,24 @@ class ChapterRepository
 	        ]);;
 	}
 
+	public function find($id)
+	{
+		return Chapter::where('comic_id', $id)->get();
+	}
+
 	public function show($id)
 	{
-		return
-			Chapter::where('comic_id', $id)->get();
+		return Chapter::get()->find($id);
 	}
 
 	public function count($id)
 	{
 		return Chapter::where('comic_id', $id)->count();
+	}
+
+	public function updatePages($id, $pages)
+	{
+		return
+			Chapter::where('id', $id)->update(['pages' => $pages]);
 	}
 }

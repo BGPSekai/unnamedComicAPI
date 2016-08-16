@@ -24,8 +24,7 @@ class ComicRepository
 
 	public function show($id)
 	{
-		return
-			Comic::get()->find($id);
+		return Comic::get()->find($id);
 	}
 
 	public function updateChapters($id, $chapters)

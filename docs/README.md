@@ -9,6 +9,7 @@
 7. [View Comic Info](#ViewComicInfo)
 8. [View Comic Cover](#ViewComicCover)
 9. [View Chapter](#ViewChapter)
+10. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 
 ## 1. <a name="Register">Register</a>
 
@@ -94,7 +95,7 @@ Type | Name | Required | Remark
 --- | --- | --- | ---
 String | name | ✔ | 
 String | summary | ✔ | 
-Image | cover | ✔ | 
+File | cover | ✔ | Image
 
 ### JSON Response
 #### Success
@@ -105,7 +106,7 @@ Status Code : 200
   "comic": {
   "name": *name*,
   "summary": *summary*,
-  "publish_by": *publish_by*,
+  "publish_by": *uploadUser*,
   "updated_at": *updateTime*,
   "created_at": *createTime*,
   "id": *id*
@@ -133,7 +134,7 @@ POST | /api/publish/{id}
 Type | Name | Required | Remark
 --- | --- | --- | ---
 String | name | ✔ | 
-Image | image[] | ✔ | 
+File | images[] | | Image
 
 ### JSON Response
 #### Success
@@ -145,7 +146,20 @@ Status Code: 200
     "comic_id": *comic_id*,
     "name": *name*,
     "pages": *pages*,
-    "publish_by": *publish_by*,
+    "publish_by": *uploadUser*,
+    "updated_at": *updateTime*,
+    "created_at": *createTime*,
+    "id": *id*
+  }
+}
+- or -
+{
+  "status": "success",
+  "chapter": {
+    "comic_id": *comic_id*,
+    "name": *name*,
+    "pages": *pages*,
+    "publish_by": *uploadUser*,
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*
@@ -241,7 +255,7 @@ GET | /api/comic/{id}
     "id": *id*,
     "name": *name*,
     "summary": *summary*,
-    "publish_by": *publish_by*,
+    "publish_by": *uploadUser*,
     "chapters": *chapters*,
     "created_at": *createTime*,
     "updated_at": *updateTime*"
@@ -270,7 +284,7 @@ Status Code: 404
 }
 ```
 
-## 9. <a name="ViewComicCover">View Comic Cover</a>
+## 8. <a name="ViewComicCover">View Comic Cover</a>
 
 Method | URI
 --- | ---
@@ -292,7 +306,7 @@ Status Code: 404
 }
 ```
 
-## 8. <a name="ViewComicChapter">View Comic Chapter</a>
+## 9. <a name="ViewComicChapter">View Comic Chapter</a>
 
 Method | URI
 --- | ---
@@ -329,5 +343,50 @@ Status Code: 404
 {
   "status": "error",
   "message": "Page Not Found"
+}
+```
+
+## 10. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+
+Method | URI
+--- | ---
+POST | /api/publish/chapter/{id}
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+File | images[] | ✔ | Image
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "chapter": {
+    "id": *id*,
+    "comic_id": *comic_id*,
+    "name": *name*,
+    "pages": *pages*,
+    "publish_by": *uploadUser*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
+Status Code: 404
+{
+  "status": "error",
+  "message": "Chapter Not Found"
 }
 ```

@@ -37,6 +37,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::post('/', 'PublishController@index');
 			Route::post('{id}', 'PublishController@chapter');
+			Route::post('chapter/{id}', 'PublishController@batch');
 		});
 	});
 

@@ -36,7 +36,7 @@ class ComicController extends Controller
         if (!isset($comic))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
-        $chapters = $this->chapterRepo->show($id);
+        $chapters = $this->chapterRepo->find($id);
         foreach ($chapters as $key => $chapter) {
             $chapters[$key]['token'] = (string) JWTAuth::encode(
                 JWTFactory::make([
