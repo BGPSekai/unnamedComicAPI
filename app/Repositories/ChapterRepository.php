@@ -13,6 +13,7 @@ class ChapterRepository
 	        	'comic_id' => $data['comic_id'],
 	            'name' => $data['name'],
 	            'pages' => $data['pages'],
+	            'publish_by' => $data['publish_by'],
 	        ]);;
 	}
 

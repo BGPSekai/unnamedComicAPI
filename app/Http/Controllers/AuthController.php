@@ -8,7 +8,6 @@ use App\Http\Requests;
 
 use App\Repositories\UserRepository;
 use JWTAuth;
-use Auth;
 use Validator;
 
 class AuthController extends Controller
@@ -41,7 +40,7 @@ class AuthController extends Controller
         if (! $token = JWTAuth::attempt($credentials))
             return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
  
-        return response()->json(['status' => 'success', 'token' => $token, 'user' => Auth::user()]);
+        return response()->json(['status' => 'success', 'token' => $token]);
     }
 
     private function validator(array $data)

@@ -15,4 +15,10 @@ class UserRepository
 	            'password' => bcrypt($data['password']),
 	        ]);;
 	}
+
+	public function show($id)
+	{
+		return
+			User::find($id);
+	}
 }

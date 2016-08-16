@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Validator;
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
+use Auth;
+use Validator;
 use Storage;
 
 class PublishController extends Controller
@@ -30,6 +31,7 @@ class PublishController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
+        $data['publish_by'] = Auth::user()->id;
         $comic = $this->comicRepo->create($data);
 
         $cover = $request->file('cover');
@@ -46,6 +48,7 @@ class PublishController extends Controller
         $data = $request->only('name', 'images');
         $data['comic_id'] = $id;
         $data['pages'] = count($request->images);
+        $data['publish_by'] = Auth::user()->id;
         $validator = $this->chapterValidator($data);
         
         if ($validator->fails())

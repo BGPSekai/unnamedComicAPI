@@ -5,9 +5,10 @@
 3. [Publish Comic](#PublishComic)
 4. [Publish Chapter](#PublishChapter)
 5. [List Comics](#ListComics)
-6. [View Comic Info](#ViewComicInfo)
-7. [View Comic Cover](#ViewComicCover)
-8. [View Chapter](#ViewChapter)
+6. [View User Info](#ViewUserInfo)
+7. [View Comic Info](#ViewComicInfo)
+8. [View Comic Cover](#ViewComicCover)
+9. [View Chapter](#ViewChapter)
 
 ## 1. <a name="Register">Register</a>
 
@@ -104,6 +105,7 @@ Status Code : 200
   "comic": {
   "name": *name*,
   "summary": *summary*,
+  "publish_by": *publish_by*,
   "updated_at": *updateTime*,
   "created_at": *createTime*,
   "id": *id*
@@ -143,6 +145,7 @@ Status Code: 200
     "comic_id": *comic_id*,
     "name": *name*,
     "pages": *pages*,
+    "publish_by": *publish_by*,
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*
@@ -191,7 +194,38 @@ Status Code: 200
 }
 ```
 
-## 6. <a name="ViewComicInfo">View Comic Info</a>
+## 6. <a name="ViewUserInfo">View User Info</a>
+
+Method | URI
+--- | ---
+GET | /api/user/{id}
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 404
+{
+  "status": "error",
+  "message": "User Not Found"
+}
+```
+
+## 7. <a name="ViewComicInfo">View Comic Info</a>
 
 Method | URI
 --- | ---
@@ -206,6 +240,7 @@ GET | /api/comic/{id}
     "id": *id*,
     "name": *name*,
     "summary": *summary*,
+    "publish_by": *publish_by*,
     "chapters": *chapters*,
     "created_at": *createTime*,
     "updated_at": *updateTime*"
@@ -234,7 +269,7 @@ Status Code: 404
 }
 ```
 
-## 7. <a name="ViewComicCover">View Comic Cover</a>
+## 9. <a name="ViewComicCover">View Comic Cover</a>
 
 Method | URI
 --- | ---

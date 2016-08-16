@@ -27,6 +27,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 
 	Route::group(['middleware' => 'jwt.auth'], function()
 	{
+		Route::group(['prefix' => 'user'], function()
+		{
+			Route::get('{id}', 'UserController@show');
+		});
+
 		Route::group(['prefix' => 'publish'], function()
 		{
 			Route::post('/', 'PublishController@index');

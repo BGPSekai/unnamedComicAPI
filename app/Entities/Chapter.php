@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Chapter extends Model
 {
     protected $fillable = [
-        'comic_id', 'name', 'pages',
+        'comic_id', 'name', 'pages', 'publish_by',
     ];
 }
