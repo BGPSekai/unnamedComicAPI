@@ -19,12 +19,12 @@ class ComicRepository
 	public function index($page)
 	{
 		return
-			Comic::orderBy('updated_at', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+			Comic::orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
 	}
 
 	public function show($id)
 	{
-		return Comic::get()->find($id);
+		return Comic::find($id);
 	}
 
 	public function updateChapters($id, $chapters)

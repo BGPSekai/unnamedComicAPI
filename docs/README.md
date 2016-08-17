@@ -203,7 +203,7 @@ Status Code: 200
       "created_at": *createTime*,
       "updated_at": *updateTime*
     },
-    ...
+    ...(9)
   ]
 }
 ```
