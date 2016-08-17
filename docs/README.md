@@ -2,14 +2,15 @@
 
 1. [Register](#Register)
 2. [Auth Login](#AuthLogin)
-3. [Publish Comic](#PublishComic)
-4. [Publish Chapter](#PublishChapter)
-5. [List Comics](#ListComics)
-6. [View User Info](#ViewUserInfo)
-7. [View Comic Info](#ViewComicInfo)
-8. [View Comic Cover](#ViewComicCover)
-9. [View Chapter](#ViewChapter)
-10. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+3. [Reset Password]($ResetPassword)
+4. [Publish Comic](#PublishComic)
+5. [Publish Chapter](#PublishChapter)
+6. [List Comics](#ListComics)
+7. [View User Info](#ViewUserInfo)
+8. [View Comic Info](#ViewComicInfo)
+9. [View Comic Cover](#ViewComicCover)
+10. [View Chapter](#ViewChapter)
+11. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 
 ## 1. <a name="Register">Register</a>
 
@@ -83,7 +84,53 @@ Status Code: 401
 }
 ```
 
-## 3. <a name="PublishComic">Publish Comic</a>
+## 3. <a name="ResetPassword">Reset Password</a>
+
+Method | URI
+--- | ---
+POST | /api/auth/reset
+
+### Input Parameter
+
+Type | Name | Required | Remark
+--- | --- | --- | ---
+String | password | ✔ | 
+String | new_password | ✔ | 
+String | new_password_confirmation | ✔ | 
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  },
+  "token": *token*
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
+Status Code: 401
+{
+  "status": "error",
+  "message": "Invalid Credentials"
+}
+```
+
+## 4. <a name="PublishComic">Publish Comic</a>
 
 Method | URI
 --- | ---
@@ -123,7 +170,7 @@ Status Code: 400
 }
 ```
 
-## 4. <a name="Publish Chapter">Publish Chapter</a>
+## 5. <a name="Publish Chapter">Publish Chapter</a>
 
 Method | URI
 --- | ---
@@ -208,7 +255,7 @@ Status Code: 200
 }
 ```
 
-## 6. <a name="ViewUserInfo">View User Info</a>
+## 7. <a name="ViewUserInfo">View User Info</a>
 
 Method | URI
 --- | ---
@@ -240,7 +287,7 @@ Status Code: 404
 }
 ```
 
-## 7. <a name="ViewComicInfo">View Comic Info</a>
+## 8. <a name="ViewComicInfo">View Comic Info</a>
 
 Method | URI
 --- | ---
@@ -284,7 +331,7 @@ Status Code: 404
 }
 ```
 
-## 8. <a name="ViewComicCover">View Comic Cover</a>
+## 9. <a name="ViewComicCover">View Comic Cover</a>
 
 Method | URI
 --- | ---
@@ -306,7 +353,7 @@ Status Code: 404
 }
 ```
 
-## 9. <a name="ViewComicChapter">View Comic Chapter</a>
+## 10. <a name="ViewComicChapter">View Comic Chapter</a>
 
 Method | URI
 --- | ---
@@ -346,7 +393,7 @@ Status Code: 404
 }
 ```
 
-## 10. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+## 11. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
 Method | URI
 --- | ---
