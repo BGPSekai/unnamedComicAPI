@@ -11,6 +11,8 @@
 9. [View Comic Cover](#ViewComicCover)
 10. [View Chapter](#ViewChapter)
 11. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+12. [Search Comics](#SearchComics)
+
 
 ## 1. <a name="Register">Register</a>
 
@@ -229,7 +231,7 @@ Status Code: 404
 }
 ```
 
-## 5. <a name="ListComics">List Comics</a>
+## 6. <a name="ListComics">List Comics</a>
 
 Method | URI
 --- | ---
@@ -246,7 +248,8 @@ Status Code: 200
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
-      "chapters": *chaoters*,
+      "publish_by": *uploadUser*,
+      "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*
     },
@@ -435,5 +438,32 @@ Status Code: 404
 {
   "status": "error",
   "message": "Chapter Not Found"
+}
+```
+
+## 12. <a name="SearchComics">Search Comics</a>
+
+Method | URI
+--- | ---
+GET | /api/search/{search}/{page}
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "publish_by": *uploadUser*,
+      "chapters": *chapters*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    ...(9)
+  ]
 }
 ```
