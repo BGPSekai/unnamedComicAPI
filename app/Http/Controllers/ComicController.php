@@ -80,10 +80,4 @@ class ComicController extends Controller
         $file_path = storage::files('comics/'.$comic_id.'/'.$chapter_id);
         return Response::download(storage_path().'/app/'.$file_path[$page-1]);
     }
-
-    public function search($search, $page)
-    {
-        $result = $this->comicRepo->search($search, $page);
-        return response()->json(['status' => 'success', 'comics' => $result]);
-    }
 }

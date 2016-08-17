@@ -32,8 +32,13 @@ class ComicRepository
 		return Comic::find($id)->update(['chapters' => $chapters]);
 	}
 
-	public function search($search, $page)
+	public function searchName($name, $page)
 	{
-		return Comic::where('name', 'LIKE', '%'.$search.'%')->skip(($page - 1) * 10)->take(10)->get();
+		return Comic::where('name', 'LIKE', '%'.$name.'%')->skip(($page - 1) * 10)->take(10)->get();
+	}
+
+	public function searchPublisher($user_id, $page)
+	{
+		return Comic::where('publish_by', $user_id)->skip(($page - 1) * 10)->take(10)->get();
 	}
 }

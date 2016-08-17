@@ -48,7 +48,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('page/{page}', 'ComicController@index');
 	});
 
-	Route::get('search/{search}/{page}', 'ComicController@search');
+	Route::group(['prefix' => 'search'], function()
+	{
+		Route::get('name/{name}/{page}', 'SearchController@name');
+		Route::get('publisher/{user_id}/{page}', 'SearchController@publisher');
+	});
 });
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
