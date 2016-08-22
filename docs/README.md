@@ -17,18 +17,18 @@
 
 ## 1. <a name="Register">Register</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/auth/register | 
+| Method | URI                | Remark |
+|:------:| ------------------ | ------ |
+| POST   | /api/auth/register |        |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-String | name | ✔ | 
-Email | email | ✔ | 
-String | password | ✔ | 
-String | password_confirmation | ✔ | 
+| Type   | Name                  | Required | Remark           |
+| ------ | --------------------- |:--------:| ---------------- |
+| String | name                  | √        |                  |
+| Email  | email                 | √        |                  |
+| String | password              | √        | min: 6           |
+| String | password_confirmation | √        | same as password |
 
 ### JSON Response
 #### Success
@@ -57,16 +57,16 @@ Status Code: 400
 
 ## 2. <a name="AuthLogin">Auth Login</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/auth | 
+| Method | URI       | Remark |
+|:------:| --------- | ------ |
+| POST   | /api/auth |        |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-Email | email | ✔ | 
-String | password | ✔ | 
+| Type   | Name     | Required | Remark |
+| ------ | -------- |:--------:| ------ |
+| Email  | email    | √        |        | 
+| String | password | √        |        |
 
 ### JSON Response
 #### Success
@@ -89,17 +89,17 @@ Status Code: 401
 
 ## 3. <a name="ResetPassword">Reset Password</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/auth/reset | JWT Auth token
+| Method | URI             | Remark   |
+|:------:| --------------- | -------- |
+| POST   | /api/auth/reset | JWT Auth |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-String | password | ✔ | 
-String | new_password | ✔ | 
-String | new_password_confirmation | ✔ | 
+| Type   | Name                      | Required | Remark           |
+| ------ | ------------------------- |:--------:| ---------------- |
+| String | password                  | √        |                  |
+| String | new_password              | √        | min: 6           |
+| String | new_password_confirmation | √        | same as password |
 
 ### JSON Response
 #### Success
@@ -135,17 +135,17 @@ Status Code: 401
 
 ## 4. <a name="PublishComic">Publish Comic</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/publish | JWT Auth token
+| Method | URI          | Remark   |
+|:------:| ------------ | -------- |
+| POST   | /api/publish | JWT Auth |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-String | name | ✔ | 
-String | summary | ✔ | 
-File | cover | ✔ | Image
+| Type   | Name    | Required | Remark |
+| ------ | ------- |:--------:| ------ |
+| String | name    | √        |        |
+| String | summary | √        |        |
+| File   | cover   | √        | Image  |
 
 ### JSON Response
 #### Success
@@ -175,16 +175,16 @@ Status Code: 400
 
 ## 5. <a name="PublishChapter">Publish Chapter</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/publish/{id} | JWT Auth token
+| Method | URI               | Remark   |
+|:------:| ----------------_ | -------- |
+| POST   | /api/publish/{id} | JWT Auth |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-String | name | ✔ | 
-File | images[] | | Image
+| Type   | Name     | Required | Remark |
+| ------ | -------- |:--------:| ------ |
+| String | name     | √        |        |
+| File   | images[] |          | Image  |
 
 ### JSON Response
 #### Success
@@ -234,9 +234,9 @@ Status Code: 404
 
 ## 6. <a name="ListComics">List Comics</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/comic/page/{page}
+| Method | URI                    | Remark |
+|:------:| ---------------------- | ------ |
+| GET    | /api/comic/page/{page} |        |
 
 ### JSON Response
 #### Success
@@ -261,10 +261,10 @@ Status Code: 200
 
 ## 7. <a name="ViewUserInfo">View User Info</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/user | JWT Auth token
-GET | /api/user/{id} | JWT Auth token
+| Method | URI            | Remark   |
+|:------:| -------------- | -------- |
+| GET    | /api/user      | JWT Auth |
+| GET    | /api/user/{id} | JWT Auth |
 
 ### JSON Response
 #### Success
@@ -293,9 +293,9 @@ Status Code: 404
 
 ## 8. <a name="ViewComicInfo">View Comic Info</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/comic/{id} | 
+| Method | URI             | Remark |
+|:------:| --------------- | ------ |
+| GET    | /api/comic/{id} |        |
 
 ### JSON Response
 #### Success
@@ -337,9 +337,9 @@ Status Code: 404
 
 ## 9. <a name="ViewComicCover">View Comic Cover</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/comic/{id}/cover | 
+| Method | URI                   | Remark |
+|:------:| --------------------- | ------ |
+| GET    | /api/comic/{id}/cover |        |
 
 ### Response
 #### Success
@@ -359,15 +359,15 @@ Status Code: 404
 
 ## 10. <a name="ViewChapterPage">View Chapter Page</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/comic/chapter/{page} | 
+| Method | URI                       | Remark |
+|:------:| ------------------------- | ------ |
+| GET    | /api/comic/chapter/{page} |        |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-String | token | ✔ | JWT token from View Comic Info
+| Type   | Name  | Required | Remark                         |
+| ------ | ----- |:--------:| ------------------------------ |
+| String | token | √        | JWT token from View Comic Info |
 
 ### Response
 #### Success
@@ -399,15 +399,15 @@ Status Code: 404
 
 ## 11. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
-Method | URI | Remark
---- | --- | ---
-POST | /api/publish/chapter/{id} | JWT Auth token
+| Method | URI                       | Remark   |
+|:------:| ------------------------- | -------- |
+| POST   | /api/publish/chapter/{id} | JWT Auth |
 
 ### Input Parameter
 
-Type | Name | Required | Remark
---- | --- | --- | ---
-File | images[] | ✔ | Image
+| Type | Name     | Required | Remark |
+| ---- | -------- |:--------:| ------ |
+| File | images[] | √        | Image  |
 
 ### JSON Response
 #### Success
@@ -444,9 +444,9 @@ Status Code: 404
 
 ## 12. <a name="SearchComicsByName">Search Comics by Name</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/name/{name}/{page} | 
+| Method | URI                     | Remark |
+|:------:| ----------------------- | ------ |
+| GET    | /api/name/{name}/{page} |        |
 
 ### JSON Response
 #### Success
@@ -471,9 +471,9 @@ Status Code: 200
 
 ## 13. <a name="SearchComicsByPublisher">Search Comics by Publisher</a>
 
-Method | URI | Remark
---- | --- | ---
-GET | /api/publisher/{user_id}/{page} | 
+| Method | URI                             | Remark |
+|:------:| ------------------------------- | ------ |
+| GET    | /api/publisher/{user_id}/{page} |        |
 
 ### JSON Response
 #### Success
