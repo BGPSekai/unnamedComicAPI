@@ -2,14 +2,14 @@
 
 1. [Register](#Register)
 2. [Auth Login](#AuthLogin)
-3. [Reset Password]($ResetPassword)
+3. [Reset Password](#ResetPassword)
 4. [Publish Comic](#PublishComic)
 5. [Publish Chapter](#PublishChapter)
 6. [List Comics](#ListComics)
 7. [View User Info](#ViewUserInfo)
 8. [View Comic Info](#ViewComicInfo)
 9. [View Comic Cover](#ViewComicCover)
-10. [View Chapter](#ViewChapter)
+10. [View Chapter Page](#ViewChapterPage)
 11. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 12. [Search Comics by Name](#SearchComicsByName)
 13. [Search Comics by Publisher](#SearchComicsByPublisher)
@@ -173,7 +173,7 @@ Status Code: 400
 }
 ```
 
-## 5. <a name="Publish Chapter">Publish Chapter</a>
+## 5. <a name="PublishChapter">Publish Chapter</a>
 
 Method | URI
 --- | ---
@@ -357,7 +357,7 @@ Status Code: 404
 }
 ```
 
-## 10. <a name="ViewComicChapter">View Comic Chapter</a>
+## 10. <a name="ViewChapterPage">View Chapter Page</a>
 
 Method | URI
 --- | ---
