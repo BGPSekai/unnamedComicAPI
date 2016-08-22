@@ -21,7 +21,7 @@ php artisan jwt:generate
 
 Create test data with seed if you need.
 ```
-artisan db:seed
+php artisan db:seed
 ```
 
 Edit php.ini if you need.
