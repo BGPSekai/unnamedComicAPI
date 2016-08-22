@@ -25,7 +25,7 @@ class PublishController extends Controller
 
     public function index(Request $request)
     {
-		$data = $request->only('name', 'summary', 'cover');
+		$data = $request->only('name', 'summary', 'author', 'type', 'cover');
         $validator = $this->validator($data);
 
         if ($validator->fails())
@@ -99,6 +99,8 @@ class PublishController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'summary' => 'required|max:255',
+            'author' => 'required|max:255',
+            'type' => 'required|integer|min:1',
             'cover' => 'required|image',
         ]);
     }

@@ -141,11 +141,13 @@ Status Code: 401
 
 ### Input Parameter
 
-| Type   | Name    | Required | Remark |
-| ------ | ------- |:--------:| ------ |
-| String | name    | √        |        |
-| String | summary | √        |        |
-| File   | cover   | √        | Image  |
+| Type    | Name    | Required | Remark |
+| ------- | ------- |:--------:| ------ |
+| String  | name    | √        |        |
+| String  | summary | √        |        |
+| String  | author  | √        |        |
+| Integer | type    | √        |        |
+| File    | cover   | √        | Image  |
 
 ### JSON Response
 #### Success
@@ -156,6 +158,8 @@ Status Code : 200
   "comic": {
   "name": *name*,
   "summary": *summary*,
+  "author": *author*,
+  "type": *type*,
   "publish_by": *uploadUser*,
   "updated_at": *updateTime*,
   "created_at": *createTime*,
@@ -249,6 +253,8 @@ Status Code: 200
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
+      "author": *author*,
+      "type": *type*,
       "publish_by": {
         "id": *id*,
         "name": *name*,
@@ -312,6 +318,8 @@ Status Code: 404
     "id": *id*,
     "name": *name*,
     "summary": *summary*,
+    "author": *author*,
+    "type": *type*,
     "publish_by": *uploadUser*,
     "chapters": *chapters*,
     "created_at": *createTime*,
@@ -465,6 +473,8 @@ Status Code: 200
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
+      "author": *author*,
+      "type": *type*,
       "publish_by": *uploadUser*,
       "chapters": *chapters*,
       "created_at": *createTime*,
@@ -492,6 +502,8 @@ Status Code: 200
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
+      "author": *author*,
+      "type": *type*,
       "publish_by": *uploadUser*,
       "chapters": *chapters*,
       "created_at": *createTime*,

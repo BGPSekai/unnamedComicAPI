@@ -12,6 +12,8 @@ class ComicRepository
 	        Comic::create([
 	            'name' => $data['name'],
 	            'summary' => $data['summary'],
+	            'author' => $data['author'],
+	            'type' => $data['type'],
 	            'publish_by' => $data['publish_by'],
 	        ]);;
 	}
