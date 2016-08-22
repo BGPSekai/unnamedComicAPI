@@ -17,9 +17,9 @@
 
 ## 1. <a name="Register">Register</a>
 
-Method | URI
---- | ---
-POST | /api/auth/register
+Method | URI | Remark
+--- | --- | ---
+POST | /api/auth/register | 
 
 ### Input Parameter
 
@@ -57,9 +57,9 @@ Status Code: 400
 
 ## 2. <a name="AuthLogin">Auth Login</a>
 
-Method | URI
---- | ---
-POST | /api/auth
+Method | URI | Remark
+--- | --- | ---
+POST | /api/auth | 
 
 ### Input Parameter
 
@@ -89,9 +89,9 @@ Status Code: 401
 
 ## 3. <a name="ResetPassword">Reset Password</a>
 
-Method | URI
---- | ---
-POST | /api/auth/reset
+Method | URI | Remark
+--- | --- | ---
+POST | /api/auth/reset | JWT Auth token
 
 ### Input Parameter
 
@@ -135,9 +135,9 @@ Status Code: 401
 
 ## 4. <a name="PublishComic">Publish Comic</a>
 
-Method | URI
---- | ---
-POST | /api/publish
+Method | URI | Remark
+--- | --- | ---
+POST | /api/publish | JWT Auth token
 
 ### Input Parameter
 
@@ -175,9 +175,9 @@ Status Code: 400
 
 ## 5. <a name="PublishChapter">Publish Chapter</a>
 
-Method | URI
---- | ---
-POST | /api/publish/{id}
+Method | URI | Remark
+--- | --- | ---
+POST | /api/publish/{id} | JWT Auth token
 
 ### Input Parameter
 
@@ -234,8 +234,8 @@ Status Code: 404
 
 ## 6. <a name="ListComics">List Comics</a>
 
-Method | URI
---- | ---
+Method | URI | Remark
+--- | --- | ---
 GET | /api/comic/page/{page}
 
 ### JSON Response
@@ -261,10 +261,10 @@ Status Code: 200
 
 ## 7. <a name="ViewUserInfo">View User Info</a>
 
-Method | URI
---- | ---
-GET | /api/user
-GET | /api/user/{id}
+Method | URI | Remark
+--- | --- | ---
+GET | /api/user | JWT Auth token
+GET | /api/user/{id} | JWT Auth token
 
 ### JSON Response
 #### Success
@@ -293,9 +293,9 @@ Status Code: 404
 
 ## 8. <a name="ViewComicInfo">View Comic Info</a>
 
-Method | URI
---- | ---
-GET | /api/comic/{id}
+Method | URI | Remark
+--- | --- | ---
+GET | /api/comic/{id} | 
 
 ### JSON Response
 #### Success
@@ -337,9 +337,9 @@ Status Code: 404
 
 ## 9. <a name="ViewComicCover">View Comic Cover</a>
 
-Method | URI
---- | ---
-GET | /api/comic/{id}/cover
+Method | URI | Remark
+--- | --- | ---
+GET | /api/comic/{id}/cover | 
 
 ### Response
 #### Success
@@ -359,9 +359,9 @@ Status Code: 404
 
 ## 10. <a name="ViewChapterPage">View Chapter Page</a>
 
-Method | URI
---- | ---
-GET | /api/comic/chapter/{page}
+Method | URI | Remark
+--- | --- | ---
+GET | /api/comic/chapter/{page} | 
 
 ### Input Parameter
 
@@ -399,9 +399,9 @@ Status Code: 404
 
 ## 11. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
-Method | URI
---- | ---
-POST | /api/publish/chapter/{id}
+Method | URI | Remark
+--- | --- | ---
+POST | /api/publish/chapter/{id} | JWT Auth token
 
 ### Input Parameter
 
@@ -444,9 +444,9 @@ Status Code: 404
 
 ## 12. <a name="SearchComicsByName">Search Comics by Name</a>
 
-Method | URI
---- | ---
-GET | /api/name/{name}/{page}
+Method | URI | Remark
+--- | --- | ---
+GET | /api/name/{name}/{page} | 
 
 ### JSON Response
 #### Success
@@ -471,9 +471,9 @@ Status Code: 200
 
 ## 13. <a name="SearchComicsByPublisher">Search Comics by Publisher</a>
 
-Method | URI
---- | ---
-GET | /api/publisher/{user_id}/{page}
+Method | URI | Remark
+--- | --- | ---
+GET | /api/publisher/{user_id}/{page} | 
 
 ### JSON Response
 #### Success
