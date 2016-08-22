@@ -249,7 +249,13 @@ Status Code: 200
       "id": *id*,
       "name": *name*,
       "summary": *summary*,
-      "publish_by": *uploadUser*,
+      "publish_by": {
+        "id": *id*,
+        "name": *name*,
+        "email": *email*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*

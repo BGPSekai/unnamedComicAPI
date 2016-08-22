@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
+use App\Repositories\UserRepository;
 use Storage;
 use Response;
 use JWTAuth;
@@ -18,15 +19,19 @@ class ComicController extends Controller
     private $comicRepo;
     private $chapterRepo;
 
-    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, UserRepository $userRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->chapterRepo = $chapterRepo;
+        $this->userRepo = $userRepo;
     }
 
     public function index($page)
     {
         $comics = $this->comicRepo->index($page);
+        foreach ($comics as $key => $comic) {
+            $comics[$key]->publish_by = $this->userRepo->show($comic->publish_by);
+        }
         return response()->json(['status' => 'success', 'comics' => $comics]);
     }
 
