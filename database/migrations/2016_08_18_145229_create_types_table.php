@@ -15,6 +15,7 @@ class CreateTypesTable extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('is_tag');
             $table->integer('create_by');
             $table->timestamps();
         });

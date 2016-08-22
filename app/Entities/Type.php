@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     protected $fillable = [
-        'name', 'create_by',
+        'name', 'is_tag', 'create_by',
     ];
 }
