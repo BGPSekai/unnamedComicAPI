@@ -5,14 +5,19 @@
 3. [Reset Password](#ResetPassword)
 4. [Publish Comic](#PublishComic)
 5. [Publish Chapter](#PublishChapter)
-6. [List Comics](#ListComics)
-7. [View User Info](#ViewUserInfo)
-8. [View Comic Info](#ViewComicInfo)
-9. [View Comic Cover](#ViewComicCover)
-10. [View Chapter Page](#ViewChapterPage)
-11. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
-12. [Search Comics by Name](#SearchComicsByName)
-13. [Search Comics by Publisher](#SearchComicsByPublisher)
+6. [Tag Comic](#TagComic)
+7. [Untag Comic](#UntagComic)
+8. [List Comics](#ListComics)
+9. [List Types](ListTypes)
+10. [View User Info](#ViewUserInfo)
+11. [View Comic Info](#ViewComicInfo)
+12. [View Comic Cover](#ViewComicCover)
+13. [View Chapter Page](#ViewChapterPage)
+14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+15. [Search Comics by Name](#SearchComicsByName)
+16. [Search Comics by Publisher](#SearchComicsByPublisher)
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$17. [Search Comics by Type](SearchComicsbyType)
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$18. [Search Comics by Tag](SearchComicsbyTag)
 
 
 ## 1. <a name="Register">Register</a>
@@ -236,7 +241,53 @@ Status Code: 404
 }
 ```
 
-## 6. <a name="ListComics">List Comics</a>
+## 6. <a name="TagComic">Tag Comic</a>
+
+| Method | URI                              | Remark |
+|:------:| -------------------------------- | ------ |
+| GET    | /api/tag/{name}/comic/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "tag": {
+    "comic_id": *comic_id*,
+    "tag": *tag*,
+    "tag_by": *tag_by*,
+    "updated_at": *updateTime*,
+    "created_at": *createTime*,
+    "id": *id*
+  }
+}
+```
+
+## 7. <a name="UntagComic">Untag Comic</a>
+
+| Method | URI                              | Remark |
+|:------:| -------------------------------- | ------ |
+| Delete | /api/tag/{name}/comic/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 404
+{
+  "status": "success"
+}
+```
+
+#### Error
+```
+{
+  "status": "error",
+  "message": "Tag Not Found"
+}
+```
+
+## 8. <a name="ListComics">List Comics</a>
 
 | Method | URI                    | Remark |
 |:------:| ---------------------- | ------ |
@@ -271,7 +322,31 @@ Status Code: 200
 }
 ```
 
-## 7. <a name="ViewUserInfo">View User Info</a>
+## 9. <a name="ListTypes">List Types</a>
+
+| Method | URI       | Remark |
+|:------:| --------- | ------ |
+| GET    | /api/type |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "types": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    ...
+  ]
+}
+```
+
+## 10. <a name="ViewUserInfo">View User Info</a>
 
 | Method | URI            | Remark   |
 |:------:| -------------- | -------- |
@@ -303,7 +378,7 @@ Status Code: 404
 }
 ```
 
-## 8. <a name="ViewComicInfo">View Comic Info</a>
+## 11. <a name="ViewComicInfo">View Comic Info</a>
 
 | Method | URI             | Remark |
 |:------:| --------------- | ------ |
@@ -349,7 +424,7 @@ Status Code: 404
 }
 ```
 
-## 9. <a name="ViewComicCover">View Comic Cover</a>
+## 12. <a name="ViewComicCover">View Comic Cover</a>
 
 | Method | URI                   | Remark |
 |:------:| --------------------- | ------ |
@@ -371,7 +446,7 @@ Status Code: 404
 }
 ```
 
-## 10. <a name="ViewChapterPage">View Chapter Page</a>
+## 13. <a name="ViewChapterPage">View Chapter Page</a>
 
 | Method | URI                       | Remark |
 |:------:| ------------------------- | ------ |
@@ -411,7 +486,7 @@ Status Code: 404
 }
 ```
 
-## 11. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+## 14. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
 | Method | URI                       | Remark   |
 |:------:| ------------------------- | -------- |
@@ -456,7 +531,7 @@ Status Code: 404
 }
 ```
 
-## 12. <a name="SearchComicsByName">Search Comics by Name</a>
+## 15. <a name="SearchComicsByName">Search Comics by Name</a>
 
 | Method | URI                     | Remark |
 |:------:| ----------------------- | ------ |
@@ -485,11 +560,69 @@ Status Code: 200
 }
 ```
 
-## 13. <a name="SearchComicsByPublisher">Search Comics by Publisher</a>
+## 16. <a name="SearchComicsByPublisher">Search Comics by Publisher</a>
 
 | Method | URI                             | Remark |
 |:------:| ------------------------------- | ------ |
 | GET    | /api/publisher/{user_id}/{page} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "author": *author*,
+      "type": *type*,
+      "publish_by": *uploadUser*,
+      "chapters": *chapters*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    ...(9)
+  ]
+}
+```
+
+## 17. <a name="SearchComicsByType">Search Comics by Type</a>
+
+| Method | URI                   | Remark |
+|:------:| --------------------- | ------ |
+| GET    | /api/type/{id}/{page} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "author": *author*,
+      "type": *type*,
+      "publish_by": *uploadUser*,
+      "chapters": *chapters*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    ...(9)
+  ]
+}
+```
+
+## 18. <a name="SearchComicsByTag">Search Comics by Tag</a>
+
+| Method | URI                    | Remark |
+|:------:| ---------------------- | ------ |
+| GET    | /api/tag/{name}/{page} |        |
 
 ### JSON Response
 #### Success

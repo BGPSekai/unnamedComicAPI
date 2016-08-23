@@ -27,20 +27,8 @@ class DatabaseSeeder extends Seeder
 	        Type::create(
 	        	[
 	        		'name' => $type,
-                    'is_tag' => false,
-	        		'create_by' => 0
 	        	]
 	        );
-        }
-        $tags = ['已完結', 'NTR'];
-        foreach ($tags as $tag) {
-            Type::create(
-                [
-                    'name' => $tag,
-                    'is_tag' => true,
-                    'create_by' => 0
-                ]
-            );
         }
     }
 }
