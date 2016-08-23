@@ -61,7 +61,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	{
 		Route::get('/', 'TypeController@index');
 		Route::get('{id}', 'TypeController@count');
-		Route::get('{id}/{page}', 'TypeController@show');
+		Route::get('{id}/{page}', 'TypeController@find');
 	});
 
 	Route::group(['prefix' => 'tag'], function()
@@ -69,7 +69,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('{name}/comic/{comic_id}', 'TagController@store');
 		Route::delete('{name}/comic/{comic_id}', 'TagController@destroy');
 		Route::get('{name}', 'TagController@count');
-		Route::get('{name}/{page}', 'TagController@show');
+		Route::get('{name}/{page}', 'TagController@find');
 	});
 });
 

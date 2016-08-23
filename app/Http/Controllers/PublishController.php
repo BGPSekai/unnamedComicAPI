@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
+use App\Repositories\TypeRepository;
 use Auth;
 use Storage;
 use Validator;
@@ -17,10 +18,11 @@ class PublishController extends Controller
     private $comicRepo;
     private $chapterRepo;
 
-    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, TypeRepository $typeRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->chapterRepo = $chapterRepo;
+        $this->typeRepo = $typeRepo;
     }
 
     public function index(Request $request)
@@ -33,6 +35,8 @@ class PublishController extends Controller
  
         $data['publish_by'] = Auth::user()->id;
         $comic = $this->comicRepo->create($data);
+        $comic['type'] = $this->typeRepo->show($comic['type']);
+        $comic['publish_by'] = Auth::user();
 
         $cover = $request->file('cover');
         $extension = $cover->getClientOriginalExtension();
@@ -56,6 +60,7 @@ class PublishController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
         $chapter = $this->chapterRepo->create($data);
+        $chapter['publish_by'] = Auth::user();
 
         if (!$data['pages'])
             return response()->json(['status' => 'success', 'chapter' => $chapter]);
@@ -91,6 +96,7 @@ class PublishController extends Controller
         }
 
         $chapter = $this->chapterRepo->show($chapter_id);
+        $chapter['publish_by'] = Auth::user();
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 

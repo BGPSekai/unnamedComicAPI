@@ -162,14 +162,25 @@ Status Code : 200
 {
   "status": "success",
   "comic": {
-  "name": *name*,
-  "summary": *summary*,
-  "author": *author*,
-  "type": *type*,
-  "publish_by": *uploadUser*,
-  "updated_at": *updateTime*,
-  "created_at": *createTime*,
-  "id": *id*
+    "name": *name*,
+    "summary": *summary*,
+    "author": *author*,
+    "type": {
+      "id": *id*,
+      "name": *name*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    "publish_by": {
+      "id": *id*,
+      "name": *name*,
+      "email": *email*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    "updated_at": *updateTime*,
+    "created_at": *createTime*,
+    "id": *id*
   }
 }
 ```
@@ -206,20 +217,13 @@ Status Code: 200
     "comic_id": *comic_id*,
     "name": *name*,
     "pages": *pages*,
-    "publish_by": *uploadUser*,
-    "updated_at": *updateTime*,
-    "created_at": *createTime*,
-    "id": *id*
-  }
-}
-- or -
-{
-  "status": "success",
-  "chapter": {
-    "comic_id": *comic_id*,
-    "name": *name*,
-    "pages": *pages*,
-    "publish_by": *uploadUser*,
+    "publish_by": {
+      "id": *id*,
+      "name": *name*,
+      "email": *email*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*
@@ -257,7 +261,13 @@ Status Code: 200
   "tag": {
     "comic_id": *comic_id*,
     "tag": *tag*,
-    "tag_by": *tag_by*,
+    "tag_by": {
+      "id": *id*,
+      "name": *name*,
+      "email": *email*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*
@@ -315,7 +325,12 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type*,
+      "type": {
+        "id": *id*,
+        "name": *name*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "publish_by": {
         "id": *id*,
         "name": *name*,
@@ -404,8 +419,19 @@ Status Code: 404
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": *type*,
-    "publish_by": *uploadUser*,
+    "type": {
+      "id": *id*,
+      "name": *name*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
+    "publish_by": {
+      "id": *id*,
+      "name": *name*,
+      "email": *email*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
     "chapters": *chapters*,
     "created_at": *createTime*,
     "updated_at": *updateTime*"
@@ -519,7 +545,13 @@ Status Code: 200
     "comic_id": *comic_id*,
     "name": *name*,
     "pages": *pages*,
-    "publish_by": *uploadUser*,
+    "publish_by": {
+      "id": *id*,
+      "name": *name*,
+      "email": *email*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*
+    },
     "created_at": *createTime*,
     "updated_at": *updateTime*
   }
@@ -559,8 +591,19 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type*,
-      "publish_by": *uploadUser*,
+      "type": {
+        "id": *id*,
+        "name": *name*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
+      "publish_by": {
+        "id": *id*,
+        "name": *name*,
+        "email": *email*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*
@@ -588,8 +631,19 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type*,
-      "publish_by": *uploadUser*,
+      "type": {
+        "id": *id*,
+        "name": *name*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
+      "publish_by": {
+        "id": *id*,
+        "name": *name*,
+        "email": *email*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*
@@ -617,8 +671,19 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type*,
-      "publish_by": *uploadUser*,
+      "type": {
+        "id": *id*,
+        "name": *name*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
+      "publish_by": {
+        "id": *id*,
+        "name": *name*,
+        "email": *email*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*
@@ -646,8 +711,19 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type*,
-      "publish_by": *uploadUser*,
+      "type": {
+        "id": *id*,
+        "name": *name*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
+      "publish_by": {
+        "id": *id*,
+        "name": *name*,
+        "email": *email*,
+        "created_at": *createTime*,
+        "updated_at": *updateTime*
+      },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*

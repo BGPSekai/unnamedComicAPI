@@ -12,6 +12,11 @@ class TypeRepository
 		return Type::get();
 	}
 
+	public function show($id)
+	{
+		return Type::find($id);
+	}
+
 	public function find($id, $page)
 	{
 		return

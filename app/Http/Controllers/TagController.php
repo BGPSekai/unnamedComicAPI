@@ -6,22 +6,25 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Repositories\TypeRepository;
 use App\Repositories\TagRepository;
 use Auth;
 
 class TagController extends Controller
 {
-    public function __construct(TagRepository $repo)
+    public function __construct(TypeRepository $typeRepo, TagRepository $tagRepo)
     {
-        $this->repo = $repo;
         $this->middleware('jwt.auth', ['except' => ['show']]);
+        $this->typeRepo = $typeRepo;
+        $this->tagRepo = $tagRepo;
     }
 
     public function store($name, $comic_id)
     {
     	$data = ['comic_id' => $comic_id, 'tag' => $name, 'tag_by' => Auth::user()->id];
 
-    	$tag = $this->repo->store($data);
+    	$tag = $this->tagRepo->store($data);
+        $tag['tag_by'] = Auth::user();
 
         if (!$tag)
             return response()->json(['status' => 'error', 'message' => 'Tag Exist']);
@@ -32,7 +35,7 @@ class TagController extends Controller
     public function destroy($name, $comic_id)
     {
         try {
-            $this->repo->destroy($name, $comic_id);
+            $this->tagRepo->destroy($name, $comic_id);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Tag Not Found'], 404);
         }
@@ -40,9 +43,12 @@ class TagController extends Controller
     	return response()->json(['status' => 'success']);
     }
 
-    public function show($name, $page)
+    public function find($name, $page)
     {
-        $comics = $this->repo->find($name, $page);
+        $comics = $this->tagRepo->find($name, $page);
+        foreach ($comics as $key => $comic) {
+            $comics[$key]['type'] = $this->typeRepo->show($comic['type']);
+        }
         return response()->json(['status' => 'success', 'comics' => $comics]);
     }
 
