@@ -47,4 +47,9 @@ class TagRepository
 	{
 		return ceil(Tag::where('tag', $name)->count()/10);
 	}
+
+	public function show($comic_id)
+	{
+		return Tag::where('comic_id', $comic_id)->get();
+	}
 }

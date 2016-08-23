@@ -9,15 +9,17 @@ use App\Http\Requests;
 use App\Repositories\ComicRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\TypeRepository;
+use App\Repositories\TagRepository;
 use Auth;
 
 class SearchController extends Controller
 {
-    public function __construct(ComicRepository $comicRepo, UserRepository $userRepo, TypeRepository $typeRepo)
+    public function __construct(ComicRepository $comicRepo, UserRepository $userRepo, TypeRepository $typeRepo, TagRepository $tagRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->userRepo = $userRepo;
         $this->typeRepo = $typeRepo;
+        $this->tagRepo = $tagRepo;
     }
 
     public function name($name, $page)
@@ -25,6 +27,7 @@ class SearchController extends Controller
         $result = $this->comicRepo->searchName($name, $page);
         foreach ($result as $key => $comic) {
             $result[$key]['type'] = $this->typeRepo->show($comic['type']);
+            $result[$key]['tags'] = $this->tagRepo->show($comic['id']);
             $result[$key]['publish_by'] = $this->userRepo->show($comic['publish_by']);
         }
         return response()->json(['status' => 'success', 'comics' => $result]);
@@ -35,6 +38,7 @@ class SearchController extends Controller
         $result = $this->comicRepo->searchPublisher($user_id, $page);
         foreach ($result as $key => $comic) {
             $result[$key]['type'] = $this->typeRepo->show($comic['type']);
+            $result[$key]['tags'] = $this->tagRepo->show($comic['id']);
             $result[$key]['publish_by'] = $this->userRepo->show($comic['publish_by']);
         }
         return response()->json(['status' => 'success', 'comics' => $result]);

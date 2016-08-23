@@ -10,6 +10,7 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\TypeRepository;
+use App\Repositories\TagRepository;
 use Storage;
 use Response;
 use JWTAuth;
@@ -20,12 +21,13 @@ class ComicController extends Controller
     private $comicRepo;
     private $chapterRepo;
 
-    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, UserRepository $userRepo, TypeRepository $typeRepo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, UserRepository $userRepo, TypeRepository $typeRepo, TagRepository $tagRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->chapterRepo = $chapterRepo;
         $this->userRepo = $userRepo;
         $this->typeRepo = $typeRepo;
+        $this->tagRepo = $tagRepo;
     }
 
     public function index($page)
@@ -33,6 +35,7 @@ class ComicController extends Controller
         $comics = $this->comicRepo->index($page);
         foreach ($comics as $key => $comic) {
             $comics[$key]->type = $this->typeRepo->show($comic->type);
+            $comics[$key]->tags = $this->tagRepo->show($comic->id);
             $comics[$key]->publish_by = $this->userRepo->show($comic->publish_by);
         }
         return response()->json(['status' => 'success', 'comics' => $comics]);
@@ -41,9 +44,10 @@ class ComicController extends Controller
     public function show($id)
     {
         $comic = $this->comicRepo->show($id);
-        if (!isset($comic))
+        if (!$comic)
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
         $comic['type'] = $this->typeRepo->show($comic['type']);
+        $comic['tags'] = $this->tagRepo->show($comic['id']);
         $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);
 
         $chapters = $this->chapterRepo->find($id);
