@@ -8,7 +8,7 @@
 6. [Tag Comic](#TagComic)
 7. [Untag Comic](#UntagComic)
 8. [List Comics](#ListComics)
-9. [List Types](ListTypes)
+9. [List Types](#ListTypes)
 10. [View User Info](#ViewUserInfo)
 11. [View Comic Info](#ViewComicInfo)
 12. [View Comic Cover](#ViewComicCover)
@@ -16,9 +16,9 @@
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 15. [Search Comics by Name](#SearchComicsByName)
 16. [Search Comics by Publisher](#SearchComicsByPublisher)
-17. [Search Comics by Type](SearchComicsbyType)
-18. [Search Comics by Tag](SearchComicsbyTag)
-19. [Show Pages](ShowPages)
+17. [Search Comics by Type](#SearchComicsbyType)
+18. [Search Comics by Tag](#SearchComicsbyTag)
+19. [Show Pages](#ShowPages)
 
 
 ## 1. <a name="Register">Register</a>
