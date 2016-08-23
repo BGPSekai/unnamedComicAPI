@@ -9,8 +9,8 @@ use App\Http\Requests;
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Auth;
-use Validator;
 use Storage;
+use Validator;
 
 class PublishController extends Controller
 {
@@ -25,7 +25,7 @@ class PublishController extends Controller
 
     public function index(Request $request)
     {
-		$data = $request->only('name', 'summary', 'author', 'type', 'cover');
+        $data = $request->only('name', 'summary', 'author', 'type', 'cover');
         $validator = $this->validator($data);
 
         if ($validator->fails())

@@ -16,8 +16,8 @@
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 15. [Search Comics by Name](#SearchComicsByName)
 16. [Search Comics by Publisher](#SearchComicsByPublisher)
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$17. [Search Comics by Type](SearchComicsbyType)
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$18. [Search Comics by Tag](SearchComicsbyTag)
+17. [Search Comics by Type](SearchComicsbyType)
+18. [Search Comics by Tag](SearchComicsbyTag)
 
 
 ## 1. <a name="Register">Register</a>
