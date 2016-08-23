@@ -24,6 +24,13 @@ class TagRepository
 
 	public function store($data)
 	{
+		$tag = Tag::where('comic_id', $data['comic_id'])
+			->where('tag', $data['tag'])
+			->first();
+
+		if ($tag)
+			return false;
+
 		return Tag::create($data);
 	}
 

@@ -264,6 +264,15 @@ Status Code: 200
 }
 ```
 
+#### Error
+```
+Status Code: 403
+{
+  "status": "error",
+  "message": "Tag Exist"
+}
+```
+
 ## 7. <a name="UntagComic">Untag Comic</a>
 
 | Method | URI                              | Remark |
