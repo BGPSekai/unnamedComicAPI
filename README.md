@@ -34,3 +34,13 @@ max_file_uploads = 0
 
 #### If you cannot store any file, remember to chmod.
 #### You can also edit .htaccess to do what you want.
+
+# Usage
+## JWT Auth
+
+```
+{URI}?token={token}
+- or -
+Headers
+  Authorization: Bearer {token}
+```
