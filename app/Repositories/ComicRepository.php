@@ -43,4 +43,19 @@ class ComicRepository
 	{
 		return Comic::where('publish_by', $user_id)->skip(($page - 1) * 10)->take(10)->get();
 	}
+
+	public function count()
+	{
+		return ceil(Comic::count()/10);
+	}
+
+	public function countNameSearch($name)
+	{
+		return ceil(Comic::where('name', 'LIKE', '%'.$name.'%')->count()/10);
+	}
+
+	public function countPublisherSearch($user_id)
+	{
+		return ceil(Comic::where('publish_by', $user_id)->count()/10);
+	}
 }

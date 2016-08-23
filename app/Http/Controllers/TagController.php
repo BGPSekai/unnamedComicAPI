@@ -45,4 +45,9 @@ class TagController extends Controller
         $comics = $this->repo->find($name, $page);
         return response()->json(['status' => 'success', 'comics' => $comics]);
     }
+
+    public function count($name)
+    {
+        return response()->json(['status' => 'success', 'pages' => $this->repo->count($name)]);
+    }
 }

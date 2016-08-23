@@ -27,4 +27,14 @@ class SearchController extends Controller
         $result = $this->comicRepo->searchPublisher($user_id, $page);
         return response()->json(['status' => 'success', 'comics' => $result]);
     }
+
+    public function countName($name)
+    {
+        return response()->json(['status' => 'success', 'pages' => $this->comicRepo->countNameSearch($name)]);
+    }
+
+    public function countPublisher($user_id)
+    {
+        return response()->json(['status' => 'success', 'pages' => $this->comicRepo->countPublisherSearch($user_id)]);
+    }
 }

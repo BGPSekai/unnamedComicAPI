@@ -42,4 +42,9 @@ class TagRepository
 			->id;
 		return Tag::destroy($tag);
 	}
+
+	public function count($name)
+	{
+		return ceil(Tag::where('tag', $name)->count()/10);
+	}
 }

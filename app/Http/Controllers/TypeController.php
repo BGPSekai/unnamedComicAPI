@@ -26,4 +26,9 @@ class TypeController extends Controller
     	$comics = $this->repo->find($id, $page);
     	return response()->json(['status' => 'success', 'comics' => $comics]);
     }
+
+    public function count($id)
+    {
+        return response()->json(['status' => 'success', 'pages' => $this->repo->count($id)]);
+    }
 }

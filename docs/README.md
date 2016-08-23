@@ -18,6 +18,7 @@
 16. [Search Comics by Publisher](#SearchComicsByPublisher)
 17. [Search Comics by Type](SearchComicsbyType)
 18. [Search Comics by Tag](SearchComicsbyTag)
+19. [Show Pages](ShowPages)
 
 
 ## 1. <a name="Register">Register</a>
@@ -653,5 +654,25 @@ Status Code: 200
     },
     ...(9)
   ]
+}
+```
+
+## 19. <a name="ShowPages">Show Pages</a>
+
+| Method | URI                             | Remark |
+|:------:| ------------------------------- | ------ |
+| GET    | /api/comic/page                 |        |
+| GET    | /api/search/name/{name}         |        |
+| GET    | /api/search/publisher/{user_id} |        |
+| GET    | /api/type/{id}                  |        |
+| GET    | /api/tag/{name}                 |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "pages": *pages*
 }
 ```
