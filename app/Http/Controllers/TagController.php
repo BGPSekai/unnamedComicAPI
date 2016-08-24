@@ -66,6 +66,6 @@ class TagController extends Controller
 
     public function count($name)
     {
-        return response()->json(['status' => 'success', 'pages' => $this->repo->count($name)]);
+        return response()->json(['status' => 'success', 'pages' => $this->tagRepo->count($name)]);
     }
 }
