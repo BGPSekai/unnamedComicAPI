@@ -24,7 +24,7 @@ class ChapterRepository
 
 	public function show($id)
 	{
-		return Chapter::get()->find($id);
+		return Chapter::find($id);
 	}
 
 	public function count($id)
