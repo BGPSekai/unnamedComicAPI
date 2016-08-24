@@ -197,7 +197,7 @@ Status Code: 400
 ## 5. <a name="PublishChapter">Publish Chapter</a>
 
 | Method | URI               | Remark   |
-|:------:| ----------------_ | -------- |
+|:------:| ----------------- | -------- |
 | POST   | /api/publish/{id} | JWT Auth |
 
 ### Input Parameter
