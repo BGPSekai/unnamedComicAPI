@@ -50,6 +50,6 @@ class TagRepository
 
 	public function show($comic_id)
 	{
-		return Tag::where('comic_id', $comic_id)->get();
+		return Tag::where('comic_id', $comic_id)->pluck('tag');
 	}
 }

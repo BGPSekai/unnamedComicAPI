@@ -27,16 +27,16 @@ class PublishController extends Controller
 
     public function index(Request $request)
     {
+        $user = Auth::user();
         $data = $request->only('name', 'summary', 'author', 'type', 'cover');
         $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
-        $data['publish_by'] = Auth::user()->id;
-        $comic = $this->comicRepo->create($data);
         $comic['type'] = $this->typeRepo->show($comic['type']);
-        $comic['publish_by'] = Auth::user();
+        $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+        $comic = $this->comicRepo->create($data);
 
         $cover = $request->file('cover');
         $extension = $cover->getClientOriginalExtension();
@@ -51,16 +51,18 @@ class PublishController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
         $data = $request->only('name', 'images');
-        $data['comic_id'] = $id;
-        $data['pages'] = count($request->images);
-        $data['publish_by'] = Auth::user()->id;
         $validator = $this->chapterValidator($data);
         
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
+        $data['comic_id'] = $id;
+        $data['pages'] = count($request->images);
+        $data['publish_by'] = Auth::user()->id;
+
         $chapter = $this->chapterRepo->create($data);
-        $chapter['publish_by'] = Auth::user();
+
+        $chapter['publish_by'] = ['id' => Auth::user()->id, 'name' => Auth::user()->name];
 
         if (!$data['pages'])
             return response()->json(['status' => 'success', 'chapter' => $chapter]);
@@ -82,12 +84,12 @@ class PublishController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
 
         $data = $request->only('images');
-        $data['pages'] = count($request->images);
         $validator = $this->batchValidator($data);
-        
+
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
+        $data['pages'] = count($request->images);
         $this->chapterRepo->updatePages($chapter_id, $chapter->pages + $data['pages']);
 
         foreach ($request->images as $key => $image) {
@@ -96,7 +98,7 @@ class PublishController extends Controller
         }
 
         $chapter = $this->chapterRepo->show($chapter_id);
-        $chapter['publish_by'] = Auth::user();
+        $chapter['publish_by'] = ['id' => Auth::user()->id, 'name' => Auth::user()->name];
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 

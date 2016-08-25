@@ -13,8 +13,8 @@ class ComicRepository
 	            'name' => $data['name'],
 	            'summary' => $data['summary'],
 	            'author' => $data['author'],
-	            'type' => $data['type'],
-	            'publish_by' => $data['publish_by'],
+	            'type' => $data['type']['id'],
+	            'publish_by' => $data['publish_by']['id'],
 	        ]);;
 	}
 

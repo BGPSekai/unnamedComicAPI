@@ -18,7 +18,11 @@ class UserRepository
 
 	public function show($id)
 	{
-		return
-			User::find($id);
+		return User::select('id', 'name')->find($id);
+	}
+
+	public function showDetail($id)
+	{
+		return User::find($id);
 	}
 }

@@ -371,7 +371,8 @@ Status Code: 200
       },
       "chapters": *chapters*,
       "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "updated_at": *updateTime*,
+      "tags": *tags[Array]*
     },
     ...(9)
   ]
@@ -617,9 +618,9 @@ Status Code: 404
 
 ## 15. <a name="SearchComicsByName">Search Comics by Name</a>
 
-| Method | URI                     | Remark |
-|:------:| ----------------------- | ------ |
-| GET    | /api/name/{name}/{page} |        |
+| Method | URI                            | Remark |
+|:------:| ------------------------------ | ------ |
+| GET    | /api/search/name/{name}/{page} |        |
 
 ### JSON Response
 #### Success

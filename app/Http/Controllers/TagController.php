@@ -25,19 +25,20 @@ class TagController extends Controller
 
     public function store($name, $comic_id)
     {
-    	$data = ['comic_id' => $comic_id, 'tag' => $name, 'tag_by' => Auth::user()->id];
+        $comic = $this->comicRepo->show($comic_id);
+        if (!$comic)
+            return response()->json(['status' => 'error', 'message' => 'Comic Not Found']);
 
-    	$tag = $this->tagRepo->store($data);
+        $data = ['comic_id' => $comic_id, 'tag' => $name, 'tag_by' => Auth::user()->id];
+
+        $tag = $this->tagRepo->store($data);
 
         if (!$tag)
             return response()->json(['status' => 'error', 'message' => 'Tag Exist']);
 
-        $tag['tag_by'] = Auth::user();
+        $tags = $this->tagRepo->show($comic_id);
 
-        $comic = $this->comicRepo->show($comic_id);
-        $comic['tags'] = $this->tagRepo->show($comic_id);
-
-    	return response()->json(['status' => 'success', 'comic' => $comic]);
+        return response()->json(['status' => 'success', 'tags' => $tags]);
     }
 
     public function destroy($name, $comic_id)
@@ -51,7 +52,7 @@ class TagController extends Controller
         $comic = $this->comicRepo->show($comic_id);
         $comic['tags'] = $this->tagRepo->show($comic_id);
 
-    	return response()->json(['status' => 'success', 'comic' => $comic]);
+        return response()->json(['status' => 'success', 'comic' => $comic]);
     }
 
     public function find($name, $page)

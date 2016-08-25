@@ -9,12 +9,12 @@ class TypeRepository
 {
 	public function index()
 	{
-		return Type::get();
+		return Type::select('id', 'name')->get();
 	}
 
 	public function show($id)
 	{
-		return Type::find($id);
+		return Type::find($id)->name;
 	}
 
 	public function find($id, $page)
