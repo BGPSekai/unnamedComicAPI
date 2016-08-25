@@ -16,7 +16,7 @@ class TagController extends Controller
 {
     public function __construct(TypeRepository $typeRepo, TagRepository $tagRepo, UserRepository $userRepo, ComicRepository $comicRepo)
     {
-        $this->middleware('jwt.auth', ['except' => ['show']]);
+        $this->middleware('jwt.auth', ['except' => ['find', 'count']]);
         $this->typeRepo = $typeRepo;
         $this->tagRepo = $tagRepo;
         $this->userRepo = $userRepo;
@@ -49,16 +49,16 @@ class TagController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Tag Not Found'], 404);
         }
 
-        $comic = $this->comicRepo->show($comic_id);
-        $comic['tags'] = $this->tagRepo->show($comic_id);
+        $tags = $this->tagRepo->show($comic_id);
 
-        return response()->json(['status' => 'success', 'comic' => $comic]);
+        return response()->json(['status' => 'success', 'tags' => $tags]);
     }
 
     public function find($name, $page)
     {
         $comics = $this->tagRepo->find($name, $page);
         foreach ($comics as $key => $comic) {
+            $comics[$key]['publish_by'] = $this->userRepo->show($comic['publish_by']);
             $comics[$key]['type'] = $this->typeRepo->show($comic['type']);
             $comics[$key]['tags'] = $this->tagRepo->show($comic['id']);
         }
