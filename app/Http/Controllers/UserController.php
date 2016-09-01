@@ -25,9 +25,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-    	$user = $this->repo->showDetail($id);
-
-        if (!$user)
+        if (! $user = $this->repo->showDetail($id))
             return response()->json(['status' => 'error', 'message' => 'User Not Found'], 404);
 
     	return response()->json(['status' => 'success', 'user' => $user]);
