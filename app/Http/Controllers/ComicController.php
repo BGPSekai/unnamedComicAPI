@@ -38,15 +38,15 @@ class ComicController extends Controller
             $comic->tags = $this->tagRepo->show($comic->id);
             $comic->publish_by = $this->userRepo->show($comic->publish_by);
         }
-        
+
         return response()->json(['status' => 'success', 'comics' => $comics]);
     }
 
     public function show($id)
     {
-        $comic = $this->comicRepo->show($id);
-        if (!$comic)
+        if (! $comic = $this->comicRepo->show($id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
+
         $comic['type'] = $this->typeRepo->show($comic['type']);
         $comic['tags'] = $this->tagRepo->show($comic['id']);
         $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);

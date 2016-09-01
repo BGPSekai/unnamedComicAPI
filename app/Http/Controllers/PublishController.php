@@ -63,7 +63,9 @@ class PublishController extends Controller
         $data['publish_by'] = Auth::user()->id;
         $chapter = $this->chapterRepo->create($data);
         $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
-
+        $chapters = $this->chapterRepo->count($id);
+        $this->comicRepo->updateChapters($id, $chapters);
+        
         if (!$data['pages'])
             return response()->json(['status' => 'success', 'chapter' => $chapter]);
 
@@ -71,9 +73,6 @@ class PublishController extends Controller
             $extension = $image->getClientOriginalExtension();
             $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $image);
         }
-
-        $chapters = $this->chapterRepo->count($id);
-        $this->comicRepo->updateChapters($id, $chapters);
 
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
