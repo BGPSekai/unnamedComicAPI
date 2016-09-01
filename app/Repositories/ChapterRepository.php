@@ -17,9 +17,9 @@ class ChapterRepository
 	        ]);;
 	}
 
-	public function find($id)
+	public function find($comic_id)
 	{
-		return Chapter::where('comic_id', $id)->get();
+		return Chapter::where('comic_id', $comic_id)->get();
 	}
 
 	public function show($id)
@@ -27,9 +27,9 @@ class ChapterRepository
 		return Chapter::find($id);
 	}
 
-	public function count($id)
+	public function count($comic_id)
 	{
-		return Chapter::where('comic_id', $id)->count();
+		return Chapter::where('comic_id', $comic_id)->count();
 	}
 
 	public function updatePages($id, $pages)

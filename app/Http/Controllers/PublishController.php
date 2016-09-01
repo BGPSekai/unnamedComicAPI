@@ -10,6 +10,8 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use App\Repositories\TypeRepository;
 use Auth;
+use JWTAuth;
+use JWTFactory;
 use Storage;
 use Validator;
 
@@ -46,9 +48,9 @@ class PublishController extends Controller
         return response()->json(['status' => 'success','comic' => $comic]);
     }
 
-    public function chapter(Request $request, $id)
+    public function chapter(Request $request, $comic_id)
     {
-        if (!$this->comicRepo->show($id))
+        if (!$this->comicRepo->show($comic_id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
         $user = Auth::user();
@@ -58,20 +60,27 @@ class PublishController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        $data['comic_id'] = $id;
+        $data['comic_id'] = $comic_id;
         $data['pages'] = count($request->images);
         $data['publish_by'] = Auth::user()->id;
         $chapter = $this->chapterRepo->create($data);
         $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
-        $chapters = $this->chapterRepo->count($id);
-        $this->comicRepo->updateChapters($id, $chapters);
+        $chapter['token'] = (string) JWTAuth::encode(
+            JWTFactory::make([
+                'comic_id' => $comic_id,
+                'chapter_id' => $chapter->id,
+                'pages' => $chapter->pages
+            ])
+        );
+        $chapters = $this->chapterRepo->count($comic_id);
+        $this->comicRepo->updateChapters($comic_id, $chapters);
         
         if (!$data['pages'])
             return response()->json(['status' => 'success', 'chapter' => $chapter]);
 
         foreach ($request->images as $key => $image) {
             $extension = $image->getClientOriginalExtension();
-            $this->storeFile('comics/'.$id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $image);
+            $this->storeFile('comics/'.$comic_id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $image);
         }
 
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
