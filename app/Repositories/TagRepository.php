@@ -16,9 +16,9 @@ class TagRepository
 	{
 		$tags = Tag::where('tag', $name)->skip(($page - 1) * 10)->take(10)->get();
 		$comics = [];
-		foreach ($tags as $key => $tag) {
+		foreach ($tags as $tag)
 			array_push($comics, $this->comicRepo->show($tag->comic_id));
-		}
+
 		return $comics;
 	}
 
