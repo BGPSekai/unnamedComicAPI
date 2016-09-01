@@ -35,7 +35,6 @@ class PublishController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
         $data['publish_by'] = $user->id;
-        
         $comic = $this->comicRepo->create($data);
         $comic['type'] = $this->typeRepo->show($comic['type']);
         $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
@@ -52,6 +51,7 @@ class PublishController extends Controller
         if (!$this->comicRepo->show($id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
+        $user = Auth::user();
         $data = $request->only('name', 'images');
         $validator = $this->chapterValidator($data);
         
@@ -61,10 +61,8 @@ class PublishController extends Controller
         $data['comic_id'] = $id;
         $data['pages'] = count($request->images);
         $data['publish_by'] = Auth::user()->id;
-
         $chapter = $this->chapterRepo->create($data);
-
-        $chapter['publish_by'] = ['id' => Auth::user()->id, 'name' => Auth::user()->name];
+        $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
 
         if (!$data['pages'])
             return response()->json(['status' => 'success', 'chapter' => $chapter]);
