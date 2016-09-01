@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Repositories\UserRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\TagRepository;
 
 class TypeController extends Controller
 {
-    public function __construct(TypeRepository $typeRepo, TagRepository $tagRepo)
+    public function __construct(UserRepository $userRepo, TypeRepository $typeRepo, TagRepository $tagRepo)
     {
+        $this->userRepo = $userRepo;
         $this->typeRepo = $typeRepo;
         $this->tagRepo = $tagRepo;
     }
@@ -26,10 +28,12 @@ class TypeController extends Controller
     public function find($id, $page)
     {
     	$comics = $this->typeRepo->find($id, $page);
-        foreach ($comics as $key => $comic) {
-            $comics[$key]['type'] = $this->typeRepo->show($comic['type']);
-            $comics[$key]['tags'] = $this->tagRepo->show($comic['id']);
+        foreach ($comics as $comic) {
+            $comic['type'] = $this->typeRepo->show($comic['type']);
+            $comic['tags'] = $this->tagRepo->show($comic['id']);
+            $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);
         }
+
     	return response()->json(['status' => 'success', 'comics' => $comics]);
     }
 
