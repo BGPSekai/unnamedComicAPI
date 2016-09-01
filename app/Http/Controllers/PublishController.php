@@ -83,6 +83,7 @@ class PublishController extends Controller
         if (! $chapter = $this->chapterRepo->show($chapter_id))
             return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
 
+        $user = Auth::user();
         $data = $request->only('images');
         $validator = $this->batchValidator($data);
 
@@ -98,7 +99,7 @@ class PublishController extends Controller
         }
 
         $chapter = $this->chapterRepo->show($chapter_id);
-        $chapter['publish_by'] = ['id' => Auth::user()->id, 'name' => Auth::user()->name];
+        $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 
