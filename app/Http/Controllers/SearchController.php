@@ -10,7 +10,6 @@ use App\Repositories\ComicRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\TagRepository;
-use Auth;
 
 class SearchController extends Controller
 {
