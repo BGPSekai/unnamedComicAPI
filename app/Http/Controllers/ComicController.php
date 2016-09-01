@@ -32,14 +32,7 @@ class ComicController extends Controller
 
     public function index($page)
     {
-        $comics = $this->comicRepo->index($page);
-        foreach ($comics as $comic) {
-            $comic->type = $this->typeRepo->show($comic->type);
-            $comic->tags = $this->tagRepo->show($comic->id);
-            $comic->publish_by = $this->userRepo->show($comic->publish_by);
-        }
-
-        return response()->json(['status' => 'success', 'comics' => $comics]);
+        return response()->json(['status' => 'success', 'comics' => $this->comicRepo->index($page)]);
     }
 
     public function show($id)

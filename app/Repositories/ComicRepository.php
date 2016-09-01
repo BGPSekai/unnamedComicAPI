@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use App\Entities\Comic;
+use App\Entities\User;
+use App\Entities\Type;
+use App\Entities\Tag;
 
 class ComicRepository
 {
@@ -20,8 +23,14 @@ class ComicRepository
 
 	public function index($page)
 	{
-		return
-			Comic::orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        foreach ($comics as $comic) {
+            $comic->type = Type::select('id', 'name')->find($comic->type);
+            $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
+            $comic->publish_by = User::select('id', 'name')->find($comic->publish_by);
+        }
+
+		return $comics;
 	}
 
 	public function show($id)
