@@ -38,7 +38,6 @@ class PublishController extends Controller
  
         $data['publish_by'] = $user->id;
         $comic = $this->comicRepo->create($data);
-        $comic['type'] = $this->typeRepo->show($comic['type']);
         $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
 
         $cover = $request->file('cover');

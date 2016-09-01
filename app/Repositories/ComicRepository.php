@@ -11,14 +11,16 @@ class ComicRepository
 {
 	public function create(array $data)
 	{
-		return 
-	        Comic::create([
-	            'name' => $data['name'],
-	            'summary' => $data['summary'],
-	            'author' => $data['author'],
-	            'type' => $data['type'],
-	            'publish_by' => $data['publish_by'],
-	        ]);;
+		$comic = Comic::create([
+            'name' => $data['name'],
+            'summary' => $data['summary'],
+            'author' => $data['author'],
+            'type' => $data['type'],
+            'publish_by' => $data['publish_by'],
+        ]);
+        $comic->type = Type::select('id', 'name')->find($comic->type);
+		return $comic;
+	        
 	}
 
 	public function index($page)
