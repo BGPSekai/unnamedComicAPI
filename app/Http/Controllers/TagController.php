@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Repositories\ComicRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\TagRepository;
-use App\Repositories\UserRepository;
-use App\Repositories\ComicRepository;
 use Auth;
 
 class TagController extends Controller
