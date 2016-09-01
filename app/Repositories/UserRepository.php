@@ -13,7 +13,7 @@ class UserRepository
 	            'name' => $data['name'],
 	            'email' => $data['email'],
 	            'password' => bcrypt($data['password']),
-	        ]);;
+	        ]);
 	}
 
 	public function show($id)
