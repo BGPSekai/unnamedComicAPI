@@ -25,22 +25,24 @@ class SearchController extends Controller
     public function name($name, $page)
     {
         $result = $this->comicRepo->searchName($name, $page);
-        foreach ($result as $key => $comic) {
-            $result[$key]['type'] = $this->typeRepo->show($comic['type']);
-            $result[$key]['tags'] = $this->tagRepo->show($comic['id']);
-            $result[$key]['publish_by'] = $this->userRepo->show($comic['publish_by']);
+        foreach ($result as $comic) {
+            $comic['type'] = $this->typeRepo->show($comic['type']);
+            $comic['tags'] = $this->tagRepo->show($comic['id']);
+            $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);
         }
+
         return response()->json(['status' => 'success', 'comics' => $result]);
     }
 
     public function publisher($user_id, $page)
     {
         $result = $this->comicRepo->searchPublisher($user_id, $page);
-        foreach ($result as $key => $comic) {
-            $result[$key]['type'] = $this->typeRepo->show($comic['type']);
-            $result[$key]['tags'] = $this->tagRepo->show($comic['id']);
-            $result[$key]['publish_by'] = $this->userRepo->show($comic['publish_by']);
+        foreach ($result as $comic) {
+            $comic['type'] = $this->typeRepo->show($comic['type']);
+            $comic['tags'] = $this->tagRepo->show($comic['id']);
+            $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);
         }
+
         return response()->json(['status' => 'success', 'comics' => $result]);
     }
 
