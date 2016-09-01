@@ -53,8 +53,8 @@ class ComicController extends Controller
 
         $chapters = $this->chapterRepo->find($id);
         foreach ($chapters as $key => $chapter) {
-            $chapters[$key]['publish_by'] = $this->userRepo->show($chapter['publish_by']);
-            $chapters[$key]['token'] = (string) JWTAuth::encode(
+            $chapter['publish_by'] = $this->userRepo->show($chapter['publish_by']);
+            $chapter['token'] = (string) JWTAuth::encode(
                 JWTFactory::make([
                     'comic_id' => $id,
                     'chapter_id' => $chapter->id,
