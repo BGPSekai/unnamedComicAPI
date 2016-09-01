@@ -34,9 +34,11 @@ class PublishController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
+        $data['publish_by'] = $user->id;
+        
+        $comic = $this->comicRepo->create($data);
         $comic['type'] = $this->typeRepo->show($comic['type']);
         $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
-        $comic = $this->comicRepo->create($data);
 
         $cover = $request->file('cover');
         $extension = $cover->getClientOriginalExtension();
