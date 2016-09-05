@@ -39,7 +39,7 @@ max_file_uploads = 0
 ## JWT Auth
 
 ```
-{URI}?token={token}
+{URL}?token={token}
 - or -
 Headers
   Authorization: Bearer {token}
