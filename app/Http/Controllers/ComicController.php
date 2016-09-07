@@ -8,9 +8,6 @@ use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
-use App\Repositories\UserRepository;
-use App\Repositories\TypeRepository;
-use App\Repositories\TagRepository;
 use Response;
 use Storage;
 use JWTAuth;
@@ -18,16 +15,10 @@ use JWTFactory;
 
 class ComicController extends Controller
 {
-    private $comicRepo;
-    private $chapterRepo;
-
-    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, UserRepository $userRepo, TypeRepository $typeRepo, TagRepository $tagRepo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->chapterRepo = $chapterRepo;
-        $this->userRepo = $userRepo;
-        $this->typeRepo = $typeRepo;
-        $this->tagRepo = $tagRepo;
     }
 
     public function index($page)

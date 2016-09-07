@@ -7,20 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
-use App\Repositories\UserRepository;
-use App\Repositories\TypeRepository;
 use App\Repositories\TagRepository;
 use Auth;
 
 class TagController extends Controller
 {
-    public function __construct(TypeRepository $typeRepo, TagRepository $tagRepo, UserRepository $userRepo, ComicRepository $comicRepo)
+    public function __construct(ComicRepository $comicRepo, TagRepository $tagRepo)
     {
         $this->middleware('jwt.auth', ['except' => ['find', 'count']]);
-        $this->typeRepo = $typeRepo;
-        $this->tagRepo = $tagRepo;
-        $this->userRepo = $userRepo;
         $this->comicRepo = $comicRepo;
+        $this->tagRepo = $tagRepo;
     }
 
     public function store($name, $comic_id)
@@ -54,12 +50,6 @@ class TagController extends Controller
     public function find($name, $page)
     {
         $comics = $this->tagRepo->find($name, $page);
-        foreach ($comics as $comic) {
-            $comic['publish_by'] = $this->userRepo->show($comic['publish_by']);
-            $comic['type'] = $this->typeRepo->show($comic['type']);
-            $comic['tags'] = $this->tagRepo->show($comic['id']);
-        }
-        
         return response()->json(['status' => 'success', 'comics' => $comics]);
     }
 

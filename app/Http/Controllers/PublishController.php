@@ -8,7 +8,6 @@ use App\Http\Requests;
 
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
-use App\Repositories\TypeRepository;
 use Auth;
 use JWTAuth;
 use JWTFactory;
@@ -17,14 +16,10 @@ use Validator;
 
 class PublishController extends Controller
 {
-    private $comicRepo;
-    private $chapterRepo;
-
-    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo, TypeRepository $typeRepo)
+    public function __construct(ComicRepository $comicRepo, ChapterRepository $chapterRepo)
     {
         $this->comicRepo = $comicRepo;
         $this->chapterRepo = $chapterRepo;
-        $this->typeRepo = $typeRepo;
     }
 
     public function index(Request $request)
