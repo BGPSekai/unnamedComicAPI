@@ -11,8 +11,6 @@ use Auth;
 
 class UserController extends Controller
 {
-    private $repo;
-
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
