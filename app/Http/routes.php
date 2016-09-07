@@ -60,10 +60,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('tag/{name}/{page}', 'SearchController@tag');
 	});
 
-	Route::group(['prefix' => 'type'], function()
-	{
-		Route::get('/', 'TypeController@index');
-	});
+	Route::get('type', 'TagController@index');
 
 	Route::group(['prefix' => 'tag'], function()
 	{

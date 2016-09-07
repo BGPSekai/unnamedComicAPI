@@ -76,9 +76,4 @@ class ComicController extends Controller
         $file_path = storage::files('comics/'.$comic_id.'/'.$chapter_id);
         return Response::download(storage_path().'/app/'.$file_path[$page-1]);
     }
-
-    public function count()
-    {
-        return response()->json(['status' => 'success', 'pages' => $this->comicRepo->count()]);
-    }
 }
