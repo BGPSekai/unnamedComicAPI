@@ -27,11 +27,6 @@ class TagRepository
 		return Tag::destroy($tag);
 	}
 
-	public function count($name)
-	{
-		return ceil(Tag::where('name', $name)->count()/10);
-	}
-
 	public function show($comic_id)
 	{
 		return Tag::where('comic_id', $comic_id)->pluck('name');
