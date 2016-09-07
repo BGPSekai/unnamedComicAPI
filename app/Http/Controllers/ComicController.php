@@ -32,7 +32,8 @@ class ComicController extends Controller
 
     public function index($page)
     {
-        return response()->json(['status' => 'success', 'comics' => $this->comicRepo->index($page)]);
+        $result = $this->comicRepo->index($page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
     public function show($id)

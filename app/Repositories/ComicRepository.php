@@ -31,8 +31,9 @@ class ComicRepository
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
             $comic->publish_by = User::select('id', 'name')->find($comic->publish_by);
         }
-
-		return $comics;
+		$result['comics'] = $comics;
+		$result['pages'] = ceil(Comic::count()/10);
+		return $result;
 	}
 
 	public function show($id)
@@ -47,10 +48,5 @@ class ComicRepository
 	public function updateChapters($id, $chapters)
 	{
 		return Comic::find($id)->update(['chapters' => $chapters]);
-	}
-
-	public function count()
-	{
-		return ceil(Comic::count()/10);
 	}
 }

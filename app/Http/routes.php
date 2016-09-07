@@ -48,7 +48,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 
 	Route::group(['prefix' => 'comic'], function()
 	{
-		Route::get('page', 'ComicController@count');
 		Route::get('page/{page}', 'ComicController@index');
 		Route::get('{id}', 'ComicController@show');
 	});
