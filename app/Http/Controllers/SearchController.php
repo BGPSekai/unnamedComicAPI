@@ -6,40 +6,36 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Repositories\ComicRepository;
-use App\Repositories\UserRepository;
-use App\Repositories\TypeRepository;
-use App\Repositories\TagRepository;
+use App\Repositories\SearchRepository;
 
 class SearchController extends Controller
 {
-    public function __construct(ComicRepository $comicRepo, UserRepository $userRepo, TypeRepository $typeRepo, TagRepository $tagRepo)
+    public function __construct(SearchRepository $repo)
     {
-        $this->comicRepo = $comicRepo;
-        $this->userRepo = $userRepo;
-        $this->typeRepo = $typeRepo;
-        $this->tagRepo = $tagRepo;
+        $this->repo = $repo;
     }
 
     public function name($name, $page)
     {
-        $result = $this->comicRepo->searchName($name, $page);
-        return response()->json(['status' => 'success', 'comics' => $result]);
+        $result = $this->repo->name($name, $page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
     public function publisher($user_id, $page)
     {
-        $result = $this->comicRepo->searchPublisher($user_id, $page);
-        return response()->json(['status' => 'success', 'comics' => $result]);
+        $result = $this->repo->publisher($user_id, $page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
-    public function countName($name)
+    public function type($id, $page)
     {
-        return response()->json(['status' => 'success', 'pages' => $this->comicRepo->countNameSearch($name)]);
+        $result = $this->repo->type($id, $page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
-    public function countPublisher($user_id)
+    public function tag($name, $page)
     {
-        return response()->json(['status' => 'success', 'pages' => $this->comicRepo->countPublisherSearch($user_id)]);
+        $result = $this->repo->tag($name, $page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 }

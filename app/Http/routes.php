@@ -55,25 +55,21 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 
 	Route::group(['prefix' => 'search'], function()
 	{
-		Route::get('name/{name}', 'SearchController@countName');
 		Route::get('name/{name}/{page}', 'SearchController@name');
-		Route::get('publisher/{user_id}', 'SearchController@countPublisher');
 		Route::get('publisher/{user_id}/{page}', 'SearchController@publisher');
+		Route::get('type/{id}/{page}', 'SearchController@type');
+		Route::get('tag/{name}/{page}', 'SearchController@tag');
 	});
 
 	Route::group(['prefix' => 'type'], function()
 	{
 		Route::get('/', 'TypeController@index');
-		Route::get('{id}', 'TypeController@count');
-		Route::get('{id}/{page}', 'TypeController@find');
 	});
 
 	Route::group(['prefix' => 'tag'], function()
 	{
 		Route::get('{name}/comic/{comic_id}', 'TagController@store');
 		Route::delete('{name}/comic/{comic_id}', 'TagController@destroy');
-		Route::get('{name}', 'TagController@count');
-		Route::get('{name}/{page}', 'TagController@find');
 	});
 });
 
