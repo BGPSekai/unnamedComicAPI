@@ -3,25 +3,9 @@
 namespace App\Repositories;
 
 use App\Entities\Tag;
-use App\Repositories\ComicRepository;
 
 class TagRepository
 {
-    public function __construct(ComicRepository $comicRepo)
-    {
-        $this->comicRepo = $comicRepo;
-    }
-
-	public function find($name, $page)
-	{
-		$tags = Tag::where('name', $name)->skip(($page - 1) * 10)->take(10)->get();
-		$comics = [];
-		foreach ($tags as $tag)
-			array_push($comics, $this->comicRepo->show($tag->comic_id));
-
-		return $comics;
-	}
-
 	public function store($data)
 	{
 		$tag = Tag::where('comic_id', $data['comic_id'])
