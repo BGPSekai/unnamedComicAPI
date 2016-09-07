@@ -45,6 +45,14 @@ class SearchRepository
         return $result;
     }
 
+    public function author($name, $page)
+    {
+        $comics = Comic::where('author', 'LIKE', '%'.$name.'%')->skip(($page - 1) * 10)->take(10)->get();
+        $result['comics'] = $this->detail($comics);
+        $result['pages'] = ceil(Comic::where('author', 'LIKE', '%'.$name.'%')->count()/10);
+        return $result;
+    }
+
 	private function detail($comics)
 	{
         foreach ($comics as $comic) {

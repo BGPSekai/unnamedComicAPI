@@ -22,8 +22,7 @@ class ChapterRepository
 	{
 		$chapters = Chapter::where('comic_id', $comic_id)->get();
         foreach ($chapters as $chapter)
-            $chapter['publish_by'] = User::select('id', 'name')->find($chapter['publish_by']);
-
+            $chapter->publish_by = User::select('id', 'name')->find($chapter['publish_by']);
 		return $chapters;
 	}
 

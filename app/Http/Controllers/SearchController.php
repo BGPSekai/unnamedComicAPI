@@ -38,4 +38,10 @@ class SearchController extends Controller
         $result = $this->repo->tag($name, $page);
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
+
+    public function author($name, $page)
+    {
+        $result = $this->repo->author($name, $page);
+        return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
+    }
 }

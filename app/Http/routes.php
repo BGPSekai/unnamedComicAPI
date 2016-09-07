@@ -58,9 +58,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('publisher/{user_id}/{page}', 'SearchController@publisher');
 		Route::get('type/{id}/{page}', 'SearchController@type');
 		Route::get('tag/{name}/{page}', 'SearchController@tag');
+		Route::get('author/{name}/{page}', 'SearchController@author');
 	});
 
-	Route::get('type', 'TagController@index');
+	Route::get('type', 'TypeController@index');
 
 	Route::group(['prefix' => 'tag'], function()
 	{
