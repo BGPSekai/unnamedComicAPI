@@ -51,9 +51,12 @@ class ComicController extends Controller
 
     public function showCover($id)
     {
-        $comic = $this->comicRepo->show($id);
-        if (!isset($comic))
+        try {
+            $comic = $this->comicRepo->show($id);
+        } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
+        }
+
         $file_path = Storage::files('comics/'.$comic->id);
         return Response::download(storage_path().'/app/'.$file_path[0]);
     }
@@ -69,9 +72,13 @@ class ComicController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 401);
         }
 
-        $comic_id = $info['comic_id'];
-        $chapter_id = $info['chapter_id'];
-        $pages = $info['pages'];
+        try {
+            $comic_id = $info['comic_id'];
+            $chapter_id = $info['chapter_id'];
+            $pages = $info['pages'];
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 401);
+        }
 
         if ($page < 1 || $page > $pages)
             return response()->json(['status' => 'error', 'message' => 'Page Not Found'], 404);
