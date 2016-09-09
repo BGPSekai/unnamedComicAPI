@@ -14,10 +14,7 @@
 12. [View Comic Cover](#ViewComicCover)
 13. [View Chapter Page](#ViewChapterPage)
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
-15. [Search Comics by Name](#SearchComicsByName)
-16. [Search Comics by Publisher](#SearchComicsByPublisher)
-17. [Search Comics by Type](#SearchComicsbyType)
-18. [Search Comics by Tag](#SearchComicsbyTag)
+15. [Search Comics](#SearchComics)
 
 
 ## 1. <a name="Register">Register</a>
@@ -166,16 +163,11 @@ Status Code : 200
     "author": *author*,
     "type": {
       "id": *id*,
-      "name": *name*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     "publish_by": {
       "id": *id*,
-      "name": *name*,
-      "email": *email*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     "updated_at": *updateTime*,
     "created_at": *createTime*,
@@ -195,9 +187,9 @@ Status Code: 400
 
 ## 5. <a name="PublishChapter">Publish Chapter</a>
 
-| Method | URI               | Remark   |
-|:------:| ----------------- | -------- |
-| POST   | /api/publish/{id} | JWT Auth |
+| Method | URI                     | Remark   |
+|:------:| ----------------------- | -------- |
+| POST   | /api/publish/{comic_id} | JWT Auth |
 
 ### Input Parameter
 
@@ -218,14 +210,12 @@ Status Code: 200
     "pages": *pages*,
     "publish_by": {
       "id": *id*,
-      "name": *name*,
-      "email": *email*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     "updated_at": *updateTime*,
     "created_at": *createTime*,
-    "id": *id*
+    "id": *id*,
+    "token": *token*
   }
 }
 ```
@@ -257,28 +247,7 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "comic": {
-    "id": *id*,
-    "name": *name*,
-    "summary": *summary*,
-    "author": *author*,
-    "type": *type*,
-    "publish_by": *publisher*,
-    "chapters": *chapters*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*,
-    "tags": [
-      {
-        "id": *id*,
-        "comic_id": *comic_id*,
-        "tag": *tag*,
-        "tag_by": *tag_by*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      ...
-    ]
-  }
+  "tags": *tags[Array]*
 }
 ```
 
@@ -303,28 +272,7 @@ Status Code: 403
 Status Code: 200
 {
   "status": "success",
-  "comic": {
-    "id": *id*,
-    "name": *name*,
-    "summary": *summary*,
-    "author": *author*,
-    "type": *type*,
-    "publish_by": *publisher*,
-    "chapters": *chapters*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*,
-    "tags": [
-      {
-        "id": *id*,
-        "comic_id": *comic_id*,
-        "tag": *tag*,
-        "tag_by": *tag_by*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      ...
-    ]
-  }
+  "tags": *tags[Array]*
 }
 ```
 
@@ -357,16 +305,11 @@ Status Code: 200
       "author": *author*,
       "type": {
         "id": *id*,
-        "name": *name*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
+        "name": *name*
       },
       "publish_by": {
         "id": *id*,
-        "name": *name*,
-        "email": *email*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
+        "name": *name*
       },
       "chapters": *chapters*,
       "created_at": *createTime*,
@@ -374,7 +317,8 @@ Status Code: 200
       "tags": *tags[Array]*
     },
     ...(9)
-  ]
+  ],
+  "pages": *pages*
 }
 ```
 
@@ -393,9 +337,7 @@ Status Code: 200
   "types": [
     {
       "id": *id*,
-      "name": *name*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     ...
   ]
@@ -452,31 +394,17 @@ Status Code: 404
     "author": *author*,
     "type": {
       "id": *id*,
-      "name": *name*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     "publish_by": {
       "id": *id*,
       "name": *name*,
-      "email": *email*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "email": *email*
     },
     "chapters": *chapters*,
     "created_at": *createTime*,
     "updated_at": *updateTime*",
-    "tags": [
-      {
-        "id": *id*,
-        "comic_id": *comic_id*,
-        "tag": *tag*,
-        "tag_by": *tag_by*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      ...
-    ]
+    "tags": *tags[Array]*
   },
   "chapters": [
     {
@@ -486,6 +414,10 @@ Status Code: 404
       "pages": *pages*,
       "created_at": *createTime*,
       "updated_at": *updateTime*,
+      "publish_by": {
+        "id": *id*,
+        "name": *name*
+      },
       "token": *token*
     },
     ...
@@ -589,10 +521,7 @@ Status Code: 200
     "pages": *pages*,
     "publish_by": {
       "id": *id*,
-      "name": *name*,
-      "email": *email*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*
+      "name": *name*
     },
     "created_at": *createTime*,
     "updated_at": *updateTime*
@@ -615,62 +544,15 @@ Status Code: 404
 }
 ```
 
-## 15. <a name="SearchComicsByName">Search Comics by Name</a>
+## 15. <a name="SearchComicsByName">Search Comics</a>
 
-| Method | URI                            | Remark |
-|:------:| ------------------------------ | ------ |
-| GET    | /api/search/name/{name}/{page} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "comics": [
-    {
-      "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "author": *author*,
-      "type": {
-        "id": *id*,
-        "name": *name*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "publish_by": {
-        "id": *id*,
-        "name": *name*,
-        "email": *email*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "chapters": *chapters*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "tags": [
-        {
-          "id": *id*,
-          "comic_id": *comic_id*,
-          "tag": *tag*,
-          "tag_by": *tag_by*,
-          "created_at": *createTime*,
-          "updated_at": *updateTime*
-        },
-        ...
-      ]
-    },
-    ...(9)
-  ]
-}
-```
-
-## 16. <a name="SearchComicsByPublisher">Search Comics by Publisher</a>
-
-| Method | URI                             | Remark |
-|:------:| ------------------------------- | ------ |
-| GET    | /api/publisher/{user_id}/{page} |        |
+| Method | URI                                    | Remark |
+|:------:| -------------------------------------- | ------ |
+| GET    | /api/search/name/{name}/{page}         | Fuzzy  |
+| GET    | /api/search/publisher/{user_id}/{page} |        |
+| GET    | /api/search/type/{id}/{page}           |        |
+| GET    | /api/search/tag/{id}/{page}            |        |
+| GET    | /api/search/author/{name}/{page}       |        |
 
 ### JSON Response
 #### Success
@@ -686,135 +568,19 @@ Status Code: 200
       "author": *author*,
       "type": {
         "id": *id*,
-        "name": *name*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
+        "name": *name*
       },
       "publish_by": {
         "id": *id*,
-        "name": *name*,
-        "email": *email*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
+        "name": *name*
       },
       "chapters": *chapters*,
       "created_at": *createTime*,
       "updated_at": *updateTime*,
-      "tags": [
-        {
-          "id": *id*,
-          "comic_id": *comic_id*,
-          "tag": *tag*,
-          "tag_by": *tag_by*,
-          "created_at": *createTime*,
-          "updated_at": *updateTime*
-        },
-        ...
-      ]
+      "tags": *tags[Array]*
     },
     ...(9)
-  ]
-}
-```
-
-## 17. <a name="SearchComicsByType">Search Comics by Type</a>
-
-| Method | URI                   | Remark |
-|:------:| --------------------- | ------ |
-| GET    | /api/type/{id}/{page} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "comics": [
-    {
-      "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "author": *author*,
-      "type": {
-        "id": *id*,
-        "name": *name*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "publish_by": {
-        "id": *id*,
-        "name": *name*,
-        "email": *email*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "chapters": *chapters*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "tags": [
-        {
-          "id": *id*,
-          "comic_id": *comic_id*,
-          "tag": *tag*,
-          "tag_by": *tag_by*,
-          "created_at": *createTime*,
-          "updated_at": *updateTime*
-        },
-        ...
-      ]
-    },
-    ...(9)
-  ]
-}
-```
-
-## 18. <a name="SearchComicsByTag">Search Comics by Tag</a>
-
-| Method | URI                    | Remark |
-|:------:| ---------------------- | ------ |
-| GET    | /api/tag/{name}/{page} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "comics": [
-    {
-      "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "author": *author*,
-      "type": {
-        "id": *id*,
-        "name": *name*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "publish_by": {
-        "id": *id*,
-        "name": *name*,
-        "email": *email*,
-        "created_at": *createTime*,
-        "updated_at": *updateTime*
-      },
-      "chapters": *chapters*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "tags": [
-        {
-          "id": *id*,
-          "comic_id": *comic_id*,
-          "tag": *tag*,
-          "tag_by": *tag_by*,
-          "created_at": *createTime*,
-          "updated_at": *updateTime*
-        },
-        ...
-      ]
-    },
-    ...(9)
-  ]
+  ],
+  "pages": *pages*
 }
 ```
