@@ -504,9 +504,10 @@ Status Code: 404
 
 ### Input Parameter
 
-| Type | Name     | Required | Remark |
-| ---- | -------- |:--------:| ------ |
-| File | images[] | √        | Image  |
+| Type | Name     | Required | Remark         |
+| ---- | -------- |:--------:| -------------- |
+| File | index [] | √        | integer, min:1 |
+| File | images[] | √        | Image          |
 
 ### JSON Response
 #### Success
