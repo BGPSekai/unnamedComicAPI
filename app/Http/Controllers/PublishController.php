@@ -80,25 +80,50 @@ class PublishController extends Controller
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 
+    // public function batch(Request $request, $chapter_id)
+    // {
+    //     if (! $chapter = $this->chapterRepo->show($chapter_id))
+    //         return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
+
+    //     $user = Auth::user();
+    //     $data = $request->only('images');
+    //     $validator = $this->batchValidator($data);
+
+    //     if ($validator->fails())
+    //         return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
+
+    //     $data['pages'] = count($request->images);
+    //     $this->chapterRepo->updatePages($chapter_id, $chapter->pages + $data['pages']);
+
+    //     foreach ($request->images as $key => $image) {
+    //         $extension = $image->getClientOriginalExtension();
+    //         $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.($chapter->pages+$key+1).'.'.$extension, $image);
+    //     }
+
+    //     $chapter = $this->chapterRepo->show($chapter_id);
+    //     $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+    //     return response()->json(['status' => 'success', 'chapter' => $chapter]);
+    // }
+
     public function batch(Request $request, $chapter_id)
     {
         if (! $chapter = $this->chapterRepo->show($chapter_id))
             return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
 
         $user = Auth::user();
-        $data = $request->only('images');
+        $data = $request->only('index', 'images');
         $validator = $this->batchValidator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        $data['pages'] = count($request->images);
-        $this->chapterRepo->updatePages($chapter_id, $chapter->pages + $data['pages']);
-
         foreach ($request->images as $key => $image) {
             $extension = $image->getClientOriginalExtension();
-            $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.($chapter->pages+$key+1).'.'.$extension, $image);
+            $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
         }
+
+        $data['pages'] = count(Storage::allFiles('comics/'.$chapter->comic_id.'/'.$chapter_id));
+        $this->chapterRepo->updatePages($chapter_id, $data['pages']);
 
         $chapter = $this->chapterRepo->show($chapter_id);
         $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
@@ -128,6 +153,8 @@ class PublishController extends Controller
     private function batchValidator(array $data)
     {
         return Validator::make($data, [
+            'index' => 'required|Array',
+            'index.*' => 'integer|min:1',
             'images' => 'required|Array',
             'images.*' => 'image',
         ]);
