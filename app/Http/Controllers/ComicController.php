@@ -57,7 +57,7 @@ class ComicController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
         }
 
-        $file_path = Storage::files('comics/'.$comic->id);
+        $file_path = Storage::files('comics/'.$id);
         return Response::download(storage_path().'/app/'.$file_path[0]);
     }
 
