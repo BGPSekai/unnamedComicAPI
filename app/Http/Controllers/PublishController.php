@@ -39,7 +39,7 @@ class PublishController extends Controller
         $extension = $cover->getClientOriginalExtension();
         $this->storeFile('comics/'.$comic->id.'/cover.'.$extension, $cover);
 
-        return response()->json(['status' => 'success','comic' => $comic]);
+        return response()->json(['status' => 'success', 'comic' => $comic]);
     }
 
     public function chapter(Request $request, $comic_id)
