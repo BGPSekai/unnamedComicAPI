@@ -63,9 +63,10 @@ class AuthController extends Controller
         ])->save();
 
         $credentials['password'] = $request->new_password;
-        $token = JWTAuth::attempt($credentials);
+        // $token = JWTAuth::attempt($credentials);
 
-        return response()->json(['status' => 'success', 'user' => Auth::user(), 'token' => $token]);
+        // return response()->json(['status' => 'success', 'user' => Auth::user(), 'token' => $token]);
+        return response()->json(['status' => 'success', 'user' => Auth::user()]);
     }
 
     private function validator(array $data)

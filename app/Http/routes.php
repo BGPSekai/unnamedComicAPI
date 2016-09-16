@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::get('/', 'UserController@index');
 			Route::get('{id}', 'UserController@show');
+			Route::post('avatar', 'UserController@avatar');
 		});
 
 		Route::group(['prefix' => 'publish'], function()

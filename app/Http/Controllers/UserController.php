@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Repositories\UserRepository;
 use Auth;
+use Validator;
 
 class UserController extends Controller
 {
@@ -38,28 +39,20 @@ class UserController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
-        //User::has_avatar
-
         $avatar = $request->file('image');
         $extension = $avatar->getClientOriginalExtension();
-        $this->storeFile('users/'.$user->id.$extension, $avatar);
 
-        return response()->json(['status' => 'success');
-    }
+        $avatar->move(public_path().'/users/', $user->id.'.'.$extension);
 
-    public function showAvatar($id)
-    {
-        if (! $user = $this->repo->showDetail($id))
-            return response()->json(['status' => 'error', 'message' => 'User Not Found'], 404);
+        $this->repo->avatar($user->id, $extension);
 
-        // $file_path = Storage::files('comics/'.$comic->id);
-        // return Response::download(storage_path().'/app/'.$file_path[0]);
+        return response()->json(['status' => 'success', 'user' => Auth::user()]);
     }
 
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'iamge' => 'required|image',
+            'image' => 'required|image',
         ]);
     }
 }

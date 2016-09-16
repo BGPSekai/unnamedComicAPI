@@ -15,6 +15,7 @@
 13. [View Chapter Page](#ViewChapterPage)
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 15. [Search Comics](#SearchComics)
+16. [Update User Avatar](#UpdateUserAvatar)
 
 
 ## 1. <a name="Register">Register</a>
@@ -113,10 +114,10 @@ Status Code: 200
     "id": *id*,
     "name": *name*,
     "email": *email*,
+    "avatar": *avatar*,
     "created_at": *createTime*,
     "updated_at": *updateTime*
-  },
-  "token": *token*
+  }
 }
 ```
 
@@ -361,6 +362,7 @@ Status Code: 200
     "id": *id*,
     "name": *name*,
     "email": *email*,
+    "avatar": *avatar*,
     "created_at": *createTime*,
     "updated_at": *updateTime*
   }
@@ -585,3 +587,31 @@ Status Code: 200
   "pages": *pages*
 }
 ```
+
+## 16. <a name="UpdateUserAvatar">Update User Avatar</a>
+
+| Method | URI              | Remark   |
+|:------:| ---------------- | -------- |
+| GET    | /api/user/avatar | JWT Auth |
+
+### Input Parameter
+
+| Type | Name     | Required | Remark         |
+| ---- | -------- |:--------:| -------------- |
+| File | image | √        | Image          |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "avatar": *avatar*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}

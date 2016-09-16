@@ -25,4 +25,9 @@ class UserRepository
 	{
 		return User::find($id);
 	}
+
+	public function avatar($id, $avatar)
+	{
+		return User::find($id)->update(['avatar' => $avatar]);
+	}
 }
