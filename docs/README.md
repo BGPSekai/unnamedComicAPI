@@ -622,7 +622,7 @@ Status Code: 200
 
 | Method | URI                            | Remark |
 |:------:| ------------------------------ | ------ |
-| GET    | /users/*user_id*.*user_avatar* |        |
+| GET    | /users/{user_id}.{user_avatar} |        |
 
 Ex. /users/1.jpg
 
