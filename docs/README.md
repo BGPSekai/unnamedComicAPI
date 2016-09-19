@@ -16,6 +16,7 @@
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 15. [Search Comics](#SearchComics)
 16. [Update User Avatar](#UpdateUserAvatar)
+16. [View User Avatar](#ViewUserAvatar)
 
 
 ## 1. <a name="Register">Register</a>
@@ -598,7 +599,7 @@ Status Code: 200
 
 | Type | Name     | Required | Remark         |
 | ---- | -------- |:--------:| -------------- |
-| File | image | √        | Image          |
+| File | image    | √        | Image          |
 
 ### JSON Response
 #### Success
@@ -615,3 +616,19 @@ Status Code: 200
     "updated_at": *updateTime*
   }
 }
+
+
+## 16. <a name="ViewUserAvatar">View User Avatar</a>
+
+| Method | URI                            | Remark |
+|:------:| ------------------------------ | ------ |
+| GET    | /users/*user_id*.*user_avatar* |        |
+
+Ex. /users/1.jpg
+
+### Response
+#### Success
+```
+Status Code: 200
+*User Avatar Image*
+```
