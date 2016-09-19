@@ -616,7 +616,7 @@ Status Code: 200
     "updated_at": *updateTime*
   }
 }
-
+```
 
 ## 16. <a name="ViewUserAvatar">View User Avatar</a>
 
