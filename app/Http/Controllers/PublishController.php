@@ -119,7 +119,7 @@ class PublishController extends Controller
 
         foreach ($request->images as $key => $image) {
             $extension = $image->getClientOriginalExtension();
-            $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
+            $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.str_pad($request->index[$key], 3, "0", STR_PAD_LEFT).'.'.$extension, $image);
         }
 
         $data['pages'] = count(Storage::allFiles('comics/'.$chapter->comic_id.'/'.$chapter_id));
