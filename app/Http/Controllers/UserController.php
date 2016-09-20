@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Repositories\UserRepository;
 use Auth;
+use Image;
 use Validator;
 
 class UserController extends Controller
@@ -42,7 +43,13 @@ class UserController extends Controller
         $avatar = $request->file('image');
         $extension = $avatar->getClientOriginalExtension();
 
-        $avatar->move(public_path().'/users/', $user->id.'.'.$extension);
+        $path = public_path().'/users/';
+        $file_name = $user->id.'.'.$extension;
+        $avatar->move($path, $file_name);
+
+        Image::make($path.$file_name)
+            ->resize(200, 200)
+            ->save($path.$file_name);
 
         $this->repo->avatar($user->id, $extension);
 
