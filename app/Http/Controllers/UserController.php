@@ -34,7 +34,7 @@ class UserController extends Controller
 
     public function avatar(Request $request)
     {
-        $user = Auth::user();
+        $id = Auth::user()->id;
         $data = $request->only('image');
         $validator = $this->validator($data);
 
@@ -45,16 +45,18 @@ class UserController extends Controller
         $extension = explode('/', File::mimeType($avatar))[1];
 
         $path = public_path().'/users/';
-        $file_name = $user->id.'.'.$extension;
+        $file_name = $id.'.'.$extension;
+
+        File::delete(File::glob($path.$id.'*'));
         $avatar->move($path, $file_name);
 
         Image::make($path.$file_name)
             ->resize(200, 200)
             ->save($path.$file_name);
 
-        $this->repo->avatar($user->id, $extension);
+        $this->repo->avatar($id, $extension);
 
-        return response()->json(['status' => 'success', 'user' => $this->repo->show($user->id)]);
+        return response()->json(['status' => 'success', 'user' => $this->repo->show($id)]);
     }
 
     private function validator(array $data)
