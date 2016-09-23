@@ -53,7 +53,7 @@ class UserController extends Controller
 
         $this->repo->avatar($user->id, $extension);
 
-        return response()->json(['status' => 'success', 'user' => Auth::user()]);
+        return response()->json(['status' => 'success', 'user' => $this->repo->show($user->id)]);
     }
 
     private function validator(array $data)

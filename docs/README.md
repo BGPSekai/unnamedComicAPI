@@ -43,6 +43,7 @@ Status Code: 200
   "user": {
     "name": *name*,
     "email": *email*,
+    "avatar": "",
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*
@@ -610,10 +611,7 @@ Status Code: 200
   "user": {
     "id": *id*,
     "name": *name*,
-    "email": *email*,
-    "avatar": *avatar*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*
+    "avatar": *avatar*
   }
 }
 ```
@@ -631,4 +629,10 @@ Ex. /users/1.jpg
 ```
 Status Code: 200
 *User Avatar Image*
+```
+
+
+#### Error
+```
+Status Code: 404
 ```
