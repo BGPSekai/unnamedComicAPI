@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Repositories\UserRepository;
 use Auth;
+use File;
 use Image;
 use Validator;
 
@@ -41,7 +42,7 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
         $avatar = $request->file('image');
-        $extension = $avatar->getClientOriginalExtension();
+        $extension = explode('/', File::mimeType($avatar))[1];
 
         $path = public_path().'/users/';
         $file_name = $user->id.'.'.$extension;
