@@ -618,9 +618,9 @@ Status Code: 200
 
 ## 16. <a name="ViewUserAvatar">View User Avatar</a>
 
-| Method | URI                            | Remark |
-|:------:| ------------------------------ | ------ |
-| GET    | /users/{user_id}.{user_avatar} |        |
+| Method | URI                                   | Remark |
+|:------:| ------------------------------------- | ------ |
+| GET    | /public/users/{user_id}.{user_avatar} |        |
 
 Ex. /users/1.jpg
 
