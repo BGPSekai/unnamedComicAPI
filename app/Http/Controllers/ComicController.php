@@ -83,7 +83,7 @@ class ComicController extends Controller
         if ($page < 1 || $page > $pages)
             return response()->json(['status' => 'error', 'message' => 'Page Not Found'], 404);
 
-        $file_path = storage::files('comics/'.$comic_id.'/'.$chapter_id);
+        $file_path = Storage::files('comics/'.$comic_id.'/'.$chapter_id);
         $file_path = natsort($file_path);
         return Response::download(storage_path().'/app/'.$file_path[$page-1]);
     }
