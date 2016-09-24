@@ -506,12 +506,18 @@ Status Code: 404
 |:------:| ------------------------- | -------- |
 | POST   | /api/publish/chapter/{id} | JWT Auth |
 
+```
+> Sort First
+> new_index[n] = 0 -> delete page
+```
+
 ### Input Parameter
 
-| Type | Name     | Required | Remark         |
-| ---- | -------- |:--------:| -------------- |
-| File | index [] | √        | integer, min:1 |
-| File | images[] | √        | Image          |
+| Type | Name        | Required | Remark         |
+| ---- | ----------- |:--------:| -------------- |
+| File | index []    |          | integer, min:1 |
+| File | images[]    |          | Image          |
+| File | new_index[] |          | integer, min:0 |
 
 ### JSON Response
 #### Success
@@ -540,6 +546,18 @@ Status Code: 400
 {
   "status": "error",
   "message": *message[Array]*
+}
+- or -
+Status Code: 400
+{
+  "status": "error",
+  "message": "Length of new_index[] Not Match Pages"
+}
+- or -
+Status Code: 400
+{
+  "status": "error",
+  "message": "new_index[] Duplicate"
 }
 - or -
 Status Code: 404
