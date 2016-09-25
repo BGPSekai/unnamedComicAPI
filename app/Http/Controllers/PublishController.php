@@ -118,17 +118,18 @@ class PublishController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        if (isset($request->new_index))
+        if (isset($request->new_index)) {
             $response = $this->reSort($chapter_id, $request->new_index);
-        switch ($response) {
-            case -1:
-                return response()->json(['status' => 'error', 'message' => 'Length of new_index[] Not Match Pages'], 400);
-                break;
-            case -2:
-                return response()->json(['status' => 'error', 'message' => 'new_index[] Duplicate'], 400);
-                break;
-            default:
-                break;
+            switch ($response) {
+                case -1:
+                    return response()->json(['status' => 'error', 'message' => 'Length of new_index[] Not Match Pages'], 400);
+                    break;
+                case -2:
+                    return response()->json(['status' => 'error', 'message' => 'new_index[] Duplicate'], 400);
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (isset($request->images))
