@@ -513,11 +513,11 @@ Status Code: 404
 
 ### Input Parameter
 
-| Type | Name        | Required | Remark         |
-| ---- | ----------- |:--------:| -------------- |
-| File | index []    |          | integer, min:1 |
-| File | images[]    |          | Image          |
-| File | new_index[] |          | integer, min:0 |
+| Type    | Name        | Required | Remark          |
+| ------- | ----------- |:--------:| --------------- |
+| Integer | index []    |          | min: 1          |
+| File    | images[]    |          | Image           |
+| Integer | new_index[] |          | integer, min: 0 |
 
 ### JSON Response
 #### Success
