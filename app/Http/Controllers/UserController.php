@@ -47,7 +47,7 @@ class UserController extends Controller
         $path = public_path().'/users/';
         $file_name = $id.'.'.$extension;
 
-        File::delete(File::glob($path.$id.'.*'));
+        File::delete(glob($path.$id.'.*'));
         $avatar->move($path, $file_name);
 
         Image::make($path.$file_name)
