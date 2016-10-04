@@ -502,9 +502,9 @@ Status Code: 404
 
 ## 14. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
-| Method | URI                       | Remark   |
-|:------:| ------------------------- | -------- |
-| POST   | /api/publish/chapter/{id} | JWT Auth |
+| Method | URI                               | Remark   |
+|:------:| --------------------------------- | -------- |
+| POST   | /api/publish/chapter/{chapter_id} | JWT Auth |
 
 ```
 > Sort First
