@@ -569,13 +569,13 @@ Status Code: 404
 
 ## 15. <a name="SearchComicsByName">Search Comics</a>
 
-| Method | URI                                    | Remark |
-|:------:| -------------------------------------- | ------ |
-| GET    | /api/search/name/{name}/{page}         | Fuzzy  |
-| GET    | /api/search/publisher/{user_id}/{page} |        |
-| GET    | /api/search/type/{id}/{page}           |        |
-| GET    | /api/search/tag/{id}/{page}            |        |
-| GET    | /api/search/author/{name}/{page}       |        |
+| Method | URI                                      | Remark |
+|:------:| ---------------------------------------- | ------ |
+| GET    | /api/search/name/{name}/{page}           | Fuzzy  |
+| GET    | /api/search/publisher/{user_id}/{page}   |        |
+| GET    | /api/search/type/{id}/{page}             |        |
+| GET    | /api/search/tag/{name}/{page}            |        |
+| GET    | /api/search/author/{name}/{page}         |        |
 
 ### JSON Response
 #### Success
