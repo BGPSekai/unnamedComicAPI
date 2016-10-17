@@ -16,7 +16,10 @@
 14. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
 15. [Search Comics](#SearchComics)
 16. [Update User Avatar](#UpdateUserAvatar)
-16. [View User Avatar](#ViewUserAvatar)
+17. [View User Avatar](#ViewUserAvatar)
+18. [Add User Favorite Comic](#AddUserFavoriteComic)
+19. [Delete User Favorite Comic](#DeleteUserFavoriteComic)
+20. [View User Favorite Comics](#ViewUserFavoriteComics)
 
 
 ## 1. <a name="Register">Register</a>
@@ -240,8 +243,8 @@ Status Code: 404
 
 ## 6. <a name="TagComic">Tag Comic</a>
 
-| Method | URI                              | Remark |
-|:------:| -------------------------------- | ------ |
+| Method | URI                        | Remark |
+|:------:| -------------------------- | ------ |
 | GET    | /api/tag/{name}/{comic_id} |        |
 
 ### JSON Response
@@ -265,8 +268,8 @@ Status Code: 403
 
 ## 7. <a name="UntagComic">Untag Comic</a>
 
-| Method | URI                              | Remark |
-|:------:| -------------------------------- | ------ |
+| Method | URI                        | Remark |
+|:------:| -------------------------- | ------ |
 | Delete | /api/tag/{name}/{comic_id} |        |
 
 ### JSON Response
@@ -645,7 +648,7 @@ Status Code: 200
 }
 ```
 
-## 16. <a name="ViewUserAvatar">View User Avatar</a>
+## 17. <a name="ViewUserAvatar">View User Avatar</a>
 
 | Method | URI                                   | Remark |
 |:------:| ------------------------------------- | ------ |
@@ -660,8 +663,82 @@ Status Code: 200
 *User Avatar Image*
 ```
 
+#### Error
+```
+Status Code: 404
+```
+
+## 18. <a name="AddUserFavoriteComic">Add User Favorite Comic</a>
+
+| Method | URI                      | Remark |
+|:------:| ------------------------ | ------ |
+| GET    | /api/favorite/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "favorites": *favorites[Array]*
+}
+```
+
+#### Error
+```
+Status Code: 403
+{
+  "status": "error",
+  "message": "Favorite Exist"
+}
+```
+
+## 19. <a name="DeleteUserFavoriteComic">Delete User Favorite Comic</a>
+
+| Method | URI                      | Remark |
+|:------:| ------------------------ | ------ |
+| Delete | /api/favorite/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "favorites": *favorites[Array]*
+}
+```
 
 #### Error
 ```
 Status Code: 404
+{
+  "status": "error",
+  "message": "Favorite Not Found"
+}
+```
+
+## 20. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
+
+| Method | URI                      | Remark |
+|:------:| ------------------------ | ------ |
+| GET    | /api/user/{id}/favorite  |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "favorites": *favorites[Array]*
+}
+```
+
+#### Error
+```
+Status Code: 404
+{
+  "status": "error",
+  "message": "User Not Found"
+}
 ```
