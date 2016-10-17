@@ -14,7 +14,6 @@ class TagController extends Controller
 {
     public function __construct(ComicRepository $comicRepo, TagRepository $tagRepo)
     {
-        $this->middleware('jwt.auth', ['except' => ['find', 'count']]);
         $this->comicRepo = $comicRepo;
         $this->tagRepo = $tagRepo;
     }
