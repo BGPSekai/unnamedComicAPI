@@ -45,6 +45,12 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 			Route::post('{comic_id}', 'PublishController@chapter');
 			Route::post('chapter/{chapter_id}', 'PublishController@batch');
 		});
+		
+		Route::group(['prefix' => 'favorite'], function()
+		{
+			Route::get('{uid}/{comic_id}', 'FavoriteController@store');
+			Route::delete('{uid}/{comic_id}', 'FavoriteController@destroy');
+		});
 	});
 
 	Route::group(['prefix' => 'comic'], function()
@@ -73,12 +79,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	{
 		Route::get('{name}/comic/{comic_id}', 'TagController@store');
 		Route::delete('{name}/comic/{comic_id}', 'TagController@destroy');
-	});
-
-	Route::group(['prefix' => 'favorite'], function()
-	{
-		Route::get('{uid}/{comic_id}', 'FavoriteController@store');
-		Route::delete('{uid}/{comic_id}', 'FavoriteController@destroy');
 	});
 });
 
