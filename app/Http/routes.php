@@ -66,8 +66,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 
 	Route::group(['prefix' => 'tag'], function()
 	{
-		Route::get('{name}/comic/{comic_id}', 'TagController@store');
-		Route::delete('{name}/comic/{comic_id}', 'TagController@destroy');
+		Route::get('{name}/{comic_id}', 'TagController@store');
+		Route::delete('{name}/{comic_id}', 'TagController@destroy');
 	});
 });
 

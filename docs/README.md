@@ -242,7 +242,7 @@ Status Code: 404
 
 | Method | URI                              | Remark |
 |:------:| -------------------------------- | ------ |
-| GET    | /api/tag/{name}/comic/{comic_id} |        |
+| GET    | /api/tag/{name}/{comic_id} |        |
 
 ### JSON Response
 #### Success
@@ -267,7 +267,7 @@ Status Code: 403
 
 | Method | URI                              | Remark |
 |:------:| -------------------------------- | ------ |
-| Delete | /api/tag/{name}/comic/{comic_id} |        |
+| Delete | /api/tag/{name}/{comic_id} |        |
 
 ### JSON Response
 #### Success
