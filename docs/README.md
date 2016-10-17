@@ -581,7 +581,7 @@ Status Code: 404
 }
 ```
 
-## 15. <a name="SearchComicsByName">Search Comics</a>
+## 15. <a name="SearchComics">Search Comics</a>
 
 | Method | URI                                      | Remark |
 |:------:| ---------------------------------------- | ------ |
