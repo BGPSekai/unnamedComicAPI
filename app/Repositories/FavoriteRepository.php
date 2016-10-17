@@ -24,10 +24,10 @@ class FavoriteRepository
 		return Favorite::destroy($favorite);
 	}
 
-	public function showUsers($comic_id)
-	{
-		return Tag::where('comic_id', $comic_id)->pluck('uid');
-	}
+	// public function showUsers($comic_id)
+	// {
+		// return Tag::where('comic_id', $comic_id)->pluck('uid');
+	// }
 
 	public function showComics($uid)
 	{

@@ -10,7 +10,7 @@ use App\Repositories\ComicRepository;
 use App\Repositories\FavoriteRepository;
 use Auth;
 
-class TagController extends Controller
+class FavoriteController extends Controller
 {
     public function __construct(ComicRepository $comicRepo, FavoriteRepository $favoriteRepo)
     {
@@ -23,26 +23,28 @@ class TagController extends Controller
         if (! $comic = $this->comicRepo->show($comic_id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found']);
 
-        $data = ['comic_id' => $comic_id, 'uid' => Auth::user()->id];
+        $uid = Auth::user()->id;
 
-        if (! $tag = $this->favoriteRepo->store($data))
-            return response()->json(['status' => 'error', 'message' => 'Tag Exist']);
+        $data = ['comic_id' => $comic_id, 'uid' => $uid];
 
-        $tags = $this->favoriteRepo->show($comic_id);
+        if (! $favorite = $this->favoriteRepo->store($data))
+            return response()->json(['status' => 'error', 'message' => 'Favorite Exist']);
 
-        return response()->json(['status' => 'success', 'tags' => $tags]);
+        $favorites = $this->favoriteRepo->showComics($uid);
+
+        return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 
-    public function destroy($name, $comic_id)
+    public function destroy($uid, $comic_id)
     {
         try {
-            $this->favoriteRepo->destroy($name, $comic_id);
+            $this->favoriteRepo->destroy($uid, $comic_id);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'Tag Not Found'], 404);
+            return response()->json(['status' => 'error', 'message' => 'Favorite Not Found'], 404);
         }
 
-        $tags = $this->favoriteRepo->show($comic_id);
+        $favorites = $this->favoriteRepo->showComics($uid);
 
-        return response()->json(['status' => 'success', 'tags' => $tags]);
+        return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 }
