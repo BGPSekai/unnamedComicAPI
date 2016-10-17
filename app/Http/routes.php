@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::get('/', 'UserController@index');
 			Route::get('{id}', 'UserController@show');
+			Route::get('{id}/favorites', 'FavoriteController@showComics');
 			Route::post('avatar', 'UserController@avatar');
 		});
 

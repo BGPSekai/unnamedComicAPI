@@ -49,4 +49,10 @@ class FavoriteController extends Controller
 
         return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
+
+    public function showComics($uid)
+    {
+        $favorites = $this->favoriteRepo->showComics($uid);
+        return response()->json(['status' => 'success', 'favorites' => $favorites]);
+    }
 }
