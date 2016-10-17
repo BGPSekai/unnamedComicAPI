@@ -508,14 +508,25 @@ Status Code: 404
 
 ```
 > Sort First
-> new_index[n] = 0 -> delete page
+> index[].length must equal chapter.pages
+>> it will check before upload images[]
+> new_index[n] = 0 -> delete page[n]
+```
+
+```
+if (index[] is not empty)
+  images[] is required
+else if (images[] is not empty)
+  index[] is required
+else
+  new_index[] is required
 ```
 
 ### Input Parameter
 
 | Type    | Name        | Required | Remark          |
 | ------- | ----------- |:--------:| --------------- |
-| Integer | index []    |          | min: 1          |
+| Integer | index[]     |          | min: 1          |
 | File    | images[]    |          | Image           |
 | Integer | new_index[] |          | integer, min: 0 |
 

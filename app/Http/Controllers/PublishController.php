@@ -168,14 +168,24 @@ class PublishController extends Controller
 
     private function batchValidator(array $data)
     {
-        return Validator::make($data, [
-            'index' => 'Array',
-            'index.*' => 'integer|min:1',
-            'images' => 'Array',
-            'images.*' => 'image',
-            'new_index' => 'Array',
-            'new_index.*' => 'integer|min:0',
-        ]);
+        if (isset($data['index']) || isset($data['images']))
+            return Validator::make($data, [
+                'index' => 'required|Array',
+                'index.*' => 'integer|min:1',
+                'images' => 'required|Array',
+                'images.*' => 'image',
+                'new_index' => 'Array',
+                'new_index.*' => 'integer|min:0',
+            ]);
+        else
+            return Validator::make($data, [
+                'index' => 'Array',
+                'index.*' => 'integer|min:1',
+                'images' => 'Array',
+                'images.*' => 'image',
+                'new_index' => 'required|Array',
+                'new_index.*' => 'integer|min:0',
+            ]);
     }
 
     private function storeFile($path, $file)
