@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::get('/', 'UserController@index');
 			Route::get('{id}', 'UserController@show');
+			Route::get('{id}/favorites', 'FavoriteController@showComics');
 			Route::post('avatar', 'UserController@avatar');
 		});
 
@@ -50,6 +51,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::get('{name}/{comic_id}', 'TagController@store');
 			Route::delete('{name}/{comic_id}', 'TagController@destroy');
+
+		Route::group(['prefix' => 'favorite'], function()
+		{
+			Route::get('{comic_id}', 'FavoriteController@store');
+			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
 	});
 
@@ -66,6 +72,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('type/{id}/{page}', 'SearchController@type');
 		Route::get('tag/{name}/{page}', 'SearchController@tag');
 		Route::get('author/{name}/{page}', 'SearchController@author');
+		Route::group(['prefix' => 'favorite'], function()
+		{
+			Route::get('user/{uid}', 'SearchController@');
+			Route::get('comic/{comic_id}', 'SearchController@');
+		});
 	});
 
 	Route::get('type', 'TypeController@index');
