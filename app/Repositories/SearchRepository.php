@@ -11,7 +11,7 @@ class SearchRepository
 {
     public function name($name, $page)
     {
-        $comics = Comic::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Comic::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'asc')->skip(($page - 1) * 10)->take(10)->get();
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('name', 'LIKE', '%'.$name.'%')->count()/10);
         return $result;
@@ -19,7 +19,7 @@ class SearchRepository
 
     public function publisher($user_id, $page)
     {
-        $comics = Comic::where('publish_by', $user_id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Comic::where('publish_by', $user_id)->orderBy('id', 'asc')->skip(($page - 1) * 10)->take(10)->get();
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('publish_by', $user_id)->count()/10);
         return $result;
@@ -27,7 +27,7 @@ class SearchRepository
 
     public function type($id, $page)
     {
-        $comics = Comic::where('type', $id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Comic::where('type', $id)->orderBy('id', 'asc')->skip(($page - 1) * 10)->take(10)->get();
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('type', $id)->count()/10);
         return $result;
@@ -35,7 +35,7 @@ class SearchRepository
 
     public function tag($name, $page)
     {
-        $comics = Tag::where('name', $name)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Tag::where('name', $name)->orderBy('id', 'asc')->skip(($page - 1) * 10)->take(10)->get();
         // foreach ($comics as $comic)
         //  $comic = Comic::find($comic->comic_id);
         foreach ($comics as $key => $comic)
@@ -47,7 +47,7 @@ class SearchRepository
 
     public function author($name, $page)
     {
-        $comics = Comic::where('author', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Comic::where('author', 'LIKE', '%'.$name.'%')->orderBy('id', 'asc')->skip(($page - 1) * 10)->take(10)->get();
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('author', 'LIKE', '%'.$name.'%')->count()/10);
         return $result;
