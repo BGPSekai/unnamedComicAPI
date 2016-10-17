@@ -18,7 +18,7 @@ class FavoriteController extends Controller
         $this->favoriteRepo = $favoriteRepo;
     }
 
-    public function store($uid, $comic_id)
+    public function store($comic_id)
     {
         if (! $comic = $this->comicRepo->show($comic_id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found']);
@@ -35,8 +35,10 @@ class FavoriteController extends Controller
         return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 
-    public function destroy($uid, $comic_id)
+    public function destroy($comic_id)
     {
+        $uid = Auth::user()->id;
+        
         try {
             $this->favoriteRepo->destroy($uid, $comic_id);
         } catch (\Exception $e) {

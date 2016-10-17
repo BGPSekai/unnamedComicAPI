@@ -8,11 +8,14 @@ class FavoriteRepository
 {
 	public function store(array $data)
 	{
-		return 
-	        Chapter::create([
-	        	'uid' => $data['uid'];
-	        	'comic_id' => $data['comic_id'],
-	        ]);
+		$favorite = Favorite::where('uid', $data['uid'])
+			->where('comic_id', $data['comic_id'])
+			->first();
+
+		if ($favorite)
+			return false;
+
+		return Favorite::create($data);
 	}
 
 	public function destroy($uid, $comic_id)
@@ -26,7 +29,7 @@ class FavoriteRepository
 
 	// public function showUsers($comic_id)
 	// {
-		// return Tag::where('comic_id', $comic_id)->pluck('uid');
+		// return Favorite::where('comic_id', $comic_id)->pluck('uid');
 	// }
 
 	public function showComics($uid)

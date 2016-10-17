@@ -48,8 +48,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		
 		Route::group(['prefix' => 'favorite'], function()
 		{
-			Route::get('{uid}/{comic_id}', 'FavoriteController@store');
-			Route::delete('{uid}/{comic_id}', 'FavoriteController@destroy');
+			Route::get('{comic_id}', 'FavoriteController@store');
+			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
 	});
 
