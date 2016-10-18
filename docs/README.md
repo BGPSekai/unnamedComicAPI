@@ -245,7 +245,7 @@ Status Code: 404
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
-| GET    | /api/tag/{name}/{comic_id} |        |
+| POST   | /api/tag/{name}/{comic_id} |        |
 
 ### JSON Response
 #### Success
@@ -626,7 +626,7 @@ Status Code: 200
 
 | Method | URI              | Remark   |
 |:------:| ---------------- | -------- |
-| GET    | /api/user/avatar | JWT Auth |
+| POST   | /api/user/avatar | JWT Auth |
 
 ### Input Parameter
 
@@ -672,7 +672,7 @@ Status Code: 404
 
 | Method | URI                      | Remark |
 |:------:| ------------------------ | ------ |
-| GET    | /api/favorite/{comic_id} |        |
+| POST   | /api/favorite/{comic_id} |        |
 
 ### JSON Response
 #### Success

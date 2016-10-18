@@ -49,12 +49,12 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		
 		Route::group(['prefix' => 'tag'], function()
 		{
-			Route::get('{name}/{comic_id}', 'TagController@store');
+			Route::post('{name}/{comic_id}', 'TagController@store');
 			Route::delete('{name}/{comic_id}', 'TagController@destroy');
 
 		Route::group(['prefix' => 'favorite'], function()
 		{
-			Route::get('{comic_id}', 'FavoriteController@store');
+			Route::post('{comic_id}', 'FavoriteController@store');
 			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
 	});
