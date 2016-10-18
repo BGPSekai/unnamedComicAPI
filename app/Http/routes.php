@@ -36,7 +36,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		{
 			Route::get('/', 'UserController@index');
 			Route::get('{id}', 'UserController@show');
-			Route::get('{id}/favorites', 'FavoriteController@showComics');
 			Route::post('avatar', 'UserController@avatar');
 		});
 
@@ -80,3 +79,4 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
 Route::get('api/comic/chapter/{page}', 'ComicController@showPage');
+Route::get('api/user/{id}/favorites', 'FavoriteController@showComics');
