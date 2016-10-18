@@ -1,19 +1,52 @@
 # User API Reference Guide
 ## Require JWT Auth
 
-1. [Reset Password](#ResetPassword)
-2. [Publish Comic](#PublishComic)
-3. [Publish Chapter](#PublishChapter)
-4. [Tag Comic](#TagComic)
-5. [Untag Comic](#UntagComic)
-6. [View User Info](#ViewUserInfo)
-7. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+1. [View User Info](#ViewUserInfo)
+2. [Reset Password](#ResetPassword)
+3. [Publish Comic](#PublishComic)
+4. [Publish Chapter](#PublishChapter)
+5. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+6. [Tag Comic](#TagComic)
+7. [Untag Comic](#UntagComic)
 8. [Update User Avatar](#UpdateUserAvatar)
 9. [Add User Favorite Comic](#AddUserFavoriteComic)
 10. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
 
 
-## 1. <a name="ResetPassword">Reset Password</a>
+## 1. <a name="ViewUserInfo">View User Info</a>
+
+| Method | URI            | Remark |
+|:------:| -------------- | ------ |
+| GET    | /api/user      |        |
+| GET    | /api/user/{id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "avatar": *avatar*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 404
+{
+  "status": "error",
+  "message": "User Not Found"
+}
+```
+
+## 2. <a name="ResetPassword">Reset Password</a>
 
 | Method | URI             | Remark |
 |:------:| --------------- | ------ |
@@ -59,7 +92,7 @@ Status Code: 401
 }
 ```
 
-## 2. <a name="PublishComic">Publish Comic</a>
+## 3. <a name="PublishComic">Publish Comic</a>
 
 | Method | URI          | Remark |
 |:------:| ------------ | ------ |
@@ -109,7 +142,7 @@ Status Code: 400
 }
 ```
 
-## 3. <a name="PublishChapter">Publish Chapter</a>
+## 4. <a name="PublishChapter">Publish Chapter</a>
 
 | Method | URI                     | Remark |
 |:------:| ----------------------- | ------ |
@@ -159,90 +192,7 @@ Status Code: 404
 }
 ```
 
-## 4. <a name="TagComic">Tag Comic</a>
-
-| Method | URI                        | Remark |
-|:------:| -------------------------- | ------ |
-| POST   | /api/tag/{name}/{comic_id} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "tags": *tags[Array]*
-}
-```
-
-#### Error
-```
-Status Code: 403
-{
-  "status": "error",
-  "message": "Tag Exist"
-}
-```
-
-## 5. <a name="UntagComic">Untag Comic</a>
-
-| Method | URI                        | Remark |
-|:------:| -------------------------- | ------ |
-| Delete | /api/tag/{name}/{comic_id} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "tags": *tags[Array]*
-}
-```
-
-#### Error
-```
-Status Code: 404
-{
-  "status": "error",
-  "message": "Tag Not Found"
-}
-```
-
-## 6. <a name="ViewUserInfo">View User Info</a>
-
-| Method | URI            | Remark |
-|:------:| -------------- | ------ |
-| GET    | /api/user      |        |
-| GET    | /api/user/{id} |        |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "user": {
-    "id": *id*,
-    "name": *name*,
-    "email": *email*,
-    "avatar": *avatar*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*
-  }
-}
-```
-
-#### Error
-```
-Status Code: 404
-{
-  "status": "error",
-  "message": "User Not Found"
-}
-```
-
-## 7. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+## 5. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
 | Method | URI                               | Remark |
 |:------:| --------------------------------- | ------ |
@@ -317,6 +267,56 @@ Status Code: 404
 {
   "status": "error",
   "message": "Chapter Not Found"
+}
+```
+
+## 6. <a name="TagComic">Tag Comic</a>
+
+| Method | URI                        | Remark |
+|:------:| -------------------------- | ------ |
+| POST   | /api/tag/{name}/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "tags": *tags[Array]*
+}
+```
+
+#### Error
+```
+Status Code: 403
+{
+  "status": "error",
+  "message": "Tag Exist"
+}
+```
+
+## 7. <a name="UntagComic">Untag Comic</a>
+
+| Method | URI                        | Remark |
+|:------:| -------------------------- | ------ |
+| Delete | /api/tag/{name}/{comic_id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "tags": *tags[Array]*
+}
+```
+
+#### Error
+```
+Status Code: 404
+{
+  "status": "error",
+  "message": "Tag Not Found"
 }
 ```
 
