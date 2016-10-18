@@ -1,5 +1,5 @@
 # User API Reference Guide
-## Require JWT Auth
+> Require JWT Auth
 
 1. [View User Info](#ViewUserInfo)
 2. [Reset Password](#ResetPassword)
