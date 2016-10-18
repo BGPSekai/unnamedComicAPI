@@ -66,7 +66,8 @@ class AuthController extends Controller
         // $token = JWTAuth::attempt($credentials);
 
         // return response()->json(['status' => 'success', 'user' => Auth::user(), 'token' => $token]);
-        return response()->json(['status' => 'success', 'user' => Auth::user()]);
+        // return response()->json(['status' => 'success', 'user' => Auth::user()]);
+        return response()->json(['status' => 'success', 'message' => 'Password Reset'])
     }
 
     private function validator(array $data)

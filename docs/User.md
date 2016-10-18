@@ -66,14 +66,7 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "user": {
-    "id": *id*,
-    "name": *name*,
-    "email": *email*,
-    "avatar": *avatar*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*
-  }
+  "message": "Password Reset"
 }
 ```
 
