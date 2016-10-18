@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         // return response()->json(['status' => 'success', 'user' => Auth::user(), 'token' => $token]);
         // return response()->json(['status' => 'success', 'user' => Auth::user()]);
-        return response()->json(['status' => 'success', 'message' => 'Password Reset'])
+        return response()->json(['status' => 'success', 'message' => 'Password Reset']);
     }
 
     private function validator(array $data)
