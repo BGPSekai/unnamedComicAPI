@@ -144,15 +144,6 @@ Status Code: 200
 }
 ```
 
-#### Error
-```
-Status Code: 404
-{
-  "status": "error",
-  "message": "User Not Found"
-}
-```
-
 ## 5. <a name="ViewComicInfo">View Comic Info</a>
 
 | Method | URI             | Remark |
