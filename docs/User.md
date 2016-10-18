@@ -1,4 +1,5 @@
 # User API Reference Guide
+## Require JWT Auth
 
 1. [Reset Password](#ResetPassword)
 2. [Publish Comic](#PublishComic)
@@ -14,9 +15,9 @@
 
 ## 1. <a name="ResetPassword">Reset Password</a>
 
-| Method | URI             | Remark   |
-|:------:| --------------- | -------- |
-| POST   | /api/auth/reset | JWT Auth |
+| Method | URI             | Remark |
+|:------:| --------------- | ------ |
+| POST   | /api/auth/reset |        |
 
 ### Input Parameter
 
@@ -60,9 +61,9 @@ Status Code: 401
 
 ## 2. <a name="PublishComic">Publish Comic</a>
 
-| Method | URI          | Remark   |
-|:------:| ------------ | -------- |
-| POST   | /api/publish | JWT Auth |
+| Method | URI          | Remark |
+|:------:| ------------ | ------ |
+| POST   | /api/publish |        |
 
 ### Input Parameter
 
@@ -110,9 +111,9 @@ Status Code: 400
 
 ## 3. <a name="PublishChapter">Publish Chapter</a>
 
-| Method | URI                     | Remark   |
-|:------:| ----------------------- | -------- |
-| POST   | /api/publish/{comic_id} | JWT Auth |
+| Method | URI                     | Remark |
+|:------:| ----------------------- | ------ |
+| POST   | /api/publish/{comic_id} |        |
 
 ### Input Parameter
 
@@ -210,10 +211,10 @@ Status Code: 404
 
 ## 6. <a name="ViewUserInfo">View User Info</a>
 
-| Method | URI            | Remark   |
-|:------:| -------------- | -------- |
-| GET    | /api/user      | JWT Auth |
-| GET    | /api/user/{id} | JWT Auth |
+| Method | URI            | Remark |
+|:------:| -------------- | ------ |
+| GET    | /api/user      |        |
+| GET    | /api/user/{id} |        |
 
 ### JSON Response
 #### Success
@@ -243,9 +244,9 @@ Status Code: 404
 
 ## 7. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
-| Method | URI                               | Remark   |
-|:------:| --------------------------------- | -------- |
-| POST   | /api/publish/chapter/{chapter_id} | JWT Auth |
+| Method | URI                               | Remark |
+|:------:| --------------------------------- | ------ |
+| POST   | /api/publish/chapter/{chapter_id} |        |
 
 ```
 > Sort First
@@ -321,9 +322,9 @@ Status Code: 404
 
 ## 8. <a name="UpdateUserAvatar">Update User Avatar</a>
 
-| Method | URI              | Remark   |
-|:------:| ---------------- | -------- |
-| POST   | /api/user/avatar | JWT Auth |
+| Method | URI              | Remark |
+|:------:| ---------------- | ------ |
+| POST   | /api/user/avatar |        |
 
 ### Input Parameter
 
