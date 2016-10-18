@@ -3,12 +3,12 @@
 
 1. [View User Info](#ViewUserInfo)
 2. [Reset Password](#ResetPassword)
-3. [Publish Comic](#PublishComic)
-4. [Publish Chapter](#PublishChapter)
-5. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
-6. [Tag Comic](#TagComic)
-7. [Untag Comic](#UntagComic)
-8. [Update User Avatar](#UpdateUserAvatar)
+3. [Update User Avatar](#UpdateUserAvatar)
+4. [Publish Comic](#PublishComic)
+5. [Publish Chapter](#PublishChapter)
+6. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+7. [Tag Comic](#TagComic)
+8. [Untag Comic](#UntagComic)
 9. [Add User Favorite Comic](#AddUserFavoriteComic)
 10. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
 
@@ -85,7 +85,33 @@ Status Code: 401
 }
 ```
 
-## 3. <a name="PublishComic">Publish Comic</a>
+## 3. <a name="UpdateUserAvatar">Update User Avatar</a>
+
+| Method | URI              | Remark |
+|:------:| ---------------- | ------ |
+| POST   | /api/user/avatar |        |
+
+### Input Parameter
+
+| Type | Name     | Required | Remark         |
+| ---- | -------- |:--------:| -------------- |
+| File | image    | √        | Image          |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "avatar": *avatar*
+  }
+}
+```
+
+## 8. <a name="PublishComic">Publish Comic</a>
 
 | Method | URI          | Remark |
 |:------:| ------------ | ------ |
@@ -310,32 +336,6 @@ Status Code: 404
 {
   "status": "error",
   "message": "Tag Not Found"
-}
-```
-
-## 8. <a name="UpdateUserAvatar">Update User Avatar</a>
-
-| Method | URI              | Remark |
-|:------:| ---------------- | ------ |
-| POST   | /api/user/avatar |        |
-
-### Input Parameter
-
-| Type | Name     | Required | Remark         |
-| ---- | -------- |:--------:| -------------- |
-| File | image    | √        | Image          |
-
-### JSON Response
-#### Success
-```
-Status Code: 200
-{
-  "status": "success",
-  "user": {
-    "id": *id*,
-    "name": *name*,
-    "avatar": *avatar*
-  }
 }
 ```
 
