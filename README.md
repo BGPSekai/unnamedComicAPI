@@ -27,6 +27,7 @@ php artisan db:seed
 Edit php.ini if you need.
 
 ```
+max_execution_time = 0
 post_max_size = 0
 upload_max_filesize = 0
 max_file_uploads = 0
