@@ -75,8 +75,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	});
 
 	Route::get('type', 'TypeController@index');
+	Route::get('user/{id}/favorites', 'FavoriteController@showComics');
 });
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
 Route::get('api/comic/chapter/{page}', 'ComicController@showPage');
-Route::get('api/user/{id}/favorites', 'FavoriteController@showComics');
