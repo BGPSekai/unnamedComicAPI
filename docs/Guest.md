@@ -327,9 +327,9 @@ Status Code: 404
 
 ## 10. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
 
-| Method | URI                      | Remark |
-|:------:| ------------------------ | ------ |
-| GET    | /api/user/{id}/favorite  |        |
+| Method | URI                       | Remark |
+|:------:| ------------------------- | ------ |
+| GET    | /api/user/{id}/favorites  |        |
 
 ### JSON Response
 #### Success
