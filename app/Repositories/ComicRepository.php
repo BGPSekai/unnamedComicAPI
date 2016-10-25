@@ -49,4 +49,10 @@ class ComicRepository
 	{
 		return Comic::find($id)->update(['chapters' => $chapters]);
 	}
+
+	public function sortByUpdateTime($comics)
+	{
+		return
+			Comic::find($comics)->sortByDesc('updated_at')->pluck('id');
+	}
 }

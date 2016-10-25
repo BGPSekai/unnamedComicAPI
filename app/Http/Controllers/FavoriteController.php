@@ -52,7 +52,8 @@ class FavoriteController extends Controller
 
     public function showComics($uid)
     {
-        $favorites = $this->favoriteRepo->showComics($uid);
+        $favorites = $this->favoriteRepo->showComics($uid)->toArray();
+        $favorites = $this->comicRepo->sortByUpdateTime($favorites);
         return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 }
