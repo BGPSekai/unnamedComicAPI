@@ -15,10 +15,9 @@
 
 ## 1. <a name="ViewUserInfo">View User Info</a>
 
-| Method | URI            | Remark |
-|:------:| -------------- | ------ |
-| GET    | /api/user      |        |
-| GET    | /api/user/{id} |        |
+| Method | URI       | Remark |
+|:------:| --------- | ------ |
+| GET    | /api/user |        |
 
 ### JSON Response
 #### Success

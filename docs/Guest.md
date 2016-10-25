@@ -8,8 +8,9 @@
 6. [View Comic Cover](#ViewComicCover)
 7. [View Chapter Page](#ViewChapterPage)
 8. [Search Comics](#SearchComics)
-9. [View User Avatar](#ViewUserAvatar)
-10. [View User Favorite Comics](#ViewUserFavoriteComics)
+9. [View User Info](#ViewUserInfo)
+10. [View User Avatar](#ViewUserAvatar)
+11. [View User Favorite Comics](#ViewUserFavoriteComics)
 
 
 ## 1. <a name="Register">Register</a>
@@ -305,7 +306,39 @@ Status Code: 200
 }
 ```
 
-## 9. <a name="ViewUserAvatar">View User Avatar</a>
+## 9. <a name="ViewUserInfo">View User Info</a>
+
+| Method | URI            | Remark |
+|:------:| -------------- | ------ |
+| GET    | /api/user/{id} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "user": {
+    "id": *id*,
+    "name": *name*,
+    "email": *email*,
+    "avatar": *avatar*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 404
+{
+  "status": "error",
+  "message": "User Not Found"
+}
+```
+
+## 10. <a name="ViewUserAvatar">View User Avatar</a>
 
 | Method | URI                                   | Remark |
 |:------:| ------------------------------------- | ------ |
@@ -325,7 +358,7 @@ Status Code: 200
 Status Code: 404
 ```
 
-## 10. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
+## 11. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
 
 | Method | URI                       | Remark |
 |:------:| ------------------------- | ------ |

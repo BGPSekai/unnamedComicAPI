@@ -35,7 +35,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::group(['prefix' => 'user'], function()
 		{
 			Route::get('/', 'UserController@index');
-			Route::get('{id}', 'UserController@show');
 			Route::post('avatar', 'UserController@avatar');
 		});
 
@@ -74,8 +73,12 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 		Route::get('author/{name}/{page}', 'SearchController@author');
 	});
 
+	Route::group(['prefix' => 'user'], function() {
+		Route::get('{id}', 'UserController@show');
+		Route::get('{id}/favorites', 'FavoriteController@showComics');
+	});
+
 	Route::get('type', 'TypeController@index');
-	Route::get('user/{id}/favorites', 'FavoriteController@showComics');
 });
 
 Route::get('api/comic/{id}/cover', 'ComicController@showCover');
