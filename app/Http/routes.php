@@ -44,7 +44,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 			Route::post('{comic_id}', 'PublishController@chapter');
 			Route::post('chapter/{chapter_id}', 'PublishController@batch');
 		});
-		
+
 		Route::group(['prefix' => 'tag'], function()
 		{
 			Route::post('{name}/{comic_id}', 'TagController@store');
@@ -62,6 +62,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'cors'], function()
 	{
 		Route::get('page/{page}', 'ComicController@index');
 		Route::get('{id}', 'ComicController@show');
+		Route::post('info', 'ComicController@info');
 	});
 
 	Route::group(['prefix' => 'search'], function()

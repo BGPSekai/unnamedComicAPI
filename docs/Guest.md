@@ -5,12 +5,13 @@
 3. [List Comics](#ListComics)
 4. [List Types](#ListTypes)
 5. [View Comic Info](#ViewComicInfo)
-6. [View Comic Cover](#ViewComicCover)
-7. [View Chapter Page](#ViewChapterPage)
-8. [Search Comics](#SearchComics)
-9. [View User Info](#ViewUserInfo)
-10. [View User Avatar](#ViewUserAvatar)
-11. [View User Favorite Comics](#ViewUserFavoriteComics)
+6. [View Comic Infos](#ViewComicInfos)
+7. [View Comic Cover](#ViewComicCover)
+8. [View Chapter Page](#ViewChapterPage)
+9. [Search Comics](#SearchComics)
+10. [View User Info](#ViewUserInfo)
+11. [View User Avatar](#ViewUserAvatar)
+12. [View User Favorite Comics](#ViewUserFavoriteComics)
 
 
 ## 1. <a name="Register">Register</a>
@@ -203,7 +204,55 @@ Status Code: 404
 }
 ```
 
-## 6. <a name="ViewComicCover">View Comic Cover</a>
+## 6. <a name="ViewComicInfos">View Comic Infos</a>
+
+| Method | URI             | Remark |
+|:------:| --------------- | ------ |
+| POST   | /api/comic/info |        |
+
+### Input Parameter
+
+| Type    | Name     | Required | Remark |
+| ------- | -------- |:--------:| ------ |
+| Integer | comics[] | √        | min: 1 | 
+
+### JSON Response
+#### Success
+```
+{
+  "status": "success",
+  "comic": {
+    "id": *id*,
+    "name": *name*,
+    "summary": *summary*,
+    "author": *author*,
+    "type": {
+      "id": *id*,
+      "name": *name*
+    },
+    "publish_by": {
+      "id": *id*,
+      "name": *name*
+    },
+    "chapters": *chapters*,
+    "created_at": *createTime*,
+    "updated_at": *updateTime*",
+    "tags": *tags[Array]*
+  },
+  ...
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+```
+
+## 7. <a name="ViewComicCover">View Comic Cover</a>
 
 | Method | URI                   | Remark |
 |:------:| --------------------- | ------ |
@@ -225,7 +274,7 @@ Status Code: 404
 }
 ```
 
-## 7. <a name="ViewChapterPage">View Chapter Page</a>
+## 8. <a name="ViewChapterPage">View Chapter Page</a>
 
 | Method | URI                       | Remark |
 |:------:| ------------------------- | ------ |
@@ -265,7 +314,7 @@ Status Code: 404
 }
 ```
 
-## 8. <a name="SearchComics">Search Comics</a>
+## 9. <a name="SearchComics">Search Comics</a>
 
 | Method | URI                                      | Remark |
 |:------:| ---------------------------------------- | ------ |
@@ -306,7 +355,7 @@ Status Code: 200
 }
 ```
 
-## 9. <a name="ViewUserInfo">View User Info</a>
+## 10. <a name="ViewUserInfo">View User Info</a>
 
 | Method | URI            | Remark |
 |:------:| -------------- | ------ |
@@ -338,7 +387,7 @@ Status Code: 404
 }
 ```
 
-## 10. <a name="ViewUserAvatar">View User Avatar</a>
+## 11. <a name="ViewUserAvatar">View User Avatar</a>
 
 | Method | URI                                   | Remark |
 |:------:| ------------------------------------- | ------ |
@@ -358,7 +407,7 @@ Status Code: 200
 Status Code: 404
 ```
 
-## 11. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
+## 12. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
 
 | Method | URI                       | Remark |
 |:------:| ------------------------- | ------ |

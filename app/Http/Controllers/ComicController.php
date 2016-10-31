@@ -12,6 +12,7 @@ use Response;
 use Storage;
 use JWTAuth;
 use JWTFactory;
+use Validator;
 
 class ComicController extends Controller
 {
@@ -87,5 +88,33 @@ class ComicController extends Controller
         natsort($file_path);
         $file_path = array_values($file_path);
         return Response::download(storage_path().'/app/'.$file_path[$page-1]);
+    }
+
+    public function info(Request $request)
+    {
+        $data = $request->only('comics');
+        $validator = $this->infoValidator($data);
+
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
+
+        $infos = array();
+
+        foreach ($request->comics as $comic)
+            try {
+                $info = $this->comicRepo->show($comic);
+                array_push($infos, $info);
+            } catch (\Exception $e) {
+                #do nothing
+            }
+
+        return response()->json(['status' => 'success', 'infos' => $infos]);
+    }
+
+    private function infoValidator(array $data) {
+        return Validator::make($data, [
+            'comics' => 'required|Array',
+            'comics.*' => 'integer|min:1',
+        ]);
     }
 }
