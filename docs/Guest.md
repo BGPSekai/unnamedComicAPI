@@ -168,8 +168,7 @@ Status Code: 200
     },
     "publish_by": {
       "id": *id*,
-      "name": *name*,
-      "email": *email*
+      "name": *name*
     },
     "chapters": *chapters*,
     "created_at": *createTime*,

@@ -238,7 +238,7 @@ else
 | ------- | ----------- |:--------:| --------------- |
 | Integer | index[]     |          | min: 1          |
 | File    | images[]    |          | Image           |
-| Integer | new_index[] |          | integer, min: 0 |
+| Integer | new_index[] |          | min: 0 |
 
 ### JSON Response
 #### Success
