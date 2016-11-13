@@ -21,7 +21,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $data = $request->only('name', 'email', 'password', 'password_confirmation');
+        $data = $request->only('name', 'email', 'password', 'password_confirmation', 'from');
 
         $validator = $this->validator($data);
 
