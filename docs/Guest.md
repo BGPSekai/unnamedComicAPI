@@ -22,12 +22,18 @@
 
 ### Input Parameter
 
-| Type   | Name                  | Required | Remark           |
-| ------ | --------------------- |:--------:| ---------------- |
-| String | name                  | √        |                  |
-| Email  | email                 | √        |                  |
-| String | password              | √        | min: 6           |
-| String | password_confirmation | √        | same as password |
+| Type   | Name                  | Required | Remark             |
+| ------ | --------------------- |:--------:| ------------------ |
+| String | name                  | √        |                    |
+| Email  | email                 | √        |                    |
+| String | password              | √        | min: 6             |
+| String | password_confirmation | √        | same as password   |
+| String | from                  |          | for social account |
+
+```
+from
+  Ex. Google、Facebook
+```
 
 ### JSON Response
 #### Success
