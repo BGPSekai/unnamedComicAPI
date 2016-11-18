@@ -20,7 +20,7 @@ class CreateComicsTable extends Migration
             $table->string('author');
             $table->integer('type');
             $table->integer('publish_by');
-            $table->integer('chapters');
+            $table->integer('chapters')->nullable();
             $table->timestamps();
         });
     }
