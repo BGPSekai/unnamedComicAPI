@@ -1,6 +1,9 @@
-/vendor
 /node_modules
-/public/users
-Homestead.yaml
+/public/storage
+/storage/*.key
+/vendor
+/.idea
 Homestead.json
+Homestead.yaml
 .env
+/public/users 
