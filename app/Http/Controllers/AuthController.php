@@ -23,13 +23,14 @@ class AuthController extends Controller
     {
         $data = $request->only('name', 'email', 'password', 'password_confirmation', 'from');
 
+        if ($data['from'])
+            $data['email'] = $data['email'].'@'.$data['from'];
+
         $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        if ($data['from'])
-            $data['email'] = $data['email'].'@'.$data('from');
 
         $user = $this->repo->create($data);
 
@@ -40,8 +41,8 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password', 'from');
 
-        if ($request->from)
-            $request->email = $request->email.'@'.$request->from;
+        if ($credentials['from'])
+            $credentials['email'] = $credentials['email'].'@'.$credentials['from'];
 
         if (! $token = JWTAuth::attempt($credentials))
             return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
@@ -78,9 +79,10 @@ class AuthController extends Controller
 
     private function validator(array $data)
     {
+        $email_rule = $data['from'] ? '' : '|email';
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|max:255|unique:users'.$email_rule,
             'password' => 'required|min:6|confirmed',
         ]);
     }
