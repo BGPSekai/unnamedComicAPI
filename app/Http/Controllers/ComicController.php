@@ -114,7 +114,7 @@ class ComicController extends Controller
     private function infoValidator(array $data) {
         return Validator::make($data, [
             'comics' => 'required|Array',
-            'comics.*' => 'integer|min:1',
+            'comics.*' => 'required_with:comics|integer|min:1',
         ]);
     }
 }

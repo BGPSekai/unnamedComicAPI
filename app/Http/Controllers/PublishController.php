@@ -162,30 +162,38 @@ class PublishController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'images' => 'Array|nullable',
-            'images.*' => 'image',
+            'images.*' => 'required_with:images|image',
         ]);
     }
 
     private function batchValidator(array $data)
     {
-        if (isset($data['index']) || isset($data['images']))
-            return Validator::make($data, [
-                'index' => 'required|Array',
-                'index.*' => 'integer|min:1',
-                'images' => 'required|Array',
-                'images.*' => 'image',
-                'new_index' => 'Array',
-                'new_index.*' => 'integer|min:0',
-            ]);
-        else
-            return Validator::make($data, [
-                'index' => 'Array',
-                'index.*' => 'integer|min:1',
-                'images' => 'Array',
-                'images.*' => 'image',
-                'new_index' => 'required|Array',
-                'new_index.*' => 'integer|min:0',
-            ]);
+        // if (isset($data['index']) || isset($data['images']))
+        //     return Validator::make($data, [
+        //         'index' => 'required|Array',
+        //         'index.*' => 'integer|min:1',
+        //         'images' => 'required|Array',
+        //         'images.*' => 'image',
+        //         'new_index' => 'Array',
+        //         'new_index.*' => 'integer|min:0',
+        //     ]);
+        // else
+        //     return Validator::make($data, [
+        //         'index' => 'Array',
+        //         'index.*' => 'integer|min:1',
+        //         'images' => 'Array',
+        //         'images.*' => 'image',
+        //         'new_index' => 'required|Array',
+        //         'new_index.*' => 'integer|min:0',
+        //     ]);
+        return Validator::make($data, [
+            'index' => 'required_with:images|Array|nullable',
+            'index.*' => 'required_with:index|integer|min:1',
+            'images' => 'required_with:index|Array|nullable',
+            'images.*' => 'required_with:images|image',
+            'new_index' => 'required_without_all:index,images|Array|nullable',
+            'new_index.*' => 'required_with:new_index|integer|min:0',
+        ]);
     }
 
     private function storeFile($path, $file)

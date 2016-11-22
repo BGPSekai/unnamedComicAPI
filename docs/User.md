@@ -218,7 +218,7 @@ Status Code: 404
 
 ```
 > Sort First
-> index[].length must equal chapter.pages
+> new_index[].length must equal chapter.pages
 >> it will check before upload images[]
 > new_index[n] = 0 -> delete page[n]
 ```
