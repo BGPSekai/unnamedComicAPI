@@ -28,6 +28,9 @@ class AuthController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
+        if ($data['from'])
+            $data['email'] = $data['email'].'@'.$data('from');
+
         $user = $this->repo->create($data);
 
         return response()->json(['status' => 'success', 'user' => $user]);
@@ -35,8 +38,11 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        
+        $credentials = $request->only('email', 'password', 'from');
+
+        if ($request->from)
+            $request->email = $request->email.'@'.$request->from;
+
         if (! $token = JWTAuth::attempt($credentials))
             return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
  

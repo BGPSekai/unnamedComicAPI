@@ -69,10 +69,11 @@ Status Code: 400
 
 ### Input Parameter
 
-| Type   | Name     | Required | Remark |
-| ------ | -------- |:--------:| ------ |
-| Email  | email    | √        |        | 
-| String | password | √        |        |
+| Type   | Name     | Required | Remark             |
+| ------ | -------- |:--------:| ------------------ |
+| Email  | email    | √        |                    | 
+| String | password | √        |                    |
+| String | from     |          | for social account |
 
 ### JSON Response
 #### Success
