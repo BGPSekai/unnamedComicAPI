@@ -161,7 +161,7 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'images' => 'Array',
+            'images' => 'Array|nullable',
             'images.*' => 'image',
         ]);
     }
