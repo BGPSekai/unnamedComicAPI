@@ -33,9 +33,9 @@ class SearchController extends Controller
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
-    public function tag($name, $page)
+    public function tag(Request $request, $name, $page)
     {
-        $result = $this->repo->tag($name, $page);
+        $result = $this->repo->tag($name, $page, $request->fuzzy);
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 

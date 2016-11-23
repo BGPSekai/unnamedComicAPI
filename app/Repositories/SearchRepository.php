@@ -33,15 +33,19 @@ class SearchRepository
         return $result;
     }
 
-    public function tag($name, $page)
+    public function tag($name, $page, $fuzzy)
     {
-        $comics = Tag::where('name', $name)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = $fuzzy ? 
+            Tag::where('name', $name)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get() :
+            Tag::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         // foreach ($comics as $comic)
         //  $comic = Comic::find($comic->comic_id);
         foreach ($comics as $key => $comic)
             $comics[$key] = Comic::find($comic->comic_id);
         $result['comics'] = $this->detail($comics);
-        $result['pages'] = ceil(Tag::where('name', $name)->count()/10);
+        $result['pages'] = $fuzzy ?
+            ceil(Tag::where('name', $name)->count()/10) :
+            ceil(Tag::where('name', 'LIKE', '%'.$name.'%')->count()/10);
         return $result;
     }
 
