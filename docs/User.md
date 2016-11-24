@@ -190,7 +190,7 @@ Status Code: 200
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*,
-    "token": *token*
+    <!-- "token": *token* -->
   }
 }
 ```
