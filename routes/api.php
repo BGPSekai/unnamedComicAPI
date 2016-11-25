@@ -48,6 +48,11 @@ Route::group(['middleware' => 'cors'], function()
 			Route::post('{comic_id}', 'FavoriteController@store');
 			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
+
+		Route::group(['prefix' => 'comment'], function()
+		{
+			Route::post('/', 'CommentController@store');
+		});
 	});
 
 	Route::group(['prefix' => 'comic'], function()

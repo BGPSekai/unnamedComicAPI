@@ -10,34 +10,33 @@ use Validator;
 
 class CommentController extends Controller
 {
+    public function __construct(CommentRepository $commentRepo)
+    {
+        $this->commentRepo = $commentRepo;
+    }
+
     public function store(Request $request)
     {
         $user = Auth::user();
-        $data = $request->only('name', 'summary', 'author', 'type', 'cover');
+        $data = $request->only('comic_id', 'chapter_id', 'comment');
         $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
-        $data['publish_by'] = $user->id;
-        $comic = $this->comicRepo->create($data);
-        $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+        $data['comment_by'] = $user->id;
+        $comment = $this->commentRepo->create($data);
+        $comment['comment_by'] = ['id' => $user->id, 'name' => $user->name];
 
-        $cover = $request->file('cover');
-        $extension = $cover->getClientOriginalExtension();
-        $this->storeFile('comics/'.$comic->id.'/cover.'.$extension, $cover);
-
-        return response()->json(['status' => 'success', 'comic' => $comic]);
+        return response()->json(['status' => 'success', 'comment' => $comment]);
     }
 
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'summary' => 'required|max:255',
-            'author' => 'required|max:255',
-            'type' => 'required|exists:types,id',
-            'cover' => 'required|image',
+            'comic_id' => 'required|exists:comics,id',
+            'chapter_id' => 'exists:chapters,id|nullable',
+            'comment' => 'required|max:255',
         ]);
     }
 }
