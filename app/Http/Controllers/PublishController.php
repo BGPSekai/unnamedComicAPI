@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Auth;
@@ -23,7 +21,7 @@ class PublishController extends Controller
         $this->chapterRepo = $chapterRepo;
     }
 
-    public function index(Request $request)
+    public function comic(Request $request)
     {
         $user = Auth::user();
         $data = $request->only('name', 'summary', 'author', 'type', 'cover');

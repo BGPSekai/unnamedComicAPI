@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 use App\Repositories\ComicRepository;
 use App\Repositories\TagRepository;
 use Auth;

@@ -32,7 +32,7 @@ Route::group(['middleware' => 'cors'], function()
 
 		Route::group(['prefix' => 'publish'], function()
 		{
-			Route::post('/', 'PublishController@index');
+			Route::post('/', 'PublishController@comic');
 			Route::post('{comic_id}', 'PublishController@chapter');
 			Route::post('chapter/{chapter_id}', 'PublishController@batch');
 		});

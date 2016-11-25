@@ -15,10 +15,10 @@ class CreateChaptersTable extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('comic_id');
+            $table->integer('comic_id')->unsigned();
             $table->string('name');
-            $table->integer('pages');
-            $table->integer('publish_by');
+            $table->integer('pages')->unsigned();
+            $table->integer('publish_by')->unsigned();
             $table->timestamps();
         });
     }
