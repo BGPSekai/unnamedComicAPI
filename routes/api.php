@@ -52,6 +52,7 @@ Route::group(['middleware' => 'cors'], function()
 		Route::group(['prefix' => 'comment'], function()
 		{
 			Route::post('/', 'CommentController@store');
+			Route::post('{id}', 'CommentController@update');
 		});
 	});
 

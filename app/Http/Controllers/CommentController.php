@@ -31,6 +31,12 @@ class CommentController extends Controller
         return response()->json(['status' => 'success', 'comment' => $comment]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $old_comment = $commentRepo->find($id);
+        
+    }
+
     private function validator(array $data)
     {
         return Validator::make($data, [
