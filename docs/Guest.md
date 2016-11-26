@@ -322,13 +322,13 @@ Status Code: 404
 
 ## 9. <a name="SearchComics">Search Comics</a>
 
-| Method | URI                                           | Remark         |
-|:------:| --------------------------------------------- | -------------- |
-| GET    | /api/search/name/{name}/{page}                | Fuzzy          |
-| GET    | /api/search/publisher/{user_id}/{page}        |                |
-| GET    | /api/search/type/{id}/{page}                  |                |
-| GET    | /api/search/tag/{name}/{page}?fuzzy={boolean} | Optional fuzzy |
-| GET    | /api/search/author/{name}/{page}              |                |
+| Method | URI                                           | Remark          |
+|:------:| --------------------------------------------- | --------------- |
+| GET    | /api/search/name/{name}/{page}                | Fuzzy           |
+| GET    | /api/search/publisher/{user_id}/{page}        |                 |
+| GET    | /api/search/type/{id}/{page}                  |                 |
+| GET    | /api/search/tag/{name}/{page}?fuzzy={boolean} | Optional: fuzzy |
+| GET    | /api/search/author/{name}/{page}              |                 |
 
 ### JSON Response
 #### Success

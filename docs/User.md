@@ -11,6 +11,7 @@
 8. [Untag Comic](#UntagComic)
 9. [Add User Favorite Comic](#AddUserFavoriteComic)
 10. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
+11. [Comment Comic or Chapter](#CommentComicOrChapter)
 
 
 ## 1. <a name="ViewUserInfo">View User Info</a>
@@ -110,7 +111,7 @@ Status Code: 200
 }
 ```
 
-## 8. <a name="PublishComic">Publish Comic</a>
+## 4. <a name="PublishComic">Publish Comic</a>
 
 | Method | URI          | Remark |
 |:------:| ------------ | ------ |
@@ -160,7 +161,7 @@ Status Code: 400
 }
 ```
 
-## 4. <a name="PublishChapter">Publish Chapter</a>
+## 5. <a name="PublishChapter">Publish Chapter</a>
 
 | Method | URI                     | Remark |
 |:------:| ----------------------- | ------ |
@@ -210,7 +211,7 @@ Status Code: 404
 }
 ```
 
-## 5. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+## 6. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
 | Method | URI                               | Remark |
 |:------:| --------------------------------- | ------ |
@@ -238,7 +239,7 @@ else
 | ------- | ----------- |:--------:| --------------- |
 | Integer | index[]     |          | min: 1          |
 | File    | images[]    |          | Image           |
-| Integer | new_index[] |          | min: 0 |
+| Integer | new_index[] |          | min: 0          |
 
 ### JSON Response
 #### Success
@@ -288,7 +289,7 @@ Status Code: 404
 }
 ```
 
-## 6. <a name="TagComic">Tag Comic</a>
+## 7. <a name="TagComic">Tag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -313,7 +314,7 @@ Status Code: 403
 }
 ```
 
-## 7. <a name="UntagComic">Untag Comic</a>
+## 8. <a name="UntagComic">Untag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -385,5 +386,64 @@ Status Code: 404
 {
   "status": "error",
   "message": "Favorite Not Found"
+}
+```
+
+## 11. <a name="CommentComicOrChapter">Comment Comic or Chapter</a>
+
+| Method | URI          | Remark |
+|:------:| ------------ | ------ |
+| POST   | /api/comment |        |
+
+### Input Parameter
+
+#### Comment
+
+| Type    | Name       | Required | Remark |
+| ------- | ---------- |:--------:| ------ |
+| Integer | comic_id   | √        |        |
+| Integer | chapter_id |          |        |
+| String  | comment    | √        |        |
+
+#### Update Comment
+
+| Type    | Name    | Required | Remark |
+| ------- | ------- |:--------:| ------ |
+| Integer | id      | √        |        |
+| String  | comment | √        |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "comment": {
+    "id": *id*,
+    "comic_id": *comic_id*,
+    "chapter_id": *chapter_id*,
+    "comment": *comment*,
+    "comment_by": {
+      "id": *id*,
+      "name": *name*
+    },
+    "updated_at": *updateTime*,
+    "created_at": *createTime*
+  }
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
+Status Code: 403
+{
+  "status": "error",
+  "message": "Access is Denied"
 }
 ```
