@@ -33,7 +33,8 @@ class SearchController extends Controller
 
     public function tag(Request $request, $name, $page)
     {
-        $result = $this->repo->tag($name, $page, $request->fuzzy === 'true');
+        $fuzzy = filter_var($request->fuzzy, FILTER_VALIDATE_BOOLEAN);
+        $result = $this->repo->tag($name, $page, $fuzzy);
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
