@@ -33,7 +33,7 @@ class SearchController extends Controller
 
     public function tag(Request $request, $name, $page)
     {
-        $result = $this->repo->tag($name, $page, $request->fuzzy);
+        $result = $this->repo->tag($name, $page, $request->fuzzy === 'true');
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
