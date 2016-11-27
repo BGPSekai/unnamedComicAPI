@@ -172,7 +172,7 @@ Status Code: 400
 | Type   | Name     | Required | Remark |
 | ------ | -------- |:--------:| ------ |
 | String | name     | √        |        |
-| File   | images[] |          | Image  |
+<!-- | File   | images[] |          | Image  | -->
 
 ### JSON Response
 #### Success
