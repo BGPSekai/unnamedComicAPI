@@ -36,8 +36,8 @@ class SearchRepository
     public function tag($name, $page, $fuzzy)
     {
         $comics = $fuzzy ? 
-            Tag::where('name', $name)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get() :
-            Tag::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+            Tag::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get() :
+            Tag::where('name', $name)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         // foreach ($comics as $comic)
         //  $comic = Comic::find($comic->comic_id);
         foreach ($comics as $key => $comic)
