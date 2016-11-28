@@ -3,13 +3,14 @@
 namespace App\Repositories;
 
 use App\Entities\Comment;
+use App\Entities\User;
 
 class CommentRepository
 {
 	public function comic($id, $page)
 	{
         $comments = Comment::where('comic_id', $id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-        $result['comments'] = $comments;
+        $result['comments'] = $this->detail($comments);
         $result['pages'] = ceil(Comment::where('comic_id', $id)->count()/10);
         return $result;
 	}
@@ -17,7 +18,7 @@ class CommentRepository
 	public function chapter($id, $page)
 	{
         $comments = Comment::where('chapter_id', $id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
-        $result['comments'] = $comments;
+        $result['comments'] = $this->detail($comments);
         $result['pages'] = ceil(Comment::where('chapter_id', $id)->count()/10);
         return $result;
 	}
@@ -49,4 +50,12 @@ class CommentRepository
 	            'comment_by' => $data['comment_by'],
 	        ]);
 	}
+
+	private function detail($comments)
+    {
+        foreach ($comments as $comment)
+            $comment->comment_by = User::select('id', 'name')->find($comment->comment_by);
+
+        return $comments;
+    }
 }
