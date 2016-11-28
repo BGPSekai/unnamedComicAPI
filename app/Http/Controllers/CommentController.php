@@ -17,13 +17,13 @@ class CommentController extends Controller
 
     public function comic($id, $page)
     {
-        $result = $this->repo->comic($name, $page);
+        $result = $this->repo->comic($id, $page);
         return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
     }
 
     public function chapter($id, $page)
     {
-        $result = $this->repo->chapter($name, $page);
+        $result = $this->repo->chapter($id, $page);
         return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
     }
 
