@@ -39,6 +39,7 @@ Route::group(['middleware' => 'cors'], function()
 
 		Route::group(['prefix' => 'tag'], function()
 		{
+			Route::get('{name}', 'TagController@search');
 			Route::post('{name}/{comic_id}', 'TagController@store');
 			Route::delete('{name}/{comic_id}', 'TagController@destroy');
 		});

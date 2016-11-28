@@ -16,6 +16,11 @@ class TagController extends Controller
         $this->tagRepo = $tagRepo;
     }
 
+    public function search($name)
+    {
+        return response()->json(['status' => 'success', 'tags' => $this->tagRepo->search($name)]);
+    }
+
     public function store($name, $comic_id)
     {
         if (! $comic = $this->comicRepo->show($comic_id))

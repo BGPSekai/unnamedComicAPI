@@ -7,11 +7,12 @@
 4. [Publish Comic](#PublishComic)
 5. [Publish Chapter](#PublishChapter)
 6. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
-7. [Tag Comic](#TagComic)
-8. [Untag Comic](#UntagComic)
-9. [Add User Favorite Comic](#AddUserFavoriteComic)
-10. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
-11. [Comment Comic or Chapter](#CommentComicOrChapter)
+7. [Search Tags](#SearchTags)
+8. [Tag Comic](#TagComic)
+9. [Untag Comic](#UntagComic)
+10. [Add User Favorite Comic](#AddUserFavoriteComic)
+11. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
+12. [Comment Comic or Chapter](#CommentComicOrChapter)
 
 
 ## 1. <a name="ViewUserInfo">View User Info</a>
@@ -289,7 +290,23 @@ Status Code: 404
 }
 ```
 
-## 7. <a name="TagComic">Tag Comic</a>
+## 7. <a name="SearchTags">Search Tags</a>
+
+| Method | URI             | Remark |
+|:------:| --------------- | ------ |
+| POST   | /api/tag/{name} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "tags": *tags[Array]*
+}
+```
+
+## 8. <a name="TagComic">Tag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -314,7 +331,7 @@ Status Code: 403
 }
 ```
 
-## 8. <a name="UntagComic">Untag Comic</a>
+## 9. <a name="UntagComic">Untag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -339,7 +356,7 @@ Status Code: 404
 }
 ```
 
-## 9. <a name="AddUserFavoriteComic">Add User Favorite Comic</a>
+## 10. <a name="AddUserFavoriteComic">Add User Favorite Comic</a>
 
 | Method | URI                      | Remark |
 |:------:| ------------------------ | ------ |
@@ -364,7 +381,7 @@ Status Code: 403
 }
 ```
 
-## 10. <a name="RemoveUserFavoriteComic">Remove User Favorite Comic</a>
+## 11. <a name="RemoveUserFavoriteComic">Remove User Favorite Comic</a>
 
 | Method | URI                      | Remark |
 |:------:| ------------------------ | ------ |
@@ -389,7 +406,7 @@ Status Code: 404
 }
 ```
 
-## 11. <a name="CommentComicOrChapter">Comment Comic or Chapter</a>
+## 12. <a name="CommentComicOrChapter">Comment Comic or Chapter</a>
 
 | Method | URI          | Remark |
 |:------:| ------------ | ------ |

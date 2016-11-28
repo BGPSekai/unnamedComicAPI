@@ -6,6 +6,12 @@ use App\Entities\Tag;
 
 class TagRepository
 {
+	public function search($name)
+	{
+		return
+			Tag::where('name', 'LIKE', '%'.$name.'%')->pluck('name');
+	}
+
 	public function store($data)
 	{
 		$tag = Tag::where('comic_id', $data['comic_id'])
