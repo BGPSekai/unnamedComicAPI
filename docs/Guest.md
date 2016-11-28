@@ -439,7 +439,7 @@ Status Code: 404
 }
 ```
 
-## 13. <a name="SearchComics">Search Comics</a>
+## 13. <a name="ListComments">List Comments</a>
 
 | Method | URI                              | Remark |
 |:------:| -------------------------------- | ------ |

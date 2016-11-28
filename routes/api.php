@@ -50,12 +50,7 @@ Route::group(['middleware' => 'cors'], function()
 			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
 
-		Route::group(['prefix' => 'comment'], function()
-		{
-			Route::post('/', 'CommentController@storeOrUpdate');
-			Route::get('comic/{id}/{page}', 'CommentController@comic');
-			Route::get('chapter/{id}/{page}', 'CommentController@chapter');
-		});
+		Route::post('comment', 'CommentController@storeOrUpdate');
 	});
 
 	Route::group(['prefix' => 'comic'], function()
@@ -74,9 +69,16 @@ Route::group(['middleware' => 'cors'], function()
 		Route::get('author/{name}/{page}', 'SearchController@author');
 	});
 
-	Route::group(['prefix' => 'user'], function() {
+	Route::group(['prefix' => 'user'], function()
+	{
 		Route::get('{id}', 'UserController@show');
 		Route::get('{id}/favorites', 'FavoriteController@showComics');
+	});
+
+	Route::group(['prefix' => 'comment'], function()
+	{
+		Route::get('comic/{id}/{page}', 'CommentController@comic');
+		Route::get('chapter/{id}/{page}', 'CommentController@chapter');
 	});
 
 	Route::get('type', 'TypeController@index');
