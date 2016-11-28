@@ -6,6 +6,22 @@ use App\Entities\Comment;
 
 class CommentRepository
 {
+	public function comic($id, $page)
+	{
+        $comments = Comment::where('comic_id', $id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $result['comments'] = $comments;
+        $result['pages'] = ceil(Comment::where('comic_id', $id)->count()/10);
+        return $result;
+	}
+
+	public function chapter($id, $page)
+	{
+        $comments = Comment::where('chapter_id', $id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $result['comments'] = $comments;
+        $result['pages'] = ceil(Comment::where('chapter_id', $id)->count()/10);
+        return $result;
+	}
+
 	public function create(array $data)
 	{
 		return 

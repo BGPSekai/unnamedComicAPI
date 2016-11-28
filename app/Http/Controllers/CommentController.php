@@ -10,9 +10,21 @@ use Validator;
 
 class CommentController extends Controller
 {
-    public function __construct(CommentRepository $commentRepo)
+    public function __construct(CommentRepository $repo)
     {
-        $this->commentRepo = $commentRepo;
+        $this->repo = $repo;
+    }
+
+    public function comic($id, $page)
+    {
+        $result = $this->repo->comic($name, $page);
+        return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
+    }
+
+    public function chapter($id, $page)
+    {
+        $result = $this->repo->chapter($name, $page);
+        return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
     }
 
     public function storeOrUpdate(Request $request)
@@ -28,7 +40,7 @@ class CommentController extends Controller
         $data['comment_by'] = $user->id;
 
         if ($data['id']) {
-            $old_comment = $this->commentRepo->find($data['id']);
+            $old_comment = $this->repo->find($data['id']);
 
             if ($user->id != $old_comment->comment_by)
                 return response()->json(['status' => 'error', 'message' => 'Access is Denied'], 403);
@@ -37,7 +49,7 @@ class CommentController extends Controller
             $data['chapter_id'] = $old_comment->chapter_id;
         }
 
-        $comment = $data['id'] ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
+        $comment = $data['id'] ? $this->repo->update($data) : $this->repo->create($data);
         $comment['comment_by'] = ['id' => $user->id, 'name' => $user->name];
 
         return response()->json(['status' => 'success', 'comment' => $comment]);

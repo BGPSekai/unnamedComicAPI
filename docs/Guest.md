@@ -12,6 +12,7 @@
 10. [View User Info](#ViewUserInfo)
 11. [View User Avatar](#ViewUserAvatar)
 12. [View User Favorite Comics](#ViewUserFavoriteComics)
+13. [List Comments](#ListComments)
 
 
 ## 1. <a name="Register">Register</a>
@@ -435,5 +436,43 @@ Status Code: 404
 {
   "status": "error",
   "message": "User Not Found"
+}
+```
+
+## 13. <a name="SearchComics">Search Comics</a>
+
+| Method | URI                              | Remark |
+|:------:| -------------------------------- | ------ |
+| GET    | /api/comment/comic/{id}/{page}   |        |
+| GET    | /api/comment/chapter/{id}/{page} |        |
+
+### JSON Response
+#### Success
+```
+Status Code: 200
+{
+  "status": "success",
+  "comics": [
+    {
+      "id": *id*,
+      "name": *name*,
+      "summary": *summary*,
+      "author": *author*,
+      "type": {
+        "id": *id*,
+        "name": *name*
+      },
+      "publish_by": {
+        "id": *id*,
+        "name": *name*
+      },
+      "chapters": *chapters*,
+      "created_at": *createTime*,
+      "updated_at": *updateTime*,
+      "tags": *tags[Array]*
+    },
+    ...(9)
+  ],
+  "pages": *pages*
 }
 ```

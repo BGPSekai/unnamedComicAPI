@@ -53,6 +53,8 @@ Route::group(['middleware' => 'cors'], function()
 		Route::group(['prefix' => 'comment'], function()
 		{
 			Route::post('/', 'CommentController@storeOrUpdate');
+			Route::get('comic/{id}/{page}', 'CommentController@comic');
+			Route::get('chapter/{id}/{page}', 'CommentController@chapter');
 		});
 	});
 
