@@ -54,7 +54,7 @@ class CommentRepository
 	private function detail($comments)
     {
         foreach ($comments as $comment)
-            $comment->comment_by = User::select('id', 'name')->find($comment->comment_by);
+            $comment->comment_by = User::select('id', 'name', 'avatar')->find($comment->comment_by);
 
         return $comments;
     }
