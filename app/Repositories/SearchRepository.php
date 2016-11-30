@@ -39,16 +39,15 @@ class SearchRepository
             Tag::where('name', 'LIKE', '%'.$name.'%') :
             Tag::where('name', $name);
 
-        $comics = $comics->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = array_unique($comics
+            ->orderBy('comic_id', 'desc')
+            ->pluck('comic_id')
+            ->toArray()
+        );
 
-        // foreach ($comics as $comic)
-        //  $comic = Comic::find($comic->comic_id);
-        foreach ($comics as $key => $comic)
-            $comics[$key] = Comic::find($comic->comic_id);
+        $comics = Comic::find(array_slice($comics, ($page - 1) * 10, 10));
         $result['comics'] = $this->detail($comics);
-        $result['pages'] = $fuzzy ?
-            ceil(Tag::where('name', $name)->count()/10) :
-            ceil(Tag::where('name', 'LIKE', '%'.$name.'%')->count()/10);
+        $result['pages'] = ceil(count($comics)/10);
         return $result;
     }
 
