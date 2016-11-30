@@ -39,10 +39,11 @@ class SearchRepository
             Tag::where('name', 'LIKE', '%'.$name.'%') :
             Tag::where('name', $name);
 
-        $comics = array_unique($comics
-            ->orderBy('comic_id', 'desc')
-            ->pluck('comic_id')
-            ->toArray()
+        $comics = array_unique(
+            $comics
+                ->orderBy('comic_id', 'desc')
+                ->pluck('comic_id')
+                ->toArray()
         );
 
         $comics = Comic::find(array_slice($comics, ($page - 1) * 10, 10));
