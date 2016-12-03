@@ -31,7 +31,13 @@ class CommentController extends Controller
     {
         $user = Auth::user();
 
-        $data = $request->only('id', 'comic_id', 'chapter_id', 'comment');
+        if ($request->id)
+            $data = $request->only('id', 'comment');
+        else if ($request->comic_id)
+            $data = $request->only('comic_id', 'comment');
+        else
+            $data = $request->only('chapter_id', 'comment');
+
         $validator = $this->validator($data);
 
         if ($validator->fails())
@@ -58,9 +64,9 @@ class CommentController extends Controller
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'id' => 'required_without:comic_id|exists:comments|nullable',
-            'comic_id' => 'required_without:id|exists:comics,id|nullable',
-            'chapter_id' => 'exists:chapters,id|nullable',
+            'id' => 'required_without_all:comic_id,chapter_id|exists:comments|nullable',
+            'comic_id' => 'required_without_all:id,chapter_id|exists:comics,id|nullable',
+            'chapter_id' => 'required_without_all:id,comic_id|exists:chapters,id|nullable',
             'comment' => 'required|max:255',
         ]);
     }

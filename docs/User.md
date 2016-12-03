@@ -218,21 +218,6 @@ Status Code: 404
 |:------:| --------------------------------- | ------ |
 | POST   | /api/publish/chapter/{chapter_id} |        |
 
-```
-> Sort First
-> new_index[].length must equal chapter.pages
->> it will check before upload images[]
-> new_index[n] = 0 -> delete page[n]
-```
-
-```
-if (index[] is not empty)
-  images[] is required
-else if (images[] is not empty)
-  index[] is required
-else
-  new_index[] is required
-```
 
 ### Input Parameter
 
@@ -241,6 +226,20 @@ else
 | Integer | index[]     |          | min: 1          |
 | File    | images[]    |          | Image           |
 | Integer | new_index[] |          | min: 0          |
+
+#### Requirement Relational Table
+|           | index   | images | new_index |
+|:---------:|:-------:|:------:|:---------:|
+| index     | ------- | √      |           |
+| images    | √       | ------ |           |
+| new_index |         |        | --------- |
+
+```
+> Sort First
+> new_index[].length must equal chapter.pages
+>> it will be checked before upload images[]
+> new_index[n] = 0 -> delete page[n]
+```
 
 ### JSON Response
 #### Success
@@ -419,7 +418,13 @@ Status Code: 404
 | Type    | Name       | Required | Remark |
 | ------- | ---------- |:--------:| ------ |
 | Integer | comic_id   | √        |        |
-| Integer | chapter_id |          |        |
+| String  | comment    | √        |        |
+
+---
+
+| Type    | Name       | Required | Remark |
+| ------- | ---------- |:--------:| ------ |
+| Integer | chapter_id | √        |        |
 | String  | comment    | √        |        |
 
 #### Update Comment

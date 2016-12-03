@@ -91,7 +91,7 @@ class ComicController extends Controller
     public function info(Request $request)
     {
         $data = $request->only('comics');
-        $validator = $this->infoValidator($data);
+        $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
@@ -109,10 +109,10 @@ class ComicController extends Controller
         return response()->json(['status' => 'success', 'infos' => $infos]);
     }
 
-    private function infoValidator(array $data) {
+    private function validator(array $data) {
         return Validator::make($data, [
             'comics' => 'required|Array',
-            'comics.*' => 'required_with:comics|integer|min:1',
+            'comics.*' => 'required|integer|exists:comics',
         ]);
     }
 }

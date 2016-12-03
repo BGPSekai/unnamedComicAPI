@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->index('id');
             $table->dropPrimary('id');
-            $table->integer('comic_id')->unsigned();
+            $table->integer('comic_id')->unsigned()->nullable();
             $table->integer('chapter_id')->unsigned()->nullable();
             $table->string('comment');
             $table->integer('comment_by')->unsigned();

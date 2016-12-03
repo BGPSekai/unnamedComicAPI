@@ -25,7 +25,7 @@ class PublishController extends Controller
     {
         $user = Auth::user();
         $data = $request->only('name', 'summary', 'author', 'type', 'cover');
-        $validator = $this->validator($data);
+        $validator = $this->comicValidator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
@@ -146,56 +146,6 @@ class PublishController extends Controller
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 
-    private function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'summary' => 'required|max:255',
-            'author' => 'required|max:255',
-            'type' => 'required|exists:types,id',
-            'cover' => 'required|image',
-        ]);
-    }
-
-    private function chapterValidator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            // 'images' => 'Array|nullable',
-            // 'images.*' => 'required_with:images|image',
-        ]);
-    }
-
-    private function batchValidator(array $data)
-    {
-        // if (isset($data['index']) || isset($data['images']))
-        //     return Validator::make($data, [
-        //         'index' => 'required|Array',
-        //         'index.*' => 'integer|min:1',
-        //         'images' => 'required|Array',
-        //         'images.*' => 'image',
-        //         'new_index' => 'Array',
-        //         'new_index.*' => 'integer|min:0',
-        //     ]);
-        // else
-        //     return Validator::make($data, [
-        //         'index' => 'Array',
-        //         'index.*' => 'integer|min:1',
-        //         'images' => 'Array',
-        //         'images.*' => 'image',
-        //         'new_index' => 'required|Array',
-        //         'new_index.*' => 'integer|min:0',
-        //     ]);
-        return Validator::make($data, [
-            'index' => 'required_with:images|Array|nullable',
-            'index.*' => 'required_with:index|integer|min:1',
-            'images' => 'required_with:index|Array|nullable',
-            'images.*' => 'required_with:images|image',
-            'new_index' => 'required_without_all:index,images|Array|nullable',
-            'new_index.*' => 'required_with:new_index|integer|min:0',
-        ]);
-    }
-
     private function storeFile($path, $file)
     {
         return Storage::put(
@@ -249,5 +199,55 @@ class PublishController extends Controller
         }
 
         return 0;
+    }
+
+    private function comicValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'summary' => 'required|max:255',
+            'author' => 'required|max:255',
+            'type' => 'required|exists:types,id',
+            'cover' => 'required|image',
+        ]);
+    }
+
+    private function chapterValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            // 'images' => 'Array|nullable',
+            // 'images.*' => 'required_with:images|image',
+        ]);
+    }
+
+    private function batchValidator(array $data)
+    {
+        // if (isset($data['index']) || isset($data['images']))
+        //     return Validator::make($data, [
+        //         'index' => 'required|Array',
+        //         'index.*' => 'integer|min:1',
+        //         'images' => 'required|Array',
+        //         'images.*' => 'image',
+        //         'new_index' => 'Array',
+        //         'new_index.*' => 'integer|min:0',
+        //     ]);
+        // else
+        //     return Validator::make($data, [
+        //         'index' => 'Array',
+        //         'index.*' => 'integer|min:1',
+        //         'images' => 'Array',
+        //         'images.*' => 'image',
+        //         'new_index' => 'required|Array',
+        //         'new_index.*' => 'integer|min:0',
+        //     ]);
+        return Validator::make($data, [
+            'index' => 'required_with:images|Array|nullable',
+            'index.*' => 'required_with:index|integer|min:1',
+            'images' => 'required_with:index|Array|nullable',
+            'images.*' => 'required_with:images|image',
+            'new_index' => 'required_without_all:index,images|Array|nullable',
+            'new_index.*' => 'required_with:new_index|integer|min:0',
+        ]);
     }
 }
