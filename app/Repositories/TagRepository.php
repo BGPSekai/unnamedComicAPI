@@ -30,6 +30,7 @@ class TagRepository
 			->where('comic_id', $comic_id)
 			->first()
 			->id;
+
 		return Tag::destroy($tag);
 	}
 
