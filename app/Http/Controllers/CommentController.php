@@ -10,20 +10,21 @@ use Validator;
 
 class CommentController extends Controller
 {
-    public function __construct(CommentRepository $repo)
+    public function __construct(ChapterRepository $chapterRepo, CommentRepository $commentRepo)
     {
-        $this->repo = $repo;
+        $this->chapterRepo = $chapterRepo;
+        $this->commentRepo = $commentRepo;
     }
 
     public function comic($id, $page)
     {
-        $result = $this->repo->comic($id, $page);
+        $result = $this->commentRepo->comic($id, $page);
         return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
     }
 
     public function chapter($id, $page)
     {
-        $result = $this->repo->chapter($id, $page);
+        $result = $this->commentRepo->chapter($id, $page);
         return response()->json(['status' => 'success', 'comments' => $result['comments'], 'pages' => $result['pages']]);
     }
 
@@ -31,13 +32,7 @@ class CommentController extends Controller
     {
         $user = Auth::user();
 
-        if ($request->id)
-            $data = $request->only('id', 'comment');
-        else if ($request->comic_id)
-            $data = $request->only('comic_id', 'comment');
-        else
-            $data = $request->only('chapter_id', 'comment');
-
+        $data = $request->only('id', 'comic_id', 'chapter_id', 'comment');
         $validator = $this->validator($data);
 
         if ($validator->fails())
@@ -46,7 +41,7 @@ class CommentController extends Controller
         $data['comment_by'] = $user->id;
 
         if ($data['id']) {
-            $old_comment = $this->repo->find($data['id']);
+            $old_comment = $this->commentRepo->find($data['id']);
 
             if ($user->id != $old_comment->comment_by)
                 return response()->json(['status' => 'error', 'message' => 'Access is Denied'], 403);
@@ -54,8 +49,11 @@ class CommentController extends Controller
             $data['comic_id'] = $old_comment->comic_id;
             $data['chapter_id'] = $old_comment->chapter_id;
         }
+        elseif ($data['chapter_id']) {
+            $data['comic_id'] = $this->chapterRepo->show($data['chapter_id'])->comic_id;
+        }
 
-        $comment = $data['id'] ? $this->repo->update($data) : $this->repo->create($data);
+        $comment = $data['id'] ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
         $comment['comment_by'] = ['id' => $user->id, 'name' => $user->name];
 
         return response()->json(['status' => 'success', 'comment' => $comment]);
