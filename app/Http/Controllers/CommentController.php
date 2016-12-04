@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Repositories\ChapterRepository;
 use App\Repositories\CommentRepository;
 use Auth;
 use Validator;
