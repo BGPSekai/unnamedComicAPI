@@ -112,7 +112,7 @@ class ComicController extends Controller
     private function validator(array $data) {
         return Validator::make($data, [
             'comics' => 'required|Array',
-            'comics.*' => 'required|integer|exists:comics',
+            'comics.*' => 'required|exists:comics,id',
         ]);
     }
 }
