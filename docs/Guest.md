@@ -122,6 +122,7 @@ Status Code: 200
         "name": *name*
       },
       "chapters": *chapters*,
+      "favorites": *favorites*,
       "created_at": *createTime*,
       "updated_at": *updateTime*,
       "tags": *tags[Array]*
@@ -179,6 +180,7 @@ Status Code: 200
       "name": *name*
     },
     "chapters": *chapters*,
+    "favorites": *favorites*,
     "created_at": *createTime*,
     "updated_at": *updateTime*",
     "tags": *tags[Array]*
@@ -242,6 +244,7 @@ Status Code: 404
       "name": *name*
     },
     "chapters": *chapters*,
+    "favorites": *favorites*,
     "created_at": *createTime*,
     "updated_at": *updateTime*",
     "tags": *tags[Array]*
@@ -352,6 +355,7 @@ Status Code: 200
         "name": *name*
       },
       "chapters": *chapters*,
+      "favorites": *favorites*,
       "created_at": *createTime*,
       "updated_at": *updateTime*,
       "tags": *tags[Array]*
@@ -452,24 +456,20 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "comics": [
+  "comments": [
     {
       "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "author": *author*,
-      "type": {
+      "comic_id": *comic_id*,
+      "chapter_id": *chapter_id*,
+      "comment": *comment*,
+      "comment_by": {
         "id": *id*,
-        "name": *name*
+        "name": *name*,
+        "avatar": *avatar*
       },
-      "publish_by": {
-        "id": *id*,
-        "name": *name*
-      },
-      "chapters": *chapters*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "tags": *tags[Array]*
+      "replies": *replies*,
+      "created_at": "2016-12-04 12:47:26",
+      "updated_at": "2016-12-04 12:47:26"
     },
     ...(9)
   ],

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Entities\Comics;
+use App\Entities\Comic;
 use App\Entities\Favorite;
 
 class FavoriteRepository

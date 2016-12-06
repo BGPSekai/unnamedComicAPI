@@ -21,7 +21,7 @@ class CreateCommentsTable extends Migration
             $table->integer('chapter_id')->unsigned()->nullable();
             $table->string('comment');
             $table->integer('comment_by')->unsigned();
-            $table->integer('replys')->unsigned()->default(0);
+            $table->integer('replies')->unsigned()->default(0);
             $table->timestamps();
         });
     }
