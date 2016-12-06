@@ -31,10 +31,10 @@ class ChapterRepository
 		return Chapter::find($id);
 	}
 
-	public function count($comic_id)
-	{
-		return Chapter::where('comic_id', $comic_id)->count();
-	}
+	// public function count($comic_id)
+	// {
+	// 	return Chapter::where('comic_id', $comic_id)->count();
+	// }
 
 	public function updatePages($id, $pages)
 	{

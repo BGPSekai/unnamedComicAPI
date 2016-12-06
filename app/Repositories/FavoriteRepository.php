@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Entities\Comics;
 use App\Entities\Favorite;
 
 class FavoriteRepository
@@ -15,6 +16,8 @@ class FavoriteRepository
 		if ($favorite)
 			return false;
 
+		Comic::find($data['comic_id'])->increment('favorites');
+
 		return Favorite::create($data);
 	}
 
@@ -24,6 +27,10 @@ class FavoriteRepository
 			->where('comic_id', $comic_id)
 			->first()
 			->id;
+
+		if ($favorite)
+			Comic::find($data['comic_id'])->decrement('favorites');
+
 		return Favorite::destroy($favorite);
 	}
 

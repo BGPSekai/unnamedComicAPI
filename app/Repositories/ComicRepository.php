@@ -45,9 +45,11 @@ class ComicRepository
 		return $comic;
 	}
 
-	public function updateChapters($id, $chapters)
+	// public function updateChapters($id, $chapters)
+	public function updateChapters($id)
 	{
-		return Comic::find($id)->update(['chapters' => $chapters]);
+	// 	return Comic::find($id)->update(['chapters' => $chapters]);
+		return Comic::find($id)->increment('chapters');
 	}
 
 	public function sortByUpdateTime($comics)
