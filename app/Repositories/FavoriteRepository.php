@@ -29,7 +29,7 @@ class FavoriteRepository
 			->id;
 
 		if ($favorite)
-			Comic::find($data['comic_id'])->decrement('favorites');
+			Comic::find($comic_id)->decrement('favorites');
 
 		return Favorite::destroy($favorite);
 	}
