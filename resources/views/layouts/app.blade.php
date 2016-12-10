@@ -15,8 +15,6 @@
     <link href="/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- jQuery custom content scroller -->
-    <link href="/gentelella/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="/gentelella/build/css/custom.min.css" rel="stylesheet">
@@ -30,7 +28,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Unnamed Comic</span></a>
+              <a href="/home" class="site_title"><i class="fa fa-paw"></i> <span>Unnamed Comic</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -52,8 +50,13 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>一般</h3>
                 <ul class="nav side-menu">
+                  <li><a><i class="fa fa-edit"></i> 會員 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/user">會員列表</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
@@ -146,7 +149,7 @@
                         </li>
                     </ul>
                   </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                  {{-- <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li> --}}
                 </ul>
               </div>
 
@@ -268,8 +271,6 @@
     <script src="/gentelella/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/gentelella/vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="/gentelella/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="/gentelella/build/js/custom.min.js"></script>

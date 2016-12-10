@@ -17,7 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'Web\HomeController@index');
 Route::get('login', function() {
 	return view('login');
+});
+Route::group(['prefix' => 'user'], function()
+{
+	Route::get('/', 'Web\UserController@index');
 });
