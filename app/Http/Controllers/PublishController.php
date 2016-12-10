@@ -35,7 +35,8 @@ class PublishController extends Controller
         $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
 
         $cover = $request->file('cover');
-        $extension = $cover->getClientOriginalExtension();
+        // $extension = $cover->getClientOriginalExtension();
+        $extension = explode('/', File::mimeType($cover))[1];
         $this->storeFile('comics/'.$comic->id.'/cover.'.$extension, $cover);
 
         return response()->json(['status' => 'success', 'comic' => $comic]);
@@ -135,7 +136,8 @@ class PublishController extends Controller
 
         if (isset($request->images))
             foreach ($request->images as $key => $image) {
-                $extension = $image->getClientOriginalExtension();
+                // $extension = $image->getClientOriginalExtension();
+                $extension = explode('/', File::mimeType($image))[1];
                 $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
             }
 
