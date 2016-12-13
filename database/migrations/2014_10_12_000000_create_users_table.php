@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->string('from')->nullable();
-            $table->bool('sex')->nullable();
+            $table->boolean('sex')->nullable();
             $table->date('birthday')->nullable();
             $table->string('location')->nullable();
             $table->string('sign')->nullable();
