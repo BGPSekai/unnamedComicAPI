@@ -413,7 +413,7 @@ Status Code: 404
 
 ### Input Parameter
 
-#### Comment
+#### Publish Comment
 
 | Type    | Name       | Required | Remark |
 | ------- | ---------- |:--------:| ------ |
