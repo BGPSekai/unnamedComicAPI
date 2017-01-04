@@ -183,7 +183,7 @@ class PublishController extends Controller
             $old = glob($detail_path.($key+1).'.*.tmp') ? glob($detail_path.($key+1).'.*.tmp') : glob($detail_path.($key+1).'.*');
             $new = glob($detail_path.$value.'.*.tmp') ? glob($detail_path.$value.'.*.tmp') : glob($detail_path.$value.'.*');
 
-            if ($value == 0) {
+            if (!$value) {
                 if (isset($old[1]))
                     unlink($old[1]);
                 else
