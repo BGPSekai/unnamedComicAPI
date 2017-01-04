@@ -8,8 +8,8 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Auth;
 use File;
-use JWTAuth;
-use JWTFactory;
+// use JWTAuth;
+// use JWTFactory;
 use Storage;
 use Validator;
 
