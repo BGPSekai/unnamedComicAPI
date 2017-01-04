@@ -196,8 +196,7 @@ class PublishController extends Controller
 
             if (isset($new[0]))
                 rename($new[0], $new[0].'.tmp');
-            if (isset($old[1])) $old = $old[1];
-            else $old = $old[0];
+            $old = isset($old[1]) ? $old[1] : $old[0];
             rename($old, $detail_path.$value.'.'.explode('/', File::mimeType($old))[1]);
         }
 
