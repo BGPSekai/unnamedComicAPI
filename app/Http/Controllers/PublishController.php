@@ -168,13 +168,10 @@ class PublishController extends Controller
             return -1;
 
         // $index是否有重複
-        foreach ($index as $key => $value) {
-            if ($value == 0)
-                $index_zero++;
-        }
+        foreach ($index as $value)
+            $index_zero = !$value ? $index_zero : $index_zero++;
 
-        if ($index_zero)
-            $index_zero--;
+        $index_zero = $index_zero ? $index_zero-- : $index_zero;
         if (count($index) != count(array_unique($index)) + $index_zero)
             return -2;
         //
