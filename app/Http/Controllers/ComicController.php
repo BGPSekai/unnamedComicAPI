@@ -57,6 +57,7 @@ class ComicController extends Controller
         }
 
         $file_path = Storage::files('comics/'.$id);
+        header("Access-Control-Allow-Origin: *");
         return Response::download(storage_path().'/app/'.$file_path[0]);
     }
 
@@ -85,6 +86,7 @@ class ComicController extends Controller
         $file_path = Storage::files('comics/'.$comic_id.'/'.$chapter_id);
         natsort($file_path);
         $file_path = array_values($file_path);
+        header("Access-Control-Allow-Origin: *");
         return Response::download(storage_path().'/app/'.$file_path[$page-1]);
     }
 
