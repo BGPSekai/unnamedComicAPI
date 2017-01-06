@@ -38,15 +38,6 @@ Status Code: 200
 }
 ```
 
-#### Error
-```
-Status Code: 404
-{
-  "status": "error",
-  "message": "User Not Found"
-}
-```
-
 ## 2. <a name="ResetPassword">Reset Password</a>
 
 | Method | URI             | Remark |
