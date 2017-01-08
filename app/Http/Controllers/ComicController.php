@@ -87,7 +87,7 @@ class ComicController extends Controller
         natsort($file_path);
         $file_path = array_values($file_path);
         header("Access-Control-Allow-Origin: *");
-        return Response::download(storage_path().'/app/'.$file_path[$page-1]);
+        return Response::download(storage_path().'/app/'.$file_path[--$page]);
     }
 
     public function info(Request $request)

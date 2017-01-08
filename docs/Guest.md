@@ -300,7 +300,7 @@ Status Code: 404
 #### Success
 ```
 Status Code: 200
-*Comic Cover Image*
+*Chapter Page Image*
 ```
 
 #### Error
