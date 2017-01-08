@@ -85,4 +85,4 @@ Route::group(['middleware' => 'cors'], function()
 });
 
 Route::get('comic/{id}/cover', 'ComicController@showCover');
-Route::get('comic/chapter/{page}', 'ComicController@showPage');
+Route::get('comic/chapter/{chapter_id}/{page}', 'ComicController@showPage');

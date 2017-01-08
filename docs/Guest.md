@@ -196,8 +196,7 @@ Status Code: 200
       "publish_by": {
         "id": *id*,
         "name": *name*
-      },
-      "token": *token*
+      }
     },
     ...
   ]
@@ -286,15 +285,9 @@ Status Code: 404
 
 ## 8. <a name="ViewChapterPage">View Chapter Page</a>
 
-| Method | URI                       | Remark |
-|:------:| ------------------------- | ------ |
-| GET    | /api/comic/chapter/{page} |        |
-
-### Input Parameter
-
-| Type   | Name  | Required | Remark                         |
-| ------ | ----- |:--------:| ------------------------------ |
-| String | token | √        | JWT token from View Comic Info |
+| Method | URI                                    | Remark |
+|:------:| -------------------------------------- | ------ |
+| GET    | /api/comic/chapter/{chapter_id}/{page} |        |
 
 ### Response
 #### Success
@@ -305,18 +298,6 @@ Status Code: 200
 
 #### Error
 ```
-Status Code: 400
-{
-  "status": "error",
-  "message": "A Token Is Required"
-}
-- or -
-Status Code: 401
-{
-  "status": "error",
-  "message": *message[Array]*
-}
-- or -
 Status Code: 404
 {
   "status": "error",
