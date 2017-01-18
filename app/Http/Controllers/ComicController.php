@@ -103,7 +103,7 @@ class ComicController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        $infos = array();
+        $infos = [];
 
         foreach ($request->comics as $comic)
             try {
