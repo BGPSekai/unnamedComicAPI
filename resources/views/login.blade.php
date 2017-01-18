@@ -10,16 +10,16 @@
     <title>Unnamed Comic Backend</title>
 
     <!-- Bootstrap -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
-    <link href="/gentelella/vendors/animate.css/animate.min.css" rel="stylesheet">
+    <link href="gentelella/vendors/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link href="gentelella/build/css/custom.min.css" rel="stylesheet">
   </head>
 
   <body class="login">

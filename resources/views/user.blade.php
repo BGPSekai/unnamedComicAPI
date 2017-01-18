@@ -2,8 +2,7 @@
 
 @section('head')
     <!-- iCheck -->
-    <link href="/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/test.css">
+    <link href="gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -109,5 +108,5 @@
 
 @section('javascript')
     <!-- iCheck -->
-    <script src="/gentelella/vendors/iCheck/icheck.min.js"></script>
+    <script src="gentelella/vendors/iCheck/icheck.min.js"></script>
 @endsection

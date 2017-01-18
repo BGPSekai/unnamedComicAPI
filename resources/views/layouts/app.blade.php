@@ -10,14 +10,14 @@
     <title>Unnamed Comic Backend</title>
 
     <!-- Bootstrap -->
-    <link href="/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link href="gentelella/build/css/custom.min.css" rel="stylesheet">
 
     @yield('head')
   </head>
@@ -28,7 +28,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/home" class="site_title"><i class="fa fa-paw"></i> <span>Unnamed Comic</span></a>
+              <a href="home" class="site_title"><i class="fa fa-paw"></i> <span>Unnamed Comic</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -54,7 +54,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-edit"></i> 會員 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/user">會員列表</a></li>
+                      <li><a href="user">會員列表</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
@@ -264,16 +264,16 @@
     </form>
 
     <!-- jQuery -->
-    <script src="/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="gentelella/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="gentelella/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="/gentelella/vendors/nprogress/nprogress.js"></script>
+    <script src="gentelella/vendors/nprogress/nprogress.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="/gentelella/build/js/custom.min.js"></script>
+    <script src="gentelella/build/js/custom.min.js"></script>
 
     @yield('javascript')
   </body>
