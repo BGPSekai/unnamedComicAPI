@@ -29,4 +29,9 @@ class Comic extends Model
     {
     	return $this->hasMany('App\Entities\Tag');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Entities\Comment');
+    }
 }

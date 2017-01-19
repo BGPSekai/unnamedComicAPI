@@ -19,4 +19,9 @@ class Chapter extends Model
     {
     	return $this->belongsTo('App\Entities\User', 'published_by');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Entities\Comment');
+    }
 }

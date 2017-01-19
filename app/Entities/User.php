@@ -26,11 +26,16 @@ class User extends Authenticatable
 
     public function favorites()
     {
-    	$this->hasMany('App\Entities\Favorite', 'uid');
+    	return $this->hasMany('App\Entities\Favorite', 'uid');
     }
 
     public function tags()
     {
-        $this->hasMany('App\Entities\Tag', 'tagged_by');
+        return $this->hasMany('App\Entities\Tag', 'tagged_by');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Entities\Comment', 'commented_by');
     }
 }
