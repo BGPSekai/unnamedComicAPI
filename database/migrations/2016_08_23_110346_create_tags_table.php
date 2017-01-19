@@ -17,7 +17,7 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->integer('comic_id')->unsigned();
             $table->string('name');
-            $table->integer('tag_by')->unsigned();
+            $table->integer('tagged_by')->unsigned();
             $table->timestamps();
         });
     }

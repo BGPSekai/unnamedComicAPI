@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->integer('comic_id')->unsigned();
             $table->integer('chapter_id')->unsigned()->nullable();
             $table->string('comment');
-            $table->integer('comment_by')->unsigned();
+            $table->integer('commented_by')->unsigned();
             $table->integer('replies')->unsigned()->default(0);
             $table->timestamps();
         });
