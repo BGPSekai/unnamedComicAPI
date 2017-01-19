@@ -26,7 +26,7 @@ class CommentRepository
 	        	'comic_id' => $data['comic_id'],
 	            'chapter_id' => $data['chapter_id'],
 	            'comment' => $data['comment'],
-	            'comment_by' => $data['comment_by'],
+	            'commented_by' => $data['commented_by'],
 	        ]);
 	}
 
@@ -43,14 +43,14 @@ class CommentRepository
 	        	'comic_id' => $data['comic_id'],
 	            'chapter_id' => $data['chapter_id'],
 	            'comment' => $data['comment'],
-	            'comment_by' => $data['comment_by'],
+	            'commented_by' => $data['commented_by'],
 	        ]);
 	}
 
 	private function detail($comments)
     {
         foreach ($comments as $comment)
-            $comment->comment_by = User::select('id', 'name', 'avatar')->find($comment->comment_by);
+            $comment->commented_by = User::select('id', 'name', 'avatar')->find($comment->commented_by);
 
         return $comments;
     }

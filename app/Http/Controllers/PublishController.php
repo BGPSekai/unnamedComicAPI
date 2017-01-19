@@ -30,9 +30,9 @@ class PublishController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
-        $data['publish_by'] = $user->id;
+        $data['published_by'] = $user->id;
         $comic = $this->comicRepo->create($data);
-        $comic['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+        $comic['published_by'] = ['id' => $user->id, 'name' => $user->name];
 
         $cover = $request->file('cover');
         // $extension = $cover->getClientOriginalExtension();
@@ -58,9 +58,9 @@ class PublishController extends Controller
         $data['comic_id'] = $comic_id;
         // $data['pages'] = count($request->images);
         $data['pages'] = 0;
-        $data['publish_by'] = Auth::user()->id;
+        $data['published_by'] = Auth::user()->id;
         $chapter = $this->chapterRepo->create($data);
-        $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+        $chapter['published_by'] = ['id' => $user->id, 'name' => $user->name];
         // $chapter['token'] = (string) JWTAuth::encode(
             // JWTFactory::make([
                 // 'comic_id' => $comic_id,
@@ -104,7 +104,7 @@ class PublishController extends Controller
     //     }
 
     //     $chapter = $this->chapterRepo->show($chapter_id);
-    //     $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+    //     $chapter['published_by'] = ['id' => $user->id, 'name' => $user->name];
     //     return response()->json(['status' => 'success', 'chapter' => $chapter]);
     // }
 
@@ -145,7 +145,7 @@ class PublishController extends Controller
         $this->chapterRepo->updatePages($chapter_id, $data['pages']);
 
         $chapter = $this->chapterRepo->show($chapter_id);
-        $chapter['publish_by'] = ['id' => $user->id, 'name' => $user->name];
+        $chapter['published_by'] = ['id' => $user->id, 'name' => $user->name];
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 

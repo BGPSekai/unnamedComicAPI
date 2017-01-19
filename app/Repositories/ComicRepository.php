@@ -16,7 +16,7 @@ class ComicRepository
             'summary' => $data['summary'],
             'author' => $data['author'],
             'type' => $data['type'],
-            'publish_by' => $data['publish_by'],
+            'published_by' => $data['published_by'],
         ]);
         $comic->type = Type::select('id', 'name')->find($comic->type);
 		return $comic;
@@ -29,7 +29,7 @@ class ComicRepository
         foreach ($comics as $comic) {
             $comic->type = Type::select('id', 'name')->find($comic->type);
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            $comic->publish_by = User::select('id', 'name')->find($comic->publish_by);
+            $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
 		$result['comics'] = $comics;
 		$result['pages'] = ceil(Comic::count()/10);
@@ -41,7 +41,7 @@ class ComicRepository
 		$comic = Comic::find($id);
         $comic->type = Type::select('id', 'name')->find($comic->type);
         $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-        $comic->publish_by = User::select('id', 'name')->find($comic->publish_by);
+        $comic->published_by = User::select('id', 'name')->find($comic->published_by);
 		return $comic;
 	}
 

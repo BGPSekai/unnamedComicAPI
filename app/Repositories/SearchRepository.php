@@ -19,9 +19,9 @@ class SearchRepository
 
     public function publisher($user_id, $page)
     {
-        $comics = Comic::where('publish_by', $user_id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+        $comics = Comic::where('published_by', $user_id)->orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $result['comics'] = $this->detail($comics);
-        $result['pages'] = ceil(Comic::where('publish_by', $user_id)->count()/10);
+        $result['pages'] = ceil(Comic::where('published_by', $user_id)->count()/10);
         return $result;
     }
 
@@ -65,7 +65,7 @@ class SearchRepository
         foreach ($comics as $comic) {
             $comic->type = Type::select('id', 'name')->find($comic->type);
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            $comic->publish_by = User::select('id', 'name')->find($comic->publish_by);
+            $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
         return $comics;
     }

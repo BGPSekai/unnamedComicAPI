@@ -39,12 +39,12 @@ class CommentController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        $data['comment_by'] = $user->id;
+        $data['commented_by'] = $user->id;
 
         if ($data['id']) {
             $old_comment = $this->commentRepo->find($data['id']);
 
-            if ($user->id != $old_comment->comment_by)
+            if ($user->id != $old_comment->commented_by)
                 return response()->json(['status' => 'error', 'message' => 'Access is Denied'], 403);
 
             $data['comic_id'] = $old_comment->comic_id;
@@ -55,7 +55,7 @@ class CommentController extends Controller
         }
 
         $comment = $data['id'] ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
-        $comment['comment_by'] = ['id' => $user->id, 'name' => $user->name];
+        $comment['commented_by'] = ['id' => $user->id, 'name' => $user->name];
 
         return response()->json(['status' => 'success', 'comment' => $comment]);
     }
