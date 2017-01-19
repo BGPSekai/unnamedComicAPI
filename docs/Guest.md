@@ -117,7 +117,7 @@ Status Code: 200
         "id": *id*,
         "name": *name*
       },
-      "publish_by": {
+      "published_by": {
         "id": *id*,
         "name": *name*
       },
@@ -175,7 +175,7 @@ Status Code: 200
       "id": *id*,
       "name": *name*
     },
-    "publish_by": {
+    "published_by": {
       "id": *id*,
       "name": *name*
     },
@@ -193,7 +193,7 @@ Status Code: 200
       "pages": *pages*,
       "created_at": *createTime*,
       "updated_at": *updateTime*,
-      "publish_by": {
+      "published_by": {
         "id": *id*,
         "name": *name*
       }
@@ -238,7 +238,7 @@ Status Code: 404
       "id": *id*,
       "name": *name*
     },
-    "publish_by": {
+    "published_by": {
       "id": *id*,
       "name": *name*
     },
@@ -331,7 +331,7 @@ Status Code: 200
         "id": *id*,
         "name": *name*
       },
-      "publish_by": {
+      "published_by": {
         "id": *id*,
         "name": *name*
       },
