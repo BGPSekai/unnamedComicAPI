@@ -30,7 +30,6 @@ class AuthController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-
         $user = $this->repo->create($data);
 
         return response()->json(['status' => 'success', 'user' => $user]);
