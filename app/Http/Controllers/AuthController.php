@@ -14,7 +14,8 @@ class AuthController extends Controller
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
-        $this->middleware('jwt.auth', ['except' => ['register', 'auth']]);
+        // $this->middleware('jwt.auth', ['except' => ['register', 'auth']]);
+        $this->middleware('jwt.auth', ['only' => 'reset']);
     }
 
     public function register(Request $request)
