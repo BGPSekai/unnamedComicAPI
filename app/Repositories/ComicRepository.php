@@ -25,14 +25,14 @@ class ComicRepository
 
 	public function index($page)
 	{
-		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
+		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
         foreach ($comics as $comic) {
             $comic->type = Type::select('id', 'name')->find($comic->type);
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
             $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
 		$result['comics'] = $comics;
-		$result['pages'] = ceil(Comic::count()/10);
+		$result['pages'] = ceil(Comic::count()/20);
 		return $result;
 	}
 

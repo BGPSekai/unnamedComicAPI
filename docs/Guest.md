@@ -127,7 +127,7 @@ Status Code: 200
       "updated_at": *updateTime*,
       "tags": *tags[Array]*
     },
-    ...(9)
+    ...(19)
   ],
   "pages": *pages*
 }
@@ -341,7 +341,7 @@ Status Code: 200
       "updated_at": *updateTime*,
       "tags": *tags[Array]*
     },
-    ...(9)
+    ...(19)
   ],
   "pages": *pages*
 }
@@ -452,7 +452,7 @@ Status Code: 200
       "created_at": "2016-12-04 12:47:26",
       "updated_at": "2016-12-04 12:47:26"
     },
-    ...(9)
+    ...(19)
   ],
   "pages": *pages*
 }
