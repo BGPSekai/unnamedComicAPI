@@ -111,13 +111,13 @@ Status Code: 200
 
 ### Input Parameter
 
-| Type    | Name    | Required | Remark |
-| ------- | ------- |:--------:| ------ |
-| String  | name    | √        |        |
-| String  | summary | √        |        |
-| String  | author  | √        |        |
-| Integer | type    | √        |        |
-| File    | cover   | √        | Image  |
+| Type   | Name    | Required | Remark |
+| ------ | ------- |:--------:| ------ |
+| String | name    | √        |        |
+| String | summary | √        |        |
+| String | author  | √        |        |
+| String | type[]  | √        |        |
+| File   | cover   | √        | Image  |
 
 ### JSON Response
 #### Success
@@ -129,10 +129,7 @@ Status Code : 200
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": {
-      "id": *id*,
-      "name": *name*
-    },
+    "type": *type[Array]*,
     "published_by": {
       "id": *id*,
       "name": *name*

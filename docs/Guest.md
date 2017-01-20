@@ -113,10 +113,7 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": {
-        "id": *id*,
-        "name": *name*
-      },
+      "type": *type[Array]*,
       "published_by": {
         "id": *id*,
         "name": *name*
@@ -171,10 +168,7 @@ Status Code: 200
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": {
-      "id": *id*,
-      "name": *name*
-    },
+    "type": *type[Array]*,
     "published_by": {
       "id": *id*,
       "name": *name*
@@ -234,10 +228,7 @@ Status Code: 404
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": {
-      "id": *id*,
-      "name": *name*
-    },
+    "type": *type[Array]*,
     "published_by": {
       "id": *id*,
       "name": *name*
@@ -327,10 +318,7 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": {
-        "id": *id*,
-        "name": *name*
-      },
+      "type": *type[Array]*,
       "published_by": {
         "id": *id*,
         "name": *name*

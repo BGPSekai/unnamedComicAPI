@@ -25,9 +25,9 @@ class SearchController extends Controller
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 
-    public function type($id, $page)
+    public function type($name, $page)
     {
-        $result = $this->repo->type($id, $page);
+        $result = $this->repo->type($name, $page);
         return response()->json(['status' => 'success', 'comics' => $result['comics'], 'pages' => $result['pages']]);
     }
 

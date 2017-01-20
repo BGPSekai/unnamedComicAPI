@@ -15,12 +15,11 @@ class ComicRepository
             'name' => $data['name'],
             'summary' => $data['summary'],
             'author' => $data['author'],
-            'type' => $data['type'],
+            'type' => json_encode($data['type']),
             'published_by' => $data['published_by'],
         ]);
-        $comic->type = Type::select('id', 'name')->find($comic->type);
+
 		return $comic;
-	        
 	}
 
 	public function index($page)

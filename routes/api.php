@@ -64,7 +64,7 @@ Route::group(['middleware' => 'cors'], function()
 	{
 		Route::get('name/{name}/{page}', 'SearchController@name');
 		Route::get('publisher/{user_id}/{page}', 'SearchController@publisher');
-		Route::get('type/{id}/{page}', 'SearchController@type');
+		Route::get('type/{name}/{page}', 'SearchController@type');
 		Route::get('tag/{name}/{page}', 'SearchController@tag');
 		Route::get('author/{name}/{page}', 'SearchController@author');
 	});

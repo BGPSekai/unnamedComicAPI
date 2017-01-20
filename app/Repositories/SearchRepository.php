@@ -39,11 +39,11 @@ class SearchRepository
         return $result;
     }
 
-    public function type($id, $page)
+    public function type($name, $page)
     {
         $comics = Comic::with('tags')
             ->with('published_by')
-            ->where('type', $id)
+            ->where('type', 'LIKE', '%'.$name.'%')
             ->orderBy('id', 'desc')
             ->skip(($page - 1) * 20)
             ->take(20)
