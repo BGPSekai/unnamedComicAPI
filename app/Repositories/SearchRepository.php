@@ -11,7 +11,14 @@ class SearchRepository
 {
     public function name($name, $page)
     {
-        $comics = Comic::where('name', 'LIKE', '%'.$name.'%')->orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
+        $comics = Comic::with('tags')
+            ->with('published_by')
+            ->where('name', 'LIKE', '%'.$name.'%')
+            ->orderBy('id', 'desc')
+            ->skip(($page - 1) * 20)
+            ->take(20)
+            ->get();
+
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('name', 'LIKE', '%'.$name.'%')->count()/20);
         return $result;
@@ -19,7 +26,14 @@ class SearchRepository
 
     public function publisher($user_id, $page)
     {
-        $comics = Comic::where('published_by', $user_id)->orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
+        $comics = Comic::with('tags')
+            ->with('published_by')
+            ->where('published_by', $user_id)
+            ->orderBy('id', 'desc')
+            ->skip(($page - 1) * 20)
+            ->take(20)
+            ->get();
+
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('published_by', $user_id)->count()/20);
         return $result;
@@ -27,7 +41,14 @@ class SearchRepository
 
     public function type($id, $page)
     {
-        $comics = Comic::where('type', $id)->orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
+        $comics = Comic::with('tags')
+            ->with('published_by')
+            ->where('type', $id)
+            ->orderBy('id', 'desc')
+            ->skip(($page - 1) * 20)
+            ->take(20)
+            ->get();
+
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(Comic::where('type', $id)->count()/20);
         return $result;
@@ -46,7 +67,12 @@ class SearchRepository
                 ->toArray()
         );
 
-        $comics = Comic::find(array_slice($comics, ($page - 1) * 20, 20));
+        $comics = Comic::with('tags')
+            ->with('published_by')
+            ->find(
+                array_slice($comics, ($page - 1) * 20, 20)
+            );
+
         $result['comics'] = $this->detail($comics);
         $result['pages'] = ceil(count($comics)/20);
         return $result;
@@ -64,8 +90,8 @@ class SearchRepository
     {
         foreach ($comics as $comic) {
             $comic->type = Type::select('id', 'name')->find($comic->type);
-            $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            $comic->published_by = User::select('id', 'name')->find($comic->published_by);
+            // $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
+            // $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
         return $comics;
     }

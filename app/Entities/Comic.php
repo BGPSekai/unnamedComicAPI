@@ -10,7 +10,7 @@ class Comic extends Model
         'name', 'summary', 'author', 'type', 'published_by', 'chapters', 'favorites',
     ];
 
-    public function user()
+    public function published_by()
     {
     	return $this->belongsTo('App\Entities\User', 'published_by');
     }
