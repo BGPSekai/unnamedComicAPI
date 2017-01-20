@@ -8,6 +8,6 @@ class TypeRepository
 {
 	public function index()
 	{
-		return Type::select('id', 'name')->pluck('name');
+		return Type::pluck('name');
 	}
 }
