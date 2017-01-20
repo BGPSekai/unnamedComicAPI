@@ -31,7 +31,7 @@ class TagController extends Controller
         if (! $tag = $this->tagRepo->store($data))
             return response()->json(['status' => 'error', 'message' => 'Tag Exist']);
 
-        $tags = $this->tagRepo->show($comic_id);
+        $tags = $this->comicRepo->show($comic_id)->tags;
 
         return response()->json(['status' => 'success', 'tags' => $tags]);
     }
@@ -44,7 +44,7 @@ class TagController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Tag Not Found'], 404);
         }
 
-        $tags = $this->tagRepo->show($comic_id);
+        $tags = $this->comicRepo->show($comic_id)->tags;
 
         return response()->json(['status' => 'success', 'tags' => $tags]);
     }

@@ -33,9 +33,4 @@ class TagRepository
 
 		return Tag::destroy($tag);
 	}
-
-	public function show($comic_id)
-	{
-		return Tag::where('comic_id', $comic_id)->pluck('name');
-	}
 }
