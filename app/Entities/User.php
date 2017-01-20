@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function favorites()
     {
-    	return $this->hasMany('App\Entities\Favorite', 'uid');
+        return $this->belongsToMany('App\Entities\Comic', 'favorites', 'uid', 'comic_id');
     }
 
     public function tags()
