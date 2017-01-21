@@ -15,12 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('home', 'Web\HomeController@index');
 Route::get('login', function() {
 	return view('login');
 });
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::get('home', 'Web\HomeController@index');
+
 Route::group(['prefix' => 'user'], function()
 {
 	Route::get('/', 'Web\UserController@index');
