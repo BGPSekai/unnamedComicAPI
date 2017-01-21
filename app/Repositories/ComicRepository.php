@@ -38,9 +38,10 @@ class ComicRepository
 	public function show($id)
 	{
 		$comic = Comic::find($id);
-        $comic->type = Type::select('id', 'name')->find($comic->type);
-        $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-        $comic->published_by = User::select('id', 'name')->find($comic->published_by);
+        $comic->type = json_decode($comic->type);
+        $comic->tags;
+        $comic->published_by = $comic->user;
+        unset($comic->user);
 		return $comic;
 	}
 
