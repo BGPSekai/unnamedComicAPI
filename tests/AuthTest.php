@@ -1,17 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
 use App\Entities\User;
 
 require_once('JWT.php');
 
 class AuthTest extends TestCase
 {
-	use DatabaseMigrations;
-
-	public function register()
+	public function testRegister()
 	{
 		$user = $this->user();
 		$user['password_confirmation'] = 'password';
@@ -39,12 +34,10 @@ class AuthTest extends TestCase
 
 	public function testAuth()
 	{
-		$this->register();
-
 		$user = $this->user();
 
 		$this->post('/api/auth', $user)
-			->assertResponseStatus(200);
+			->assertResponseOk();
 
 		$user['password'] = 'password';
 		$token = $this->post('/api/auth', $user)
@@ -53,9 +46,6 @@ class AuthTest extends TestCase
 
 	public function testResetPassword()
 	{
-
-		$this->register();
-
 		$password = [
 			'password' => 'password',
 			'new_password' => 'password',
@@ -75,7 +65,7 @@ class AuthTest extends TestCase
 
 		$password['new_password_confirmation'] = 'password';
 		$this->post('/api/auth/reset', $password, $headers)
-			->assertResponseStatus(200);
+			->assertResponseOk();
 
 
 		$user = $this->user();
@@ -85,7 +75,7 @@ class AuthTest extends TestCase
 
 		$user['password'] = 'password';
 		$this->post('/api/auth', $user)
-			->assertResponseStatus(200);
+			->assertResponseOk();
 	}
 
 	private function user()
