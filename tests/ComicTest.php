@@ -1,30 +1,31 @@
 <?php
 
-use App\Entities\User;
+use App\Entities\Comic;
 
 class ComicTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testPublishComic()
+    public function testComicInfo()
     {
-		$headers = JWT::headers(User::first());
-		$this->post('/api/publish', $this->comic(), $headers)
-			->assertResponseStatus(400)
-			->seeJson(['fuck']);
+    	$this->get('/api/comic/1')
+    		->assertResponseStatus(404);
+
+    	$comic = $this->comic();
+    	Comic::create($comic);
+
+    	$comic['published_by'] = ['id' => 1, 'name' => 'test'];
+    	$comic['type'] = ['test', 'test'];
+    	$this->get('/api/comic/1')
+    		->seeJson($comic);
     }
 
-    private function comic()
+    public function comic()
     {
     	return [
     		'name' => 'test',
-    		'author' => 'test',
     		'summary' => 'test',
-    		'type' => ['test', 'test'],
-    		'cover' => ''
+    		'author' => 'test',
+    		'type' => json_encode(['test', 'test']),
+    		'published_by' => 1,
     	];
     }
 }

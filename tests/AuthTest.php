@@ -20,7 +20,6 @@ class AuthTest extends TestCase
 		$user['password_confirmation'] = 'secret';
 		$this->post('/api/auth/register', $this->user())
 			->seeJson([
-				'status' => 'success',
 				'name' => $user['name'],
 				'email' => $user['email']
 			]);
