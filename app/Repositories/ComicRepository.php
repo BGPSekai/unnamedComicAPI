@@ -37,6 +37,8 @@ class ComicRepository
 	public function show($id)
 	{
 		$comic = Comic::find($id);
+		if (!$comic)
+			return false;
         $comic->types = json_decode($comic->types);
         $comic->tags;
         $comic->published_by = $comic->user;
