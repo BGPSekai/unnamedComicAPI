@@ -42,6 +42,7 @@ class ComicRepository
         $comic->tags;
         $comic->published_by = $comic->user;
         unset($comic->user);
+        $comic->chapters;
 		return $comic;
 	}
 
@@ -49,7 +50,7 @@ class ComicRepository
 	public function updateChapters($id)
 	{
 	// 	return Comic::find($id)->update(['chapters' => $chapters]);
-		return Comic::find($id)->increment('chapters');
+		return Comic::find($id)->increment('chapter_count');
 	}
 
 	public function sortByUpdateTime($comics)

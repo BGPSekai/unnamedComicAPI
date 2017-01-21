@@ -34,7 +34,7 @@ class ComicController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
         }
 
-        $chapters = $this->chapterRepo->find($id);
+        // $chapters = $this->chapterRepo->find($id);
         // foreach ($chapters as $chapter) {
         //     $chapter['token'] = (string) JWTAuth::encode(
         //         JWTFactory::make([
@@ -45,7 +45,8 @@ class ComicController extends Controller
         //     );
         // }
 
-        return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
+        // return response()->json(['status' => 'success', 'comic' => $comic, 'chapters' => $chapters]);
+        return response()->json(['status' => 'success', 'comic' => $comic]);
     }
 
     public function showCover($id)

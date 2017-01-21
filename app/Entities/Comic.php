@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comic extends Model
 {
     protected $fillable = [
-        'name', 'summary', 'author', 'type', 'published_by', 'chapters', 'favorites',
+        'name', 'summary', 'author', 'type', 'published_by', 'chapter_count', 'favorite_count',
     ];
 
     public function user()
@@ -15,10 +15,10 @@ class Comic extends Model
     	return $this->belongsTo('App\Entities\User', 'published_by')->select('id', 'name');
     }
 
-    // public function chapters()
-    // {
-    	// return $this->hasMany('App\Entities\Chapter');
-    // }
+    public function chapters()
+    {
+    	return $this->hasMany('App\Entities\Chapter');
+    }
 
     public function favorites()
     {
@@ -27,7 +27,7 @@ class Comic extends Model
 
     public function tags()
     {
-    	return $this->hasMany('App\Entities\Tag');
+    	return $this->hasMany('App\Entities\Tag')->select('name');
     }
 
     public function comments()

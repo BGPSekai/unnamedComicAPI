@@ -16,7 +16,7 @@ class FavoriteRepository
 		if ($favorite)
 			return false;
 
-		Comic::find($data['comic_id'])->increment('favorites');
+		Comic::find($data['comic_id'])->increment('favorite_count');
 
 		return Favorite::create($data);
 	}
@@ -29,7 +29,7 @@ class FavoriteRepository
 			->id;
 
 		if ($favorite)
-			Comic::find($comic_id)->decrement('favorites');
+			Comic::find($comic_id)->decrement('favorite_count');
 
 		return Favorite::destroy($favorite);
 	}
