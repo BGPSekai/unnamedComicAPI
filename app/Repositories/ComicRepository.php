@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Entities\Comic;
 use App\Entities\User;
-use App\Entities\Type;
 use App\Entities\Tag;
 
 class ComicRepository
@@ -15,7 +14,7 @@ class ComicRepository
             'name' => $data['name'],
             'summary' => $data['summary'],
             'author' => $data['author'],
-            'type' => json_encode($data['type']),
+            'types' => json_encode($data['types']),
             'published_by' => $data['published_by'],
         ]);
 
@@ -26,7 +25,7 @@ class ComicRepository
 	{
 		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
         foreach ($comics as $comic) {
-            $comic->type = Type::select('id', 'name')->find($comic->type);
+            $comic->types = json_decode($comic->types);
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
             $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
@@ -38,7 +37,7 @@ class ComicRepository
 	public function show($id)
 	{
 		$comic = Comic::find($id);
-        $comic->type = json_decode($comic->type);
+        $comic->types = json_decode($comic->types);
         $comic->tags;
         $comic->published_by = $comic->user;
         unset($comic->user);
