@@ -21,7 +21,7 @@ class TagTest extends TestCase
 			->seeJson(['tags' => [['name' => 'test']]]);
 
 		$this->post('/api/tag/test/2')
-			->assertResponseStatus(200);
+			->assertResponseStatus(404);
 
 		$this->post('/api/tag/test/1')
 			->assertResponseStatus(403);
