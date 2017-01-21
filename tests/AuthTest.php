@@ -1,7 +1,5 @@
 <?php
 
-use App\Entities\User;
-
 require_once('JWT.php');
 
 class AuthTest extends TestCase
@@ -54,16 +52,16 @@ class AuthTest extends TestCase
 		$this->post('/api/auth/reset')
 			->assertResponseStatus(400);
 
-		$headers = JWT::headers(User::first());
-		$this->post('/api/auth/reset', $password, $headers)
+		JWT::createToken();
+		$this->post('/api/auth/reset', $password)
 			->assertResponseStatus(401);
 
 		$password['password'] = 'secret';
-		$this->post('/api/auth/reset', $password, $headers)
+		$this->post('/api/auth/reset', $password)
 			->assertResponseStatus(400);
 
 		$password['new_password_confirmation'] = 'password';
-		$this->post('/api/auth/reset', $password, $headers)
+		$this->post('/api/auth/reset', $password)
 			->assertResponseOk();
 
 

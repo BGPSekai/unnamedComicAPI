@@ -1,15 +1,17 @@
 <?php
 
+use App\Entities\User;
+
 class JWT
 {
-	public static function headers($user)
+	public static function createToken()
 	{
-	    $headers = ['Accept' => 'application/json'];
-
-        $token = JWTAuth::fromUser($user);
+        $token = JWTAuth::fromUser(User::first());
         JWTAuth::setToken($token);
-        $headers['Authorization'] = 'Bearer '.$token;
+	}
 
-	    return $headers;
+	public static function clearToken()
+	{
+		JWTAuth::setToken('a.b.c');
 	}
 }
