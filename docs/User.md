@@ -161,7 +161,6 @@ Status Code: 400
 | Type   | Name     | Required | Remark |
 | ------ | -------- |:--------:| ------ |
 | String | name     | √        |        |
-[/]: | File   | images[] |          | Image  |
 
 ### JSON Response
 #### Success
@@ -180,7 +179,6 @@ Status Code: 200
     "updated_at": *updateTime*,
     "created_at": *createTime*,
     "id": *id*,
-[/]:     "token": *token*
   }
 }
 ```
