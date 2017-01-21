@@ -28,11 +28,8 @@ class ComicController extends Controller
 
     public function show($id)
     {
-        try {
-            $comic = $this->comicRepo->show($id);
-        } catch (\Exception $e) {
+        if (! $comic = $this->comicRepo->show($id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
-        }
 
         // $chapters = $this->chapterRepo->find($id);
         // foreach ($chapters as $chapter) {
@@ -51,11 +48,8 @@ class ComicController extends Controller
 
     public function showCover($id)
     {
-        try {
-            $comic = $this->comicRepo->show($id);
-        } catch (\Exception $e) {
+        if (! $comic = $this->comicRepo->show($id))
             return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
-        }
 
         $file_path = Storage::files('comics/'.$id);
         header("Access-Control-Allow-Origin: *");
