@@ -20,16 +20,13 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $data = $request->only('name', 'email', 'password', 'password_confirmation', 'from');
-
-        if ($data['from'])
-            $data['email'] = $data['email'].'@'.$data['from'];
-
-        $validator = $this->validator($data);
+        $data = $request->only('name', 'email', 'password', 'password_confirmation');
+        $validator = $this->registerValidator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
+        $data['from'] = null;
         $user = $this->repo->create($data);
 
         return response()->json(['status' => 'success', 'user' => $user]);
@@ -37,13 +34,27 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
-        $credentials = $request->only('email', 'password', 'from');
+        $data = $request->only('name', 'email', 'password', 'from');
+        $validator = $this->authValidator($data);
 
-        if ($credentials['from'])
-            $credentials['email'] = $credentials['email'].'@'.$credentials['from'];
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
+
+        $credentials['email'] = $data['from'] ? $data['email'].'@'.$data['from'] : $data['email'];
+        $credentials['password'] = $request->password;
 
         if (! $token = JWTAuth::attempt($credentials))
-            return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
+            if (!$data['from']) {
+                return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
+            } else {
+                try {
+                    $data['email'] = $credentials['email'];
+                    $this->repo->create($data);
+                    $token = JWTAuth::attempt($credentials);
+                } catch (\Exception $e) {
+                    return response()->json(['status' => 'error', 'message' => 'Invalid Credentials'], 401);
+                }
+            }
 
         return response()->json(['status' => 'success', 'token' => $token]);
     }
@@ -64,24 +75,27 @@ class AuthController extends Controller
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
         Auth::user()->forceFill([
-            'password' => bcrypt($request->new_password),
+            'password' => bcrypt($data['new_password']),
         ])->save();
 
-        $credentials['password'] = $request->new_password;
-        // $token = JWTAuth::attempt($credentials);
-
-        // return response()->json(['status' => 'success', 'user' => Auth::user(), 'token' => $token]);
-        // return response()->json(['status' => 'success', 'user' => Auth::user()]);
         return response()->json(['status' => 'success', 'message' => 'Password Reset']);
     }
 
-    private function validator(array $data)
+    private function registerValidator(array $data)
     {
-        $email_rule = $data['from'] ? '' : '|email';
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|max:255|unique:users'.$email_rule,
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+        ]);
+    }
+
+    private function authValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required_with:from|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
         ]);
     }
 
