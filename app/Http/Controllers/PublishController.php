@@ -24,7 +24,7 @@ class PublishController extends Controller
     public function comic(Request $request)
     {
         $user = Auth::user();
-        $data = $request->only('name', 'summary', 'author', 'type', 'cover');
+        $data = $request->only('name', 'summary', 'author', 'types', 'cover');
         $validator = $this->comicValidator($data);
 
         if ($validator->fails())
@@ -206,8 +206,8 @@ class PublishController extends Controller
             'name' => 'required|max:255',
             'summary' => 'required|max:255',
             'author' => 'required|max:255',
-            'type' => 'required|Array',
-            'type.*' => 'required|max:255',
+            'types' => 'required|Array',
+            'types.*' => 'required|max:255',
             'cover' => 'required|image',
         ]);
     }

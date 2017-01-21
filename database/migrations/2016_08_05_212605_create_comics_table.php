@@ -18,7 +18,7 @@ class CreateComicsTable extends Migration
             $table->string('name');
             $table->string('summary');
             $table->string('author');
-            $table->string('type');
+            $table->string('types');
             $table->integer('published_by')->unsigned();
             $table->integer('chapter_count')->unsigned()->default(0);
             $table->integer('favorite_count')->unsigned()->default(0);
