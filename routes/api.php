@@ -57,7 +57,6 @@ Route::group(['middleware' => 'cors'], function()
 	{
 		Route::get('page/{page}', 'ComicController@index');
 		Route::get('{id}', 'ComicController@show');
-		Route::post('info', 'ComicController@info');
 	});
 
 	Route::group(['prefix' => 'search'], function()

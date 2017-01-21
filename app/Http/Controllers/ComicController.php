@@ -95,32 +95,4 @@ class ComicController extends Controller
         header("Access-Control-Allow-Origin: *");
         return Response::download(storage_path().'/app/'.$file_path[--$page]);
     }
-
-    public function info(Request $request)
-    {
-        $data = $request->only('comics');
-        $validator = $this->validator($data);
-
-        if ($validator->fails())
-            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
-
-        $infos = [];
-
-        foreach ($request->comics as $comic)
-            try {
-                $info = $this->comicRepo->show($comic);
-                array_push($infos, $info);
-            } catch (\Exception $e) {
-                #do nothing
-            }
-
-        return response()->json(['status' => 'success', 'infos' => $infos]);
-    }
-
-    private function validator(array $data) {
-        return Validator::make($data, [
-            'comics' => 'required|Array',
-            'comics.*' => 'required|exists:comics,id',
-        ]);
-    }
 }
