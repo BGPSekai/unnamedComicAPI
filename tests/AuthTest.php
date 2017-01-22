@@ -10,10 +10,7 @@ class AuthTest extends TestCase
 		$user['password_confirmation'] = 'password';
 
 		$this->post('api/auth/register', $user)
-			->seeJson([
-				'status' => 'error',
-				'message' => ['The password confirmation does not match.']
-			]);
+			->seeJson(['message' => ['The password confirmation does not match.']]);
 
 		$user['password_confirmation'] = 'secret';
 		$this->post('/api/auth/register', $this->user())
@@ -23,10 +20,7 @@ class AuthTest extends TestCase
 			]);
 
 		$this->post('/api/auth/register', $this->user())
-			->seeJson([
-				'status' => 'error',
-				'message' => ['The email has already been taken.']
-			]);
+			->seeJson(['message' => ['The email has already been taken.']]);
 	}
 
 	public function testAuth()
