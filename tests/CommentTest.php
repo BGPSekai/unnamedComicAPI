@@ -25,23 +25,19 @@ class CommentTest extends TestCase
 		$this->post('/api/comment', ['chapter_id' => 1])
 			->assertResponseStatus(400);
 
-		$this->post('/api/comment', ['id' => 1, 'comment' => 'test'])->seeJson(['fuck'])
+		$this->post('/api/comment', ['id' => 1, 'comment' => 'test'])
 			->assertResponseStatus(400);
 
-		$this->post('/api/comment', ['comic_id' => 1, 'comment' => 'test'])->seeJson(['fuck'])
-			->assertResponseStatus(400);
+		$this->post('/api/comment', ['comic_id' => 1, 'comment' => 'test comic'])
+			->assertResponseOk();
 
-		$this->post('/api/comment', ['chapter_id' => 1, 'comment' => 'test'])->seeJson(['fuck'])
-			->assertResponseStatus(400);
+		$this->get('/api/comic/1')
+			->seeJson(['comments' => 'test comic']);
 
-    	Comic::create([
-    		'name' => 'test',
-    		'summary' => 'test',
-    		'author' => 'test',
-    		'types' => json_encode(['test', 'test']),
-    		'published_by' => 1,
-    	]);
+		$this->post('/api/comment', ['chapter_id' => 1, 'comment' => 'test chapter'])
+			->assertResponseOk();
 
-    	Comic::destroy(2);
+		$this->get('/api/comic/1')
+			->seeJson(['comments' => 'test chapter']);
 	}
 }
