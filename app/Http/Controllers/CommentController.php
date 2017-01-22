@@ -46,7 +46,7 @@ class CommentController extends Controller
 
         $data['commented_by'] = $user->id;
 
-        if ($data['id']) {
+        if (isset($data['id'])) {
             $old_comment = $this->commentRepo->find($data['id']);
 
             if ($user->id != $old_comment->commented_by)
@@ -54,12 +54,11 @@ class CommentController extends Controller
 
             $data['comic_id'] = $old_comment->comic_id;
             $data['chapter_id'] = $old_comment->chapter_id;
-        }
-        elseif ($data['chapter_id']) {
+        } elseif ($data['chapter_id']) {
             $data['comic_id'] = $this->chapterRepo->show($data['chapter_id'])->comic_id;
         }
 
-        $comment = $data['id'] ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
+        $comment = isset($data['id']) ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
         $comment['commented_by'] = ['id' => $user->id, 'name' => $user->name];
 
         return response()->json(['status' => 'success', 'comment' => $comment]);
