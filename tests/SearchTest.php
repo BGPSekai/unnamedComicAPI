@@ -66,7 +66,7 @@ class SearchTest extends TestCase
 		$this->get('/api/search/type/test/2')
 			->seeJson(['comics' => []]);
 
-		$this->get('/api/search/type/te/1')
+		$this->get('/api/search/type/ab/1')
 			->seeJson(['pages' => 0]);	
 	}
 }
