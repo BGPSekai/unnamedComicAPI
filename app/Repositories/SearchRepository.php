@@ -12,7 +12,7 @@ class SearchRepository
     public function name($name, $page)
     {
         $comics = Comic::with('tags')
-            ->with('published_by')
+            ->with('user')
             ->where('name', 'LIKE', '%'.$name.'%')
             ->orderBy('id', 'desc')
             ->skip(($page - 1) * 20)
@@ -27,7 +27,7 @@ class SearchRepository
     public function publisher($user_id, $page)
     {
         $comics = Comic::with('tags')
-            ->with('published_by')
+            ->with('user')
             ->where('published_by', $user_id)
             ->orderBy('id', 'desc')
             ->skip(($page - 1) * 20)
@@ -42,7 +42,7 @@ class SearchRepository
     public function type($name, $page)
     {
         $comics = Comic::with('tags')
-            ->with('published_by')
+            ->with('user')
             ->where('type', 'LIKE', '%'.$name.'%')
             ->orderBy('id', 'desc')
             ->skip(($page - 1) * 20)
@@ -68,7 +68,7 @@ class SearchRepository
         );
 
         $comics = Comic::with('tags')
-            ->with('published_by')
+            ->with('user')
             ->find(
                 array_slice($comics, ($page - 1) * 20, 20)
             );
@@ -92,6 +92,8 @@ class SearchRepository
             $comic->type = Type::select('id', 'name')->find($comic->type);
             // $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
             // $comic->published_by = User::select('id', 'name')->find($comic->published_by);
+            $comic->published_by = $comic->user;
+            unset($comic->user);
         }
         return $comics;
     }
