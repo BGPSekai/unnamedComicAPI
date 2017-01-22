@@ -33,11 +33,16 @@ class CommentController extends Controller
     {
         $user = Auth::user();
 
-        $data = $request->only('id', 'comic_id', 'chapter_id', 'comment');
+        $data = array_diff($request->only('id', 'comic_id', 'chapter_id', 'comment'), [null]);
         $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
+
+        if (count($data) == 1)
+            return response()->json(['status' => 'error', 'message' => 'The id, comic_id, or chapter_id field is required.'], 400);
+        elseif (count($data) > 2)
+            return response()->json(['status' => 'error', 'message' => 'Too Many Params'], 400);
 
         $data['commented_by'] = $user->id;
 
@@ -63,9 +68,12 @@ class CommentController extends Controller
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'id' => 'required_without_all:comic_id,chapter_id|exists:comments|nullable',
-            'comic_id' => 'required_without_all:id,chapter_id|exists:comics,id|nullable',
-            'chapter_id' => 'required_without_all:id,comic_id|exists:chapters,id|nullable',
+            // 'id' => 'required_without_all:comic_id,chapter_id|exists:comments|nullable',
+            // 'comic_id' => 'required_without_all:id,chapter_id|exists:comics,id|nullable',
+            // 'chapter_id' => 'required_without_all:id,comic_id|exists:chapters,id|nullable',
+            'id' => 'exists:comments',
+            'comic_id' => 'exists:comics,id',
+            'chapter_id' => 'exists:chapters,id',
             'comment' => 'required|max:255',
         ]);
     }
