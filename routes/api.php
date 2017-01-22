@@ -71,7 +71,7 @@ Route::group(['middleware' => 'cors'], function()
 	Route::group(['prefix' => 'user'], function()
 	{
 		Route::get('{id}', 'UserController@show');
-		Route::get('{id}/favorites', 'FavoriteController@showComics');
+		Route::get('{id}/favorites', 'FavoriteController@show');
 	});
 
 	Route::group(['prefix' => 'comment'], function()

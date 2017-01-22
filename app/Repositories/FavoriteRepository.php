@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Entities\Comic;
 use App\Entities\Favorite;
+use App\Entities\User;
 
 class FavoriteRepository
 {
@@ -39,8 +40,11 @@ class FavoriteRepository
 		// return Favorite::where('comic_id', $comic_id)->pluck('uid');
 	// }
 
-	public function showComics($uid)
+	public function show($uid)
 	{
+		if (!User::find($uid))
+			return false;
+
 		return Favorite::where('uid', $uid)->pluck('comic_id');
 	}
 }
