@@ -43,14 +43,14 @@ class SearchRepository
     {
         $comics = Comic::with('tags')
             ->with('user')
-            ->where('type', 'LIKE', '%'.$name.'%')
+            ->where('types', 'LIKE', '%'.$name.'%')
             ->orderBy('id', 'desc')
             ->skip(($page - 1) * 20)
             ->take(20)
             ->get();
 
         $result['comics'] = $this->detail($comics);
-        $result['pages'] = ceil(Comic::where('type', $id)->count()/20);
+        $result['pages'] = ceil(Comic::where('types', $name)->count()/20);
         return $result;
     }
 
