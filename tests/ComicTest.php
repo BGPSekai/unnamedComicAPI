@@ -3,8 +3,6 @@
 use App\Entities\Comic;
 use App\Entities\Chapter;
 
-require_once('JWT.php');
-
 class ComicTest extends TestCase
 {
     public function testComicInfo()

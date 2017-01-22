@@ -1,7 +1,5 @@
 <?php
 
-require_once('tests/JWT.php');
-
 class UserTest extends TestCase
 {
 	public function testUserInfo()
