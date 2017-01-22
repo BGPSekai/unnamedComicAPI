@@ -56,6 +56,8 @@ class CommentController extends Controller
             $data['chapter_id'] = $old_comment->chapter_id;
         } elseif (isset($data['chapter_id'])) {
             $data['comic_id'] = $this->chapterRepo->show($data['chapter_id'])->comic_id;
+        } else {
+            $data['chapter_id'] = null;
         }
 
         $comment = isset($data['id']) ? $this->commentRepo->update($data) : $this->commentRepo->create($data);
