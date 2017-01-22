@@ -19,14 +19,14 @@ class FavoriteController extends Controller
     public function store($comic_id)
     {
         if (! $comic = $this->comicRepo->show($comic_id))
-            return response()->json(['status' => 'error', 'message' => 'Comic Not Found']);
+            return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
 
         $uid = Auth::user()->id;
 
         $data = ['comic_id' => $comic_id, 'uid' => $uid];
 
         if (! $favorite = $this->favoriteRepo->store($data))
-            return response()->json(['status' => 'error', 'message' => 'Favorite Exist']);
+            return response()->json(['status' => 'error', 'message' => 'Favorite Exist'], 403);
 
         $favorites = $this->favoriteRepo->show($uid);
 
