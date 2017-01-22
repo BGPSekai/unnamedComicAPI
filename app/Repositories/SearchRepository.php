@@ -50,7 +50,7 @@ class SearchRepository
             ->get();
 
         $result['comics'] = $this->detail($comics);
-        $result['pages'] = ceil(Comic::where('types', $name)->count()/20);
+        $result['pages'] = ceil(Comic::where('types', '%'.$name.'%')->count()/20);
         return $result;
     }
 
