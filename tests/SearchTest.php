@@ -2,7 +2,6 @@
 
 class SearchTest extends TestCase
 {
-// |        | GET|HEAD | api/search/tag/{name}/{page}          |      | App\Http\Controllers\SearchController@tag            | api,cors          |
 // |        | GET|HEAD | api/search/type/{name}/{page}         |      | App\Http\Controllers\SearchController@type           | api,cors          |
 
 	public function testAuthor()
@@ -39,5 +38,35 @@ class SearchTest extends TestCase
 
 		$this->get('/api/search/publisher/2/1')
 			->seeJson(['pages' => 0]);
+	}
+
+	public function testTag()
+	{
+		JWT::createToken();
+		$this->post('/api/tag/test/1');
+
+
+		$this->get('/api/search/tag/test/1')
+			->seeJson(['pages' => 1]);
+
+		$this->get('/api/search/tag/test/2')
+			->seeJson(['comics' => []]);
+
+		$this->get('/api/search/tag/te/1')
+			->seeJson(['pages' => 0]);
+
+		$this->delete('/api/tag/test/1');
+	}
+
+	public function testType()
+	{
+		$this->get('/api/search/type/test/1')
+			->seeJson(['pages' => 1]);
+
+		$this->get('/api/search/type/test/2')
+			->seeJson(['comics' => []]);
+
+		$this->get('/api/search/type/te/1')
+			->seeJson(['pages' => 0]);	
 	}
 }
