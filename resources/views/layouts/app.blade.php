@@ -36,7 +36,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="{{ Auth::user()->avatar ? '/users/'.Auth::user()->id.'.'.Auth::user()->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="..." class="img-circle profile_img">
+                <img src="{{ Auth::user()->avatar ? 'users/'.Auth::user()->id.'.'.Auth::user()->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>歡迎，</span>
@@ -187,7 +187,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->avatar ? '/users/'.Auth::user()->id.'.'.Auth::user()->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="">{{ Auth::user()->name }}
+                    <img src="{{ Auth::user()->avatar ? 'users/'.Auth::user()->id.'.'.Auth::user()->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="">{{ Auth::user()->name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
