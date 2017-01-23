@@ -8,7 +8,6 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Response;
 use Storage;
-use Validator;
 
 class ComicController extends Controller
 {

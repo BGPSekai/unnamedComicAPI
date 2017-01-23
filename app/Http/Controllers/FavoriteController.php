@@ -52,7 +52,7 @@ class FavoriteController extends Controller
     {
         if (! $favorites = $this->favoriteRepo->show($uid))
             return response()->json(['status' => 'error', 'message' => 'User Not Found'], 404);
-        $favorites = $this->comicRepo->sortByUpdateTime($favorites->toArray());
+        // $favorites = $this->comicRepo->sortByUpdateTime($favorites->toArray());
         return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 }
