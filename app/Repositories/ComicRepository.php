@@ -28,12 +28,14 @@ class ComicRepository
 
 	public function index($page)
 	{
-		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * $this->limit_per_page)->take($this->limit_per_page)->get();
-        foreach ($comics as $comic) {
-            $comic->types = json_decode($comic->types);
-            $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            $comic->published_by = User::select('id', 'name')->find($comic->published_by);
-        }
+		$comics = Comic::orderBy('id', 'desc')
+			->skip(($page - 1) * $this->limit_per_page)
+			->take($this->limit_per_page)
+			->get();
+
+        foreach ($comics as $comic)
+        	$this->detail($comic);
+
 		$result['comics'] = $comics;
 		$result['pages'] = ceil(Comic::count()/$this->limit_per_page);
 		return $result;
@@ -41,21 +43,16 @@ class ComicRepository
 
 	public function show($id)
 	{
-		$comic = Comic::find($id);
-		if (!$comic)
+		if (! $comic = Comic::find($id))
 			return false;
-        $comic->types = json_decode($comic->types);
-        $comic->tags;
-        $comic->published_by = $comic->user;
-        unset($comic->user);
+
+		$this->detail($comic);
         $comic->chapters;
 		return $comic;
 	}
 
-	// public function updateChapters($id, $chapters)
 	public function updateChapters($id)
 	{
-	// 	return Comic::find($id)->update(['chapters' => $chapters]);
 		return Comic::find($id)->increment('chapter_count');
 	}
 
@@ -63,5 +60,15 @@ class ComicRepository
 	{
 		return
 			Comic::find($comics)->sortByDesc('updated_at')->pluck('id');
+	}
+
+	private function detail($comic)
+	{
+        $comic->types = json_decode($comic->types);
+        $comic->tags;
+        $comic->published_by = $comic->user;
+        unset($comic->user);
+
+		return $comic;
 	}
 }
