@@ -12,6 +12,6 @@ class Comment extends Model
 
     public function user()
     {
-    	return $this->hasOne('App\Entities\User', 'commented_by')->select('id', 'name', 'avatar');
+    	return $this->belongsTo('App\Entities\User', 'commented_by')->select('id', 'name', 'avatar');
     }
 }
