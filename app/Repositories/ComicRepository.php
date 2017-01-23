@@ -62,7 +62,6 @@ class ComicRepository
         $comic->tags;
         $comic->published_by = $comic->user;
         unset($comic->user);
-
 		return $comic;
 	}
 }
