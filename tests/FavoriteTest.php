@@ -15,7 +15,7 @@ class FavoriteTest extends TestCase
 
 		JWT::createToken(1);
 		$this->post('/api/favorite/1')
-			->seeJson(['favorites' => [1]]);
+			->assertResponseOk();
 
 		$this->post('/api/favorite/2')
 			->assertResponseStatus(404);
@@ -24,7 +24,7 @@ class FavoriteTest extends TestCase
 			->assertResponseStatus(403);
 
 		$this->get('/api/user/1/favorites')
-			->seeJson(['favorites' => [1]]);
+			->assertResponseOk();
 	}
 
 	public function testDeleteFavorite()
@@ -34,12 +34,12 @@ class FavoriteTest extends TestCase
 
 		JWT::createToken(1);
 		$this->delete('/api/favorite/1')
-			->seeJson(['favorites' => []]);
+			->assertResponseOk();
 
 		$this->delete('/api/favorite/1')
 			->assertResponseStatus(404);
 
 		$this->get('/api/user/1/favorites')
-			->seeJson(['favorites' => []]);
+			->assertResponseOk();
 	}
 }
