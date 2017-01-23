@@ -35,16 +35,21 @@ class FavoriteRepository
 		return Favorite::destroy($favorite);
 	}
 
-	// public function showUsers($comic_id)
-	// {
-		// return Favorite::where('comic_id', $comic_id)->pluck('uid');
-	// }
-
 	public function show($uid)
 	{
 		if (!User::find($uid))
 			return false;
 
-		return Favorite::where('uid', $uid)->pluck('comic_id');
+		$favorites = User::find($uid)->favorites->sortByDesc('updated_at');
+
+		foreach ($favorites as $comic) {
+			$comic->types = json_decode($comic->types);
+			$comic->published_by = $comic->user;
+			$comic->tags;
+			unset($comic->user);
+			unset($comic->pivot);
+		}
+
+		return $favorites;
 	}
 }

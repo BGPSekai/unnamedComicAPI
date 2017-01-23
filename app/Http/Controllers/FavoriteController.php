@@ -28,9 +28,7 @@ class FavoriteController extends Controller
         if (! $favorite = $this->favoriteRepo->store($data))
             return response()->json(['status' => 'error', 'message' => 'Favorite Exist'], 403);
 
-        $favorites = $this->favoriteRepo->show($uid);
-
-        return response()->json(['status' => 'success', 'favorites' => $favorites]);
+        return response()->json(['status' => 'success', 'message' => 'Add Favorite Success']);
     }
 
     public function destroy($comic_id)
@@ -43,16 +41,14 @@ class FavoriteController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Favorite Not Found'], 404);
         }
 
-        $favorites = $this->favoriteRepo->show($uid);
-
-        return response()->json(['status' => 'success', 'favorites' => $favorites]);
+        return response()->json(['status' => 'success', 'message' => 'Delete Favorite Success']);
     }
 
     public function show($uid)
     {
         if (! $favorites = $this->favoriteRepo->show($uid))
             return response()->json(['status' => 'error', 'message' => 'User Not Found'], 404);
-        // $favorites = $this->comicRepo->sortByUpdateTime($favorites->toArray());
+
         return response()->json(['status' => 'success', 'favorites' => $favorites]);
     }
 }
