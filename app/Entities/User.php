@@ -24,15 +24,15 @@ class User extends Authenticatable
     	return $this->hasMany('App\Entities\Chapter', 'published_by');
     }
 
-    public function favorites()
+    public function favorited_comics()
     {
         return $this->belongsToMany('App\Entities\Comic', 'favorites', 'uid', 'comic_id');
     }
 
-    public function tags()
-    {
-        return $this->hasMany('App\Entities\Tag', 'tagged_by');
-    }
+    // public function tags()
+    // {
+    //     return $this->hasMany('App\Entities\Tag', 'tagged_by');
+    // }
 
     public function comments()
     {

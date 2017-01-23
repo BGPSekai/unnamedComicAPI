@@ -20,9 +20,9 @@ class Comic extends Model
     	return $this->hasMany('App\Entities\Chapter');
     }
 
-    public function favorites()
+    public function favorited_users()
     {
-        return $this->hasMany('App\Entities\Favorite');
+        return $this->belongsToMany('App\Entities\User', 'favorites', 'comic_id', 'uid');
     }
 
     public function tags()
