@@ -72,7 +72,7 @@
                   <td>{{ $user->avatar }}</td>
                   <td class="user-profile">
                     <a href="#" data-toggle="modal" data-target="#imageModal{{ $user->id }}">
-                      <img src="{{ $user->avatar ? '/users/'.$user->id.'.'.$user->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="...">
+                      <img src="{{ $user->avatar ? 'users/'.$user->id.'.'.$user->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="...">
                     </a>
                   </td>
                   <td>{{ $user->from }}</td>
@@ -98,7 +98,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <img src="{{ $user->avatar ? '/users/'.$user->id.'.'.$user->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="...">
+        <img src="{{ $user->avatar ? 'users/'.$user->id.'.'.$user->avatar : 'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/11539567_843698205722529_6604788997712868611_n.jpg?oh=83c0380d52d9f8dc9f82a1a4f288fc15&oe=58B0F1EC' }}" alt="...">
       </div>
     </div>
   </div>
