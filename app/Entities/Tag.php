@@ -15,8 +15,8 @@ class Tag extends Model
     	return $this->belongsToMany('App\Entities\Comic');
     }
 
-    public function user()
-    {
-    	return $this->belongsTo('App\Entities\User', 'tagged_by');
-    }
+    // public function user()
+    // {
+    // 	return $this->belongsTo('App\Entities\User', 'tagged_by');
+    // }
 }

@@ -10,14 +10,9 @@ class Chapter extends Model
         'comic_id', 'name', 'pages', 'published_by',
     ];
 
-    public function comic()
-    {
-    	return $this->belongsTo('App\Entities\Comic');
-    }
-
     public function user()
     {
-    	return $this->belongsTo('App\Entities\User', 'published_by');
+    	return $this->belongsTo('App\Entities\User', 'published_by')->select('id', 'name');
     }
 
     public function comments()
