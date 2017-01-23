@@ -8,6 +8,11 @@ use App\Entities\Tag;
 
 class ComicRepository
 {
+    public function __construct()
+    {
+		$this->limit_per_page = 20;
+	}
+
 	public function create(array $data)
 	{
 		$comic = Comic::create([
@@ -23,14 +28,14 @@ class ComicRepository
 
 	public function index($page)
 	{
-		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
+		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * $this->limit_per_page)->take($this->limit_per_page)->get();
         foreach ($comics as $comic) {
             $comic->types = json_decode($comic->types);
             $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
             $comic->published_by = User::select('id', 'name')->find($comic->published_by);
         }
 		$result['comics'] = $comics;
-		$result['pages'] = ceil(Comic::count()/20);
+		$result['pages'] = ceil(Comic::count()/$this->limit_per_page);
 		return $result;
 	}
 

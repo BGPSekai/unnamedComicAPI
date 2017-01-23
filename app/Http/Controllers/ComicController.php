@@ -8,8 +8,6 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Response;
 use Storage;
-// use JWTAuth;
-// use JWTFactory;
 use Validator;
 
 class ComicController extends Controller
