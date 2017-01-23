@@ -24,7 +24,7 @@ class User extends Authenticatable
     	return $this->hasMany('App\Entities\Chapter', 'published_by');
     }
 
-    public function favorited_comics()
+    public function favorites()
     {
         return $this->belongsToMany('App\Entities\Comic', 'favorites', 'uid', 'comic_id');
     }

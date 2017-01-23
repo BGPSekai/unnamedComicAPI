@@ -20,7 +20,7 @@ class Comic extends Model
     	return $this->hasMany('App\Entities\Chapter');
     }
 
-    public function favorited_users()
+    public function favorited_users() //名稱待修正
     {
         return $this->belongsToMany('App\Entities\User', 'favorites', 'comic_id', 'uid');
     }
