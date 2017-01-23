@@ -70,7 +70,7 @@ class PublishController extends Controller
         // );
         // $chapters = $this->chapterRepo->count($comic_id);
         // $this->comicRepo->updateChapters($comic_id, $chapters);
-        $this->comicRepo->updateChapters($comic_id);
+        $this->comicRepo->incrementChapterCount($comic_id);
         
         // if (!$data['pages'])
             // return response()->json(['status' => 'success', 'chapter' => $chapter]);

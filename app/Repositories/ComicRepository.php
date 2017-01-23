@@ -8,6 +8,11 @@ use App\Entities\Tag;
 
 class ComicRepository
 {
+    public function __construct()
+    {
+		$this->limit_per_page = 20;
+	}
+
 	public function create(array $data)
 	{
 		$comic = Comic::create([
@@ -23,40 +28,40 @@ class ComicRepository
 
 	public function index($page)
 	{
-		$comics = Comic::orderBy('id', 'desc')->skip(($page - 1) * 20)->take(20)->get();
-        foreach ($comics as $comic) {
-            $comic->types = json_decode($comic->types);
-            $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            $comic->published_by = User::select('id', 'name')->find($comic->published_by);
-        }
+		$comics = Comic::orderBy('id', 'desc')
+			->skip(($page - 1) * $this->limit_per_page)
+			->take($this->limit_per_page)
+			->get();
+
+        foreach ($comics as $comic)
+        	$this->detail($comic);
+
 		$result['comics'] = $comics;
-		$result['pages'] = ceil(Comic::count()/20);
+		$result['pages'] = ceil(Comic::count()/$this->limit_per_page);
 		return $result;
 	}
 
 	public function show($id)
 	{
-		$comic = Comic::find($id);
-		if (!$comic)
+		if (! $comic = Comic::find($id))
 			return false;
-        $comic->types = json_decode($comic->types);
-        $comic->tags;
-        $comic->published_by = $comic->user;
-        unset($comic->user);
+
+		$this->detail($comic);
         $comic->chapters;
 		return $comic;
 	}
 
-	// public function updateChapters($id, $chapters)
-	public function updateChapters($id)
+	public function incrementChapterCount($id)
 	{
-	// 	return Comic::find($id)->update(['chapters' => $chapters]);
 		return Comic::find($id)->increment('chapter_count');
 	}
 
-	public function sortByUpdateTime($comics)
+	private function detail($comic)
 	{
-		return
-			Comic::find($comics)->sortByDesc('updated_at')->pluck('id');
+        $comic->types = json_decode($comic->types);
+        $comic->tags;
+        $comic->published_by = $comic->user;
+        unset($comic->user);
+		return $comic;
 	}
 }

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Entities\Chapter;
-use App\Entities\User;
 
 class ChapterRepository
 {
@@ -21,8 +20,10 @@ class ChapterRepository
 	public function find($comic_id)
 	{
 		$chapters = Chapter::where('comic_id', $comic_id)->get();
-        foreach ($chapters as $chapter)
-            $chapter->published_by = User::select('id', 'name')->find($chapter['published_by']);
+        foreach ($chapters as $chapter) {
+            $chapter->published_by = $chapter->user;
+            unset($chapter->user);
+        }
 		return $chapters;
 	}
 
@@ -30,11 +31,6 @@ class ChapterRepository
 	{
 		return Chapter::find($id);
 	}
-
-	// public function count($comic_id)
-	// {
-	// 	return Chapter::where('comic_id', $comic_id)->count();
-	// }
 
 	public function updatePages($id, $pages)
 	{
