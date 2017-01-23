@@ -13,7 +13,7 @@ class TagTest extends TestCase
 		$this->post('/api/tag/test/1')
 			->assertResponseStatus(400);
 
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->get('/api/tag/te')
 			->seeJson(['tags' => []]);
 
@@ -42,7 +42,7 @@ class TagTest extends TestCase
 		$this->delete('/api/tag/test/1')
 			->assertResponseStatus(400);
 
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->delete('/api/tag/test/1')
 			->assertResponseOk();
 

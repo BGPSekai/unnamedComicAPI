@@ -43,7 +43,7 @@ class ComicTest extends TestCase
         $this->post('api/publish/1', ['comic_id' => 1])
             ->assertResponseStatus(400);
 
-        JWT::createToken();
+        JWT::createToken(1);
         $this->post('api/publish/1', ['comic_id' => 1])
             ->seeJson(['message' => ['The name field is required.']])
             ->assertResponseStatus(400);

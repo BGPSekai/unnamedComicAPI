@@ -2,8 +2,6 @@
 
 class SearchTest extends TestCase
 {
-// |        | GET|HEAD | api/search/type/{name}/{page}         |      | App\Http\Controllers\SearchController@type           | api,cors          |
-
 	public function testAuthor()
 	{
 		$this->get('/api/search/author/te/1')
@@ -42,7 +40,7 @@ class SearchTest extends TestCase
 
 	public function testTag()
 	{
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->post('/api/tag/test/1');
 
 

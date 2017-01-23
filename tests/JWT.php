@@ -4,9 +4,9 @@ use App\Entities\User;
 
 class JWT
 {
-	public static function createToken()
+	public static function createToken($id)
 	{
-        $token = JWTAuth::fromUser(User::first());
+        $token = JWTAuth::fromUser(User::find($id));
         JWTAuth::setToken($token);
 	}
 

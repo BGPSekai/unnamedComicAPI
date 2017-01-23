@@ -31,8 +31,24 @@ class AuthTest extends TestCase
 			->assertResponseOk();
 
 		$user['password'] = 'password';
-		$token = $this->post('/api/auth', $user)
+		$this->post('/api/auth', $user)
 			->assertResponseStatus(401);
+	}
+
+	public function testSocial()
+	{
+		$user = [
+			'email' => 'test@test.com',
+			'password' => 'testtest',
+			'from' => 'Google'
+		];
+
+		$this->post('/api/auth', $user)
+			->assertResponseStatus(400);
+
+		$user['name'] = 'test';
+		$this->post('/api/auth', $user)
+			->assertResponseOK();
 	}
 
 	public function testResetPassword()
@@ -46,7 +62,7 @@ class AuthTest extends TestCase
 		$this->post('/api/auth/reset')
 			->assertResponseStatus(400);
 
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->post('/api/auth/reset', $password)
 			->assertResponseStatus(401);
 
@@ -61,7 +77,7 @@ class AuthTest extends TestCase
 
 		$user = $this->user();
 
-		$token = $this->post('/api/auth', $user)
+		$this->post('/api/auth', $user)
 			->assertResponseStatus(401);
 
 		$user['password'] = 'password';

@@ -9,7 +9,7 @@ class CommentTest extends TestCase
 		$this->post('/api/comment')
 			->assertResponseStatus(400);
 
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->post('/api/comment')
 			->assertResponseStatus(400);
 

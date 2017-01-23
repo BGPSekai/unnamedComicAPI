@@ -7,13 +7,13 @@ class UserTest extends TestCase
 		$this->get('/api/user/1')
 			->assertResponseOk();
 
-		$this->get('/api/user/2')
+		$this->get('/api/user/3')
 			->assertResponseStatus(404);
 
 		$this->get('/api/user')
 			->assertResponseStatus(400);
 
-		JWT::createToken();
+		JWT::createToken(1);
 		$this->get('/api/user')
 			->assertResponseOk();
 	}
