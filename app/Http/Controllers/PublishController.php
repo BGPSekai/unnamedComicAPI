@@ -31,6 +31,7 @@ class PublishController extends Controller
         $data['published_by'] = $user->id;
         $comic = $this->comicRepo->create($data);
         $comic['published_by'] = ['id' => $user->id, 'name' => $user->name];
+        $comic['types'] = json_decode($comic['types']);
 
         $cover = $request->file('cover');
         $extension = explode('/', File::mimeType($cover))[1];

@@ -15,6 +15,10 @@
 12. [Comment Comic or Chapter](#CommentComicOrChapter)
 
 
+```
+timestamp: created_at, updated_at
+```
+
 ## 1. <a name="ViewUserInfo">View User Info</a>
 
 | Method | URI       | Remark |
@@ -32,8 +36,11 @@ Status Code: 200
     "name": *name*,
     "email": *email*,
     "avatar": *avatar*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*
+    "from": *from*,
+    "birthday": *birthday*,
+    "location": *location*,
+    "sign": *sign*,
+    "blocked_until": *unblockedTime*,
   }
 }
 ```
@@ -126,17 +133,15 @@ Status Code : 200
 {
   "status": "success",
   "comic": {
+    "id": *id*,
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": *type[Array]*,
+    "types": *types[Array]*,
     "published_by": {
       "id": *id*,
       "name": *name*
-    },
-    "updated_at": *updateTime*,
-    "created_at": *createTime*,
-    "id": *id*
+    }
   }
 }
 ```
@@ -169,16 +174,14 @@ Status Code: 200
 {
   "status": "success",
   "chapter": {
+    "id": *id*,
     "comic_id": *comic_id*,
     "name": *name*,
     "pages": *pages*,
     "published_by": {
       "id": *id*,
       "name": *name*
-    },
-    "updated_at": *updateTime*,
-    "created_at": *createTime*,
-    "id": *id*,
+    }
   }
 }
 ```
@@ -189,12 +192,6 @@ Status Code: 400
 {
   "status": "error",
   "message": *message[Array]*
-}
-- or -
-Status Code: 404
-{
-  "status": "error",
-  "message": "Comic Not Found"
 }
 ```
 
@@ -268,12 +265,6 @@ Status Code: 400
   "status": "error",
   "message": "new_index[] Duplicate"
 }
-- or -
-Status Code: 404
-{
-  "status": "error",
-  "message": "Chapter Not Found"
-}
 ```
 
 ## 7. <a name="SearchTags">Search Tags</a>
@@ -310,6 +301,12 @@ Status Code: 200
 
 #### Error
 ```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
 Status Code: 403
 {
   "status": "error",
@@ -354,12 +351,18 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "favorites": *favorites[Array]*
+  "message": "Add Favorite Success"
 }
 ```
 
 #### Error
 ```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
 Status Code: 403
 {
   "status": "error",
@@ -435,9 +438,7 @@ Status Code: 200
     "commented_by": {
       "id": *id*,
       "name": *name*
-    },
-    "updated_at": *updateTime*,
-    "created_at": *createTime*
+    }
   }
 }
 ```
