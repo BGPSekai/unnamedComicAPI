@@ -12,7 +12,6 @@ class ChapterRepository
 	        Chapter::create([
 	        	'comic_id' => $data['comic_id'],
 	            'name' => $data['name'],
-	            'pages' => $data['pages'],
 	            'published_by' => $data['published_by'],
 	        ]);
 	}
