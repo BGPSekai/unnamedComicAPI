@@ -33,7 +33,7 @@ class TagTest extends TestCase
 			->seeJson(['tags' => []]);
 
 		$this->post('/api/tag/test/2')
-			->assertResponseStatus(404);
+			->assertResponseStatus(400);
 	}
 
 	public function testUntag()
