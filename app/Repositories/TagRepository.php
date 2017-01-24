@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Entities\Tag;
+use App\Entities\Comic;
 
 class TagRepository
 {
@@ -32,5 +33,10 @@ class TagRepository
 			->id;
 
 		return Tag::destroy($tag);
+	}
+
+	public function show($comic_id)
+	{
+		return Comic::find($comic_id)->tags;
 	}
 }

@@ -99,9 +99,8 @@ class SearchRepository
     private function detail($comics)
     {
         foreach ($comics as $comic) {
+            $comic->types = json_decode($comic->types);
             $comic->type = Type::select('id', 'name')->find($comic->type);
-            // $comic->tags = Tag::where('comic_id', $comic->id)->pluck('name');
-            // $comic->published_by = User::select('id', 'name')->find($comic->published_by);
             $comic->published_by = $comic->user;
             unset($comic->user);
         }
