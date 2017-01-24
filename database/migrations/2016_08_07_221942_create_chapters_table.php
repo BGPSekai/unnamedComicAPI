@@ -17,7 +17,7 @@ class CreateChaptersTable extends Migration
             $table->increments('id');
             $table->integer('comic_id')->unsigned();
             $table->string('name');
-            $table->integer('pages')->unsigned();
+            $table->integer('pages')->unsigned()->default(0);
             $table->integer('published_by')->unsigned();
             $table->timestamps();
         });

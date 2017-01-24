@@ -8,8 +8,6 @@ use App\Repositories\ComicRepository;
 use App\Repositories\ChapterRepository;
 use Auth;
 use File;
-// use JWTAuth;
-// use JWTFactory;
 use Storage;
 use Validator;
 
@@ -35,7 +33,6 @@ class PublishController extends Controller
         $comic['published_by'] = ['id' => $user->id, 'name' => $user->name];
 
         $cover = $request->file('cover');
-        // $extension = $cover->getClientOriginalExtension();
         $extension = explode('/', File::mimeType($cover))[1];
         $this->storeFile('comics/'.$comic->id.'/cover.'.$extension, $cover);
 
@@ -44,77 +41,29 @@ class PublishController extends Controller
 
     public function chapter(Request $request, $comic_id)
     {
-        if (!$this->comicRepo->show($comic_id))
-            return response()->json(['status' => 'error', 'message' => 'Comic Not Found'], 404);
-
         $user = Auth::user();
-        // $data = $request->only('name', 'images');
         $data = $request->only('name');
+        $data['comic_id'] = $comic_id;
         $validator = $this->chapterValidator($data);
-        
+
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
         $data['comic_id'] = $comic_id;
-        // $data['pages'] = count($request->images);
-        $data['pages'] = 0;
         $data['published_by'] = Auth::user()->id;
         $chapter = $this->chapterRepo->create($data);
         $chapter['published_by'] = ['id' => $user->id, 'name' => $user->name];
-        // $chapter['token'] = (string) JWTAuth::encode(
-            // JWTFactory::make([
-                // 'comic_id' => $comic_id,
-                // 'chapter_id' => $chapter->id,
-                // 'pages' => $chapter->pages
-            // ])
-        // );
-        // $chapters = $this->chapterRepo->count($comic_id);
-        // $this->comicRepo->updateChapters($comic_id, $chapters);
+
         $this->comicRepo->incrementChapterCount($comic_id);
         
-        // if (!$data['pages'])
-            // return response()->json(['status' => 'success', 'chapter' => $chapter]);
-
-        // foreach ($request->images as $key => $image) {
-            // $extension = $image->getClientOriginalExtension();
-            // $this->storeFile('comics/'.$comic_id.'/'.$chapter->id.'/'.($key+1).'.'.$extension, $image);
-        // }
-
         return response()->json(['status' => 'success', 'chapter' => $chapter]);
     }
 
-    // public function batch(Request $request, $chapter_id)
-    // {
-    //     if (! $chapter = $this->chapterRepo->show($chapter_id))
-    //         return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
-
-    //     $user = Auth::user();
-    //     $data = $request->only('images');
-    //     $validator = $this->batchValidator($data);
-
-    //     if ($validator->fails())
-    //         return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
-
-    //     $data['pages'] = count($request->images);
-    //     $this->chapterRepo->updatePages($chapter_id, $chapter->pages + $data['pages']);
-
-    //     foreach ($request->images as $key => $image) {
-    //         $extension = $image->getClientOriginalExtension();
-    //         $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.($chapter->pages+$key+1).'.'.$extension, $image);
-    //     }
-
-    //     $chapter = $this->chapterRepo->show($chapter_id);
-    //     $chapter['published_by'] = ['id' => $user->id, 'name' => $user->name];
-    //     return response()->json(['status' => 'success', 'chapter' => $chapter]);
-    // }
-
     public function batch(Request $request, $chapter_id)
     {
-        if (! $chapter = $this->chapterRepo->show($chapter_id))
-            return response()->json(['status' => 'error', 'message' => 'Chapter Not Found'], 404);
-
         $user = Auth::user();
         $data = $request->only('index', 'images', 'new_index');
+        $data['chapter_id'] = $chapter_id;
         $validator = $this->batchValidator($data);
 
         if ($validator->fails())
@@ -136,7 +85,6 @@ class PublishController extends Controller
 
         if (isset($request->images))
             foreach ($request->images as $key => $image) {
-                // $extension = $image->getClientOriginalExtension();
                 $extension = explode('/', File::mimeType($image))[1];
                 $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
             }
@@ -169,9 +117,9 @@ class PublishController extends Controller
 
         // $index是否有重複
         foreach ($index as $value)
-            $index_zero = !$value ? $index_zero : $index_zero++;
+            $index_zero = !$value ? $index_zero : $index_zero+1;
 
-        $index_zero = $index_zero ? $index_zero-- : $index_zero;
+        $index_zero = $index_zero ? $index_zero-1 : $index_zero;
         if (count($index) != count(array_unique($index)) + $index_zero)
             return -2;
         //
@@ -216,32 +164,14 @@ class PublishController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            // 'images' => 'Array|nullable',
-            // 'images.*' => 'required_with:images|image',
+            'comic_id' => 'required|exists:comics,id',
         ]);
     }
 
     private function batchValidator(array $data)
     {
-        // if (isset($data['index']) || isset($data['images']))
-        //     return Validator::make($data, [
-        //         'index' => 'required|Array',
-        //         'index.*' => 'integer|min:1',
-        //         'images' => 'required|Array',
-        //         'images.*' => 'image',
-        //         'new_index' => 'Array',
-        //         'new_index.*' => 'integer|min:0',
-        //     ]);
-        // else
-        //     return Validator::make($data, [
-        //         'index' => 'Array',
-        //         'index.*' => 'integer|min:1',
-        //         'images' => 'Array',
-        //         'images.*' => 'image',
-        //         'new_index' => 'required|Array',
-        //         'new_index.*' => 'integer|min:0',
-        //     ]);
         return Validator::make($data, [
+            'chapter_id' => 'required|exists:chapter,id',
             'index' => 'required_with:images|Array|nullable',
             'index.*' => 'required_with:index|integer|min:1',
             'images' => 'required_with:index|Array|nullable',
