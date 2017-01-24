@@ -53,7 +53,7 @@ class TagController extends Controller
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'comic_id' => 'required|exists:comic,id',
+            'comic_id' => 'required|exists:comics,id',
         ]);
     }
 }
