@@ -118,13 +118,13 @@ Status Code: 200
 
 ### Input Parameter
 
-| Type   | Name    | Required | Remark |
-| ------ | ------- |:--------:| ------ |
-| String | name    | √        |        |
-| String | summary | √        |        |
-| String | author  | √        |        |
-| String | type[]  | √        |        |
-| File   | cover   | √        | Image  |
+| Type    | Name    | Required | Remark |
+| ------- | ------- |:--------:| ------ |
+| String  | name    | √        |        |
+| String  | summary | √        |        |
+| String  | author  | √        |        |
+| Integer | types[] | √        |        |
+| File    | cover   | √        | Image  |
 
 ### JSON Response
 #### Success

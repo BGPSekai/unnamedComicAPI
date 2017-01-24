@@ -156,7 +156,7 @@ class PublishController extends Controller
             'summary' => 'required|max:255',
             'author' => 'required|max:255',
             'types' => 'required|Array',
-            'types.*' => 'required|max:255',
+            'types.*' => 'required|exists:types,id',
             'cover' => 'required|image',
         ]);
     }
