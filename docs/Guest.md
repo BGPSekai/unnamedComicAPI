@@ -5,15 +5,18 @@
 3. [List Comics](#ListComics)
 4. [List Types](#ListTypes)
 5. [View Comic Info](#ViewComicInfo)
-6. [View Comic Infos](#ViewComicInfos)
-7. [View Comic Cover](#ViewComicCover)
-8. [View Chapter Page](#ViewChapterPage)
-9. [Search Comics](#SearchComics)
-10. [View User Info](#ViewUserInfo)
-11. [View User Avatar](#ViewUserAvatar)
-12. [View User Favorite Comics](#ViewUserFavoriteComics)
-13. [List Comments](#ListComments)
+6. [View Comic Cover](#ViewComicCover)
+7. [View Chapter Page](#ViewChapterPage)
+8. [Search Comics](#SearchComics)
+9. [View User Info](#ViewUserInfo)
+10. [View User Avatar](#ViewUserAvatar)
+11. [View User Favorite Comics](#ViewUserFavoriteComics)
+12. [List Comments](#ListComments)
 
+
+```
+timestamp: created_at, updated_at
+```
 
 ## 1. <a name="Register">Register</a>
 
@@ -26,15 +29,10 @@
 | Type   | Name                  | Required | Remark             |
 | ------ | --------------------- |:--------:| ------------------ |
 | String | name                  | √        |                    |
-| Email  | email                 | √        |                    |
+| Email  | email                 | √        | unique             |
 | String | password              | √        | min: 6             |
 | String | password_confirmation | √        | same as password   |
-| String | from                  |          | for social account |
 
-```
-from
-  Ex. Google、Facebook
-```
 
 ### JSON Response
 #### Success
@@ -43,12 +41,9 @@ Status Code: 200
 {
   "status": "success",
   "user": {
-    "name": *name*,
-    "email": *email*,
-    "avatar": "",
-    "updated_at": *updateTime*,
-    "created_at": *createTime*,
     "id": *id*
+    "name": *name*,
+    "email": *email*
   }
 }
 ```
@@ -74,7 +69,23 @@ Status Code: 400
 | ------ | -------- |:--------:| ------------------ |
 | Email  | email    | √        |                    | 
 | String | password | √        |                    |
-| String | from     |          | for social account |
+
+---
+
+#### For Social Account
+
+| Type   | Name     | Required | Remark             |
+| ------ | -------- |:--------:| ------------------ |
+| String | name     | √        |                    |
+| Email  | email    | √        |                    | 
+| String | password | √        |                    |
+| String | from     | √        |                    |
+
+
+```
+from
+  Ex. Google, ...
+```
 
 ### JSON Response
 #### Success
@@ -87,6 +98,12 @@ Status Code: 200
 ```
 
 #### Error
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+- or -
 ```
 Status Code: 401
 {
@@ -113,15 +130,13 @@ Status Code: 200
       "name": *name*,
       "summary": *summary*,
       "author": *author*,
-      "type": *type[Array]*,
+      "types": *types[Array]*,
       "published_by": {
         "id": *id*,
         "name": *name*
       },
-      "chapters": *chapters*,
-      "favorites": *favorites*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
+      "chapter_count": *chapter_count*,
+      "favorite_count": *favorite_count*
       "tags": *tags[Array]*
     },
     ...(19)
@@ -142,13 +157,7 @@ Status Code: 200
 Status Code: 200
 {
   "status": "success",
-  "types": [
-    {
-      "id": *id*,
-      "name": *name*
-    },
-    ...
-  ]
+  "types": *types[Array]*
 }
 ```
 
@@ -168,32 +177,23 @@ Status Code: 200
     "name": *name*,
     "summary": *summary*,
     "author": *author*,
-    "type": *type[Array]*,
+    "types": *types[Array]*,
     "published_by": {
       "id": *id*,
       "name": *name*
     },
-    "chapters": *chapters*,
-    "favorites": *favorites*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*",
-    "tags": *tags[Array]*
-  },
-  "chapters": [
-    {
-      "id": *id*,
-      "comic_id": *comicId*,
-      "name": *name*,
-      "pages": *pages*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "published_by": {
+    "chapter_count": *chapter_count*,
+    "favorite_count": *favorite_count*,
+    "tags": *tags[Array]*,
+    "chapters": [
+      {
         "id": *id*,
-        "name": *name*
+        "name": *name*,
+        "pages": *page*,
+        "published_by": *published_by[Array]*
       }
-    },
-    ...
-  ]
+    ]
+  }
 }
 ```
 
@@ -206,53 +206,7 @@ Status Code: 404
 }
 ```
 
-## 6. <a name="ViewComicInfos">View Comic Infos</a>
-
-| Method | URI             | Remark |
-|:------:| --------------- | ------ |
-| POST   | /api/comic/info |        |
-
-### Input Parameter
-
-| Type    | Name     | Required | Remark |
-| ------- | -------- |:--------:| ------ |
-| Integer | comics[] | √        | min: 1 | 
-
-### JSON Response
-#### Success
-```
-{
-  "status": "success",
-  "comic": {
-    "id": *id*,
-    "name": *name*,
-    "summary": *summary*,
-    "author": *author*,
-    "type": *type[Array]*,
-    "published_by": {
-      "id": *id*,
-      "name": *name*
-    },
-    "chapters": *chapters*,
-    "favorites": *favorites*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*",
-    "tags": *tags[Array]*
-  },
-  ...
-}
-```
-
-#### Error
-```
-Status Code: 400
-{
-  "status": "error",
-  "message": *message[Array]*
-}
-```
-
-## 7. <a name="ViewComicCover">View Comic Cover</a>
+## 6. <a name="ViewComicCover">View Comic Cover</a>
 
 | Method | URI                   | Remark |
 |:------:| --------------------- | ------ |
@@ -274,7 +228,7 @@ Status Code: 404
 }
 ```
 
-## 8. <a name="ViewChapterPage">View Chapter Page</a>
+## 7. <a name="ViewChapterPage">View Chapter Page</a>
 
 | Method | URI                                    | Remark |
 |:------:| -------------------------------------- | ------ |
@@ -296,7 +250,7 @@ Status Code: 404
 }
 ```
 
-## 9. <a name="SearchComics">Search Comics</a>
+## 8. <a name="SearchComics">Search Comics</a>
 
 | Method | URI                                           | Remark          |
 |:------:| --------------------------------------------- | --------------- |
@@ -312,30 +266,12 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "comics": [
-    {
-      "id": *id*,
-      "name": *name*,
-      "summary": *summary*,
-      "author": *author*,
-      "type": *type[Array]*,
-      "published_by": {
-        "id": *id*,
-        "name": *name*
-      },
-      "chapters": *chapters*,
-      "favorites": *favorites*,
-      "created_at": *createTime*,
-      "updated_at": *updateTime*,
-      "tags": *tags[Array]*
-    },
-    ...(19)
-  ],
+  "comics": *comics[Array](20)*,
   "pages": *pages*
 }
 ```
 
-## 10. <a name="ViewUserInfo">View User Info</a>
+## 9. <a name="ViewUserInfo">View User Info</a>
 
 | Method | URI            | Remark |
 |:------:| -------------- | ------ |
@@ -352,8 +288,11 @@ Status Code: 200
     "name": *name*,
     "email": *email*,
     "avatar": *avatar*,
-    "created_at": *createTime*,
-    "updated_at": *updateTime*
+    "from": *from*,
+    "birthday": *birthday*,
+    "location": *location*,
+    "sign": *sign*,
+    "blocked_until": *unblockedTime*,
   }
 }
 ```
@@ -367,13 +306,13 @@ Status Code: 404
 }
 ```
 
-## 11. <a name="ViewUserAvatar">View User Avatar</a>
+## 10. <a name="ViewUserAvatar">View User Avatar</a>
 
 | Method | URI                                   | Remark |
 |:------:| ------------------------------------- | ------ |
 | GET    | /public/users/{user_id}.{user_avatar} |        |
 
-Ex. /users/1.jpg
+Ex. /users/1.png
 
 ### Response
 #### Success
@@ -387,7 +326,7 @@ Status Code: 200
 Status Code: 404
 ```
 
-## 12. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
+## 11. <a name="ViewUserFavoriteComics">View User Favorite Comics</a>
 
 | Method | URI                       | Remark |
 |:------:| ------------------------- | ------ |
@@ -399,7 +338,7 @@ Status Code: 404
 Status Code: 200
 {
   "status": "success",
-  "favorites": *favorites[Array]*
+  "favorites": *comics[Array]*
 }
 ```
 
@@ -412,12 +351,16 @@ Status Code: 404
 }
 ```
 
-## 13. <a name="ListComments">List Comments</a>
+## 12. <a name="ListComments">List Comments</a>
 
 | Method | URI                              | Remark |
 |:------:| -------------------------------- | ------ |
 | GET    | /api/comment/comic/{id}/{page}   |        |
 | GET    | /api/comment/chapter/{id}/{page} |        |
+
+```
+order by created_at
+```
 
 ### JSON Response
 #### Success
@@ -436,9 +379,7 @@ Status Code: 200
         "name": *name*,
         "avatar": *avatar*
       },
-      "replies": *replies*,
-      "created_at": "2016-12-04 12:47:26",
-      "updated_at": "2016-12-04 12:47:26"
+      "reply_count": *replies*,
     },
     ...(19)
   ],
