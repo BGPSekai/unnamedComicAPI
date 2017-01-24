@@ -18,7 +18,7 @@ class FavoriteTest extends TestCase
 			->assertResponseOk();
 
 		$this->post('/api/favorite/2')
-			->assertResponseStatus(404);
+			->assertResponseStatus(400);
 
 		$this->post('/api/favorite/1')
 			->assertResponseStatus(403);
