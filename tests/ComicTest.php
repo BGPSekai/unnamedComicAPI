@@ -27,7 +27,7 @@ class ComicTest extends TestCase
 			]);
     }
 
-    public function testComicIndex($value='')
+    public function testComicIndex()
     {
     	$this->get('/api/comic/page/1')
     		->seeJson([
@@ -61,5 +61,14 @@ class ComicTest extends TestCase
     		->seeJson([
     			'comic_id' => 1
     		]);
+    }
+
+    public function testUpdate()
+    {
+        JWT::createToken(1);
+        $this->post('/api/comic/1', ['_method' => 'PATCH', 'name' => 'comic'])
+            ->seeJson([
+                'name' => 'comic',
+            ]);
     }
 }
