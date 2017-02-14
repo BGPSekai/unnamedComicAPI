@@ -58,10 +58,10 @@ class SearchTest extends TestCase
 
 	public function testType()
 	{
-		$this->get('/api/search/type/test/1')
+		$this->get('/api/search/type/1/1')
 			->seeJson(['pages' => 1]);
 
-		$this->get('/api/search/type/test/2')
+		$this->get('/api/search/type/1/2')
 			->seeJson(['comics' => []]);
 
 		$this->get('/api/search/type/ab/1')

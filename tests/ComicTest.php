@@ -2,6 +2,7 @@
 
 use App\Entities\Comic;
 use App\Entities\Chapter;
+use App\Entities\Type;
 
 class ComicTest extends TestCase
 {
@@ -59,16 +60,31 @@ class ComicTest extends TestCase
 
     	$this->get('/api/comic/1')
     		->seeJson([
-    			'comic_id' => 1
+    			'chapter_count' => 1
     		]);
     }
 
     public function testUpdate()
     {
+        Type::create([
+            'name' => 'test',
+        ]);
+
+        Type::create([
+            'name' => 'test2',
+        ]);
+
         JWT::createToken(1);
-        $this->post('/api/comic/1', ['_method' => 'PATCH', 'name' => 'comic'])
+        $this->post('/api/comic/1', ['_method' => 'PATCH', 'summary' => 'summary', 'types' => ['1', '2']])
             ->seeJson([
-                'name' => 'comic',
+                'summary' => 'summary',
+                'types' => ['1', '2']
             ]);
+
+        $this->post('/api/comic/1', ['_method' => 'PATCH', 'types' => ['3']])
+            ->assertResponseStatus(400);
+
+        $this->post('/api/comic/2', ['_method' => 'PATCH', 'summary' => 'summary'])
+            ->assertResponseStatus(400);
     }
 }
