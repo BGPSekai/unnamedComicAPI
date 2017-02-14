@@ -28,7 +28,8 @@ class ComicRepository
 
 	public function update(array $data, $id)
 	{
-		$data['types'] = json_encode($data['types']);
+		if (isset($data['types']))
+			$data['types'] = json_encode($data['types']);
 		Comic::find($id)->update($data);
 		$comic = $this->detail(Comic::find($id)->first());
 		return $comic;

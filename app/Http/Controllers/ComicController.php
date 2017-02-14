@@ -68,12 +68,14 @@ class ComicController extends Controller
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
 
-        $cover = $request->file('cover');
-        $extension = explode('/', File::mimeType($cover))[1];
-        Storage::put(
-            'comics/'.$id.'/cover.'.$extension,
-            file_get_contents($cover->getRealPath())
-        );
+        if ($request->cover) {
+            $cover = $request->file('cover');
+            $extension = explode('/', File::mimeType($cover))[1];
+            Storage::put(
+                'comics/'.$id.'/cover.'.$extension,
+                file_get_contents($cover->getRealPath())
+            );
+        }
 
         unset($data['id']);
         $comic = $this->comicRepo->update($data, $id);
