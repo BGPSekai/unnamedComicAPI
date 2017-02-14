@@ -3,7 +3,7 @@
 
 1. [View User Info](#ViewUserInfo)
 2. [Reset Password](#ResetPassword)
-3. [Update User Avatar](#UpdateUserAvatar)
+3. [Update User Info](#UpdateUserInfo)
 4. [Publish Comic](#PublishComic)
 5. [Update Comic](#UpdateComic)
 6. [Publish Chapter](#PublishChapter)
@@ -38,6 +38,7 @@ Status Code: 200
     "email": *email*,
     "avatar": *avatar*,
     "from": *from*,
+    "sex": *sex*,
     "birthday": *birthday*,
     "location": *location*,
     "sign": *sign*,
@@ -85,17 +86,22 @@ Status Code: 401
 }
 ```
 
-## 3. <a name="UpdateUserAvatar">Update User Avatar</a>
+## 3. <a name="UpdateUserInfo">Update User Info</a>
 
 | Method | URI              | Remark |
 |:------:| ---------------- | ------ |
-| POST   | /api/user/avatar |        |
+| PATCH  | /api/user/update |        |
 
 ### Input Parameter
 
-| Type | Name     | Required | Remark         |
-| ---- | -------- |:--------:| -------------- |
-| File | image    | √        | Image          |
+| Type    | Name     | Required | Remark |
+| ------- | -------- |:--------:| ------ |
+| String  | name     |          |        |
+| File    | avatar   |          | Image  |
+| Boolean | sex      |          |        |
+| String  | birthday |          | Date   |
+| String  | location |          |        |
+| String  | sign     |          |        |
 
 ### JSON Response
 #### Success
@@ -160,7 +166,7 @@ Status Code: 400
 
 | Method | URI             | Remark |
 |:------:| --------------- | ------ |
-| POST   | /api/comic/{id} |        |
+| PATCH  | /api/comic/{id} |        |
 
 ### Input Parameter
 

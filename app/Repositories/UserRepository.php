@@ -19,16 +19,11 @@ class UserRepository
 
 	public function show($id)
 	{
-		return User::select('id', 'name', 'avatar')->find($id);
-	}
-
-	public function showDetail($id)
-	{
 		return User::find($id);
 	}
 
-	public function avatar($id, $avatar)
+	public function update(array $data, $id)
 	{
-		return User::find($id)->update(['avatar' => $avatar]);
+		return User::find($id)->update($data);
 	}
 }

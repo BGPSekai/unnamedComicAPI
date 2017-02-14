@@ -24,43 +24,51 @@ class UserController extends Controller
 
     public function show($id)
     {
-        if (! $user = $this->repo->showDetail($id))
+        if (! $user = $this->repo->show($id))
             return response()->json(['status' => 'error', 'message' => 'User Not Found'], 404);
 
         return response()->json(['status' => 'success', 'user' => $user]);
     }
 
-    public function avatar(Request $request)
+    public function update(Request $request)
     {
         $id = Auth::user()->id;
-        $data = $request->only('image');
+        $data = $request->intersect('name', 'avatar', 'sex', 'birthday', 'location', 'sign');
         $validator = $this->validator($data);
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
  
-        $avatar = $request->file('image');
-        $extension = explode('/', File::mimeType($avatar))[1];
+        if ($avatar = $request->file('avatar')) {
+            $extension = explode('/', File::mimeType($avatar))[1];
 
-        $path = public_path().'/users/';
-        $file_name = $id.'.'.$extension;
+            $path = public_path().'/users/';
+            $file_name = $id.'.'.$extension;
 
-        File::delete(glob($path.$id.'.*'));
-        $avatar->move($path, $file_name);
+            File::delete(glob($path.$id.'.*'));
+            $avatar->move($path, $file_name);
 
-        Image::make($path.$file_name)
-            ->resize(200, 200)
-            ->save($path.$file_name);
+            Image::make($path.$file_name)
+                ->resize(200, 200)
+                ->save($path.$file_name);
+            $data['avatar'] = $extension;
+        }
 
-        $this->repo->avatar($id, $extension);
+        $this->repo->update($data, $id);
 
-        return response()->json(['status' => 'success', 'user' => $this->repo->show($id)]);
+        $user = $this->repo->show($id);
+        return response()->json(['status' => 'success', 'user' => $user]);
     }
 
     private function validator(array $data)
     {
         return Validator::make($data, [
-            'image' => 'required|image',
+            'name' => 'max:255',
+            'avatar' => 'image',
+            'sex' => 'boolean' ,
+            'birthday' => 'date',
+            'location' => 'max:255',
+            'sign' => 'max:255'
         ]);
     }
 }

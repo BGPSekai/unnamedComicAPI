@@ -295,6 +295,7 @@ Status Code: 200
     "email": *email*,
     "avatar": *avatar*,
     "from": *from*,
+    "sex": *sex*,
     "birthday": *birthday*,
     "location": *location*,
     "sign": *sign*,
