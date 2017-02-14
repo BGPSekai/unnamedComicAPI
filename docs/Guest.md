@@ -157,7 +157,13 @@ Status Code: 200
 Status Code: 200
 {
   "status": "success",
-  "types": *types[Array]*
+  "types": [
+    {
+      "id": *id*,
+      "name": *name*
+    },
+    ...
+  ]
 }
 ```
 

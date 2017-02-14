@@ -27,7 +27,7 @@ class PublishController extends Controller
 
         if ($validator->fails())
             return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 400);
- 
+
         $data['published_by'] = $user->id;
         $comic = $this->comicRepo->create($data);
         $comic['published_by'] = ['id' => $user->id, 'name' => $user->name];
@@ -84,13 +84,14 @@ class PublishController extends Controller
             }
         }
 
+        $comic_id = $this->chapterRepo->show($chapter_id)->comic_id;
         if (isset($request->images))
             foreach ($request->images as $key => $image) {
                 $extension = explode('/', File::mimeType($image))[1];
-                $this->storeFile('comics/'.$chapter->comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
+                $this->storeFile('comics/'.$comic_id.'/'.$chapter_id.'/'.$request->index[$key].'.'.$extension, $image);
             }
 
-        $data['pages'] = count(Storage::files('comics/'.$chapter->comic_id.'/'.$chapter_id));
+        $data['pages'] = count(Storage::files('comics/'.$comic_id.'/'.$chapter_id));
         $this->chapterRepo->updatePages($chapter_id, $data['pages']);
 
         $chapter = $this->chapterRepo->show($chapter_id);
@@ -156,7 +157,7 @@ class PublishController extends Controller
             'summary' => 'required|max:255',
             'author' => 'required|max:255',
             'types' => 'required|Array',
-            'types.*' => 'required|max:255',
+            'types.*' => 'required|exists:types,id',
             'cover' => 'required|image',
         ]);
     }
@@ -172,7 +173,7 @@ class PublishController extends Controller
     private function batchValidator(array $data)
     {
         return Validator::make($data, [
-            'chapter_id' => 'required|exists:chapter,id',
+            'chapter_id' => 'required|exists:chapters,id',
             'index' => 'required_with:images|Array|nullable',
             'index.*' => 'required_with:index|integer|min:1',
             'images' => 'required_with:index|Array|nullable',

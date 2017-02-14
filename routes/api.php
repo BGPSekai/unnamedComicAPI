@@ -50,6 +50,7 @@ Route::group(['middleware' => 'cors'], function()
 			Route::delete('{comic_id}', 'FavoriteController@destroy');
 		});
 
+		Route::patch('comic/{id}', 'ComicController@update');
 		Route::post('comment', 'CommentController@storeOrUpdate');
 	});
 

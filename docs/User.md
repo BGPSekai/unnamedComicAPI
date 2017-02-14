@@ -5,14 +5,15 @@
 2. [Reset Password](#ResetPassword)
 3. [Update User Avatar](#UpdateUserAvatar)
 4. [Publish Comic](#PublishComic)
-5. [Publish Chapter](#PublishChapter)
-6. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
-7. [Search Tags](#SearchTags)
-8. [Tag Comic](#TagComic)
-9. [Untag Comic](#UntagComic)
-10. [Add User Favorite Comic](#AddUserFavoriteComic)
-11. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
-12. [Comment Comic or Chapter](#CommentComicOrChapter)
+5. [Update Comic](#UpdateComic)
+6. [Publish Chapter](#PublishChapter)
+7. [Batch Upload Chapter Pages](#BatchUploadChapterPages)
+8. [Search Tags](#SearchTags)
+9. [Tag Comic](#TagComic)
+10. [Untag Comic](#UntagComic)
+11. [Add User Favorite Comic](#AddUserFavoriteComic)
+12. [Remove User Favorite Comic](#RemoveUserFavoriteComic)
+13. [Comment Comic or Chapter](#CommentComicOrChapter)
 
 
 ```
@@ -118,13 +119,13 @@ Status Code: 200
 
 ### Input Parameter
 
-| Type   | Name    | Required | Remark |
-| ------ | ------- |:--------:| ------ |
-| String | name    | √        |        |
-| String | summary | √        |        |
-| String | author  | √        |        |
-| String | type[]  | √        |        |
-| File   | cover   | √        | Image  |
+| Type    | Name    | Required | Remark |
+| ------- | ------- |:--------:| ------ |
+| String  | name    | √        |        |
+| String  | summary | √        |        |
+| String  | author  | √        |        |
+| Integer | types[] | √        |        |
+| File    | cover   | √        | Image  |
 
 ### JSON Response
 #### Success
@@ -155,7 +156,52 @@ Status Code: 400
 }
 ```
 
-## 5. <a name="PublishChapter">Publish Chapter</a>
+## 5. <a name="UpdateComic">Update Comic</a>
+
+| Method | URI             | Remark |
+|:------:| --------------- | ------ |
+| POST   | /api/comic/{id} |        |
+
+### Input Parameter
+
+| Type    | Name    | Required | Remark |
+| ------- | ------- |:--------:| ------ |
+| String  | name    |          |        |
+| String  | summary |          |        |
+| String  | author  |          |        |
+| Integer | types[] |          |        |
+| File    | cover   |          | Image  |
+
+### JSON Response
+#### Success
+```
+Status Code : 200
+{
+  "status": "success",
+  "comic": {
+    "id": *id*,
+    "name": *name*,
+    "summary": *summary*,
+    "author": *author*,
+    "types": *types[Array]*,
+    "published_by": {
+      "id": *id*,
+      "name": *name*
+    }
+  }
+}
+```
+
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+```
+
+## 6. <a name="PublishChapter">Publish Chapter</a>
 
 | Method | URI                     | Remark |
 |:------:| ----------------------- | ------ |
@@ -195,7 +241,7 @@ Status Code: 400
 }
 ```
 
-## 6. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
+## 7. <a name="BatchUploadChapterPages">Batch Upload Chapter Pages</a>
 
 | Method | URI                               | Remark |
 |:------:| --------------------------------- | ------ |
@@ -267,7 +313,7 @@ Status Code: 400
 }
 ```
 
-## 7. <a name="SearchTags">Search Tags</a>
+## 8. <a name="SearchTags">Search Tags</a>
 
 | Method | URI             | Remark |
 |:------:| --------------- | ------ |
@@ -283,7 +329,7 @@ Status Code: 200
 }
 ```
 
-## 8. <a name="TagComic">Tag Comic</a>
+## 9. <a name="TagComic">Tag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -314,7 +360,7 @@ Status Code: 403
 }
 ```
 
-## 9. <a name="UntagComic">Untag Comic</a>
+## 10. <a name="UntagComic">Untag Comic</a>
 
 | Method | URI                        | Remark |
 |:------:| -------------------------- | ------ |
@@ -339,7 +385,7 @@ Status Code: 404
 }
 ```
 
-## 10. <a name="AddUserFavoriteComic">Add User Favorite Comic</a>
+## 11. <a name="AddUserFavoriteComic">Add User Favorite Comic</a>
 
 | Method | URI                      | Remark |
 |:------:| ------------------------ | ------ |
@@ -370,7 +416,7 @@ Status Code: 403
 }
 ```
 
-## 11. <a name="RemoveUserFavoriteComic">Remove User Favorite Comic</a>
+## 12. <a name="RemoveUserFavoriteComic">Remove User Favorite Comic</a>
 
 | Method | URI                      | Remark |
 |:------:| ------------------------ | ------ |
@@ -395,7 +441,7 @@ Status Code: 404
 }
 ```
 
-## 12. <a name="CommentComicOrChapter">Comment Comic or Chapter</a>
+## 13. <a name="CommentComicOrChapter">Comment Comic or Chapter</a>
 
 | Method | URI          | Remark |
 |:------:| ------------ | ------ |

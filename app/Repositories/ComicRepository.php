@@ -26,6 +26,14 @@ class ComicRepository
 		return $comic;
 	}
 
+	public function update(array $data, $id)
+	{
+		$data['types'] = json_encode($data['types']);
+		Comic::find($id)->update($data);
+		$comic = $this->detail(Comic::find($id)->first());
+		return $comic;
+	}
+
 	public function index($page)
 	{
 		$comics = Comic::orderBy('id', 'desc')
