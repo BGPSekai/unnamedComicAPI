@@ -117,6 +117,15 @@ Status Code: 200
 }
 ```
 
+#### Error
+```
+Status Code: 400
+{
+  "status": "error",
+  "message": *message[Array]*
+}
+```
+
 ## 4. <a name="PublishComic">Publish Comic</a>
 
 | Method | URI          | Remark |
