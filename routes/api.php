@@ -27,7 +27,7 @@ Route::group(['middleware' => 'cors'], function()
 		Route::group(['prefix' => 'user'], function()
 		{
 			Route::get('/', 'UserController@index');
-			Route::post('avatar', 'UserController@avatar');
+			Route::patch('/', 'UserController@update');
 		});
 
 		Route::group(['prefix' => 'publish'], function()
