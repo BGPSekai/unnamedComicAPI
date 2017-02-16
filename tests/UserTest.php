@@ -17,4 +17,18 @@ class UserTest extends TestCase
 		$this->get('/api/user')
 			->assertResponseOk();
 	}
+
+	public function testUserInfoUpdate()
+	{
+		JWT::clearToken();
+		$this->post('/api/user', ['_method' => 'PATCH'])
+			->assertResponseStatus(400);
+
+		JWT::createToken(1);
+		$this->post('/api/user', ['_method' => 'PATCH', 'name' => ''])
+			->assertResponseStatus(400);
+
+		$this->post('/api/user', ['_method' => 'PATCH', 'name' => 'name'])
+			->seeJson(['name' => 'name']);
+	}
 }
